@@ -1,0 +1,46 @@
+{
+  "scaffold": {
+    "name": "vitaixmen",
+    "source": {
+      "type": "git",
+      "url": "https://github.com/datainkio/vitaixmen",
+      "ref": "main"
+    },
+    "version": "0.1.0",
+    "created_from": "GitHub template"
+  },
+  "project": {
+    "created_at": "2026-01-14T00:00:00Z",
+    "last_migrated_at": null,
+    "notes": "Initial project created from vitaixmen template."
+  },
+  "policy": {
+    "managed_paths": [
+      ".vscode/**",
+      ".github/**",
+      "context/**",
+      "specs/**",
+      "docs/**",
+      ".editorconfig",
+      ".gitignore",
+      ".gitattributes",
+      ".vitaixmen.json"
+    ],
+    "excluded_paths": [
+      "frontend/**",
+      "backend/**",
+      "src/**",
+      "dist/**",
+      "_site/**",
+      "node_modules/**",
+      ".venv/**"
+    ],
+    "markdown_managed_blocks": {},
+    "merge_rules": {
+      "json_merge": "merge_by_key_preserve_unknown",
+      "text_merge": "managed_blocks_only",
+      "allow_deletes": false
+    }
+  },
+  "history": []
+}

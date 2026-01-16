@@ -1,0 +1,105 @@
+{
+	// POC task that collects a new workspace name and type. The command is a no-op for now.
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "New Project",
+			"type": "shell",
+			"command": "true",
+			"presentation": {
+				"reveal": "never",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": [],
+			"inputs": [
+				{
+					"id": "newProjectName",
+					"type": "promptString",
+					"description": "Enter a workspace name"
+				},
+				{
+					"id": "newProjectType",
+					"type": "pickString",
+					"description": "Select a workspace type",
+					"options": ["front", "back", "ai", "empty"],
+					"default": "front"
+				}
+			],
+			"options": {
+				"env": {
+					"NEW_PROJECT_NAME": "${input:newProjectName}",
+					"NEW_PROJECT_TYPE": "${input:newProjectType}"
+				}
+			}
+		},
+		{
+			"label": "Check Current Goals",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/current-goals-check.mjs\"",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Current Goals (CI Mode)",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/current-goals-check.mjs\" --fail-on-update --maxAgeDays 14",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Open Current Goals",
+			"type": "shell",
+			"command": "code \"${workspaceFolder}/context/current-goals.md\"",
+			"presentation": {
+				"reveal": "never",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Open Agent Index",
+			"type": "shell",
+			"command": "code \"${workspaceFolder}/docs/agents.md\"",
+			"presentation": {
+				"reveal": "never",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Link Check Frontend Markdown",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/markdown-link-check.mjs\" --root \"${input:frontendRoot}\" --text --max 50",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"inputs": [
+				{
+					"id": "frontendRoot",
+					"type": "promptString",
+					"description": "Enter the absolute path to the frontend repo root (e.g., /Users/<you>/Projects/Portfolio/frontend)"
+				}
+			],
+			"problemMatcher": []
+		}
+	]
+}

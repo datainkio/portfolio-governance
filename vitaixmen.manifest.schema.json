@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Vitaixmen Manifest",
+  "type": "object",
+  "required": [
+    "scaffold",
+    "project"
+  ],
+  "properties": {
+    "scaffold": {
+      "type": "object",
+      "required": [
+        "name",
+        "source",
+        "version"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "examples": [
+            "vitaixmen"
+          ]
+        },
+        "source": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "git",
+                "local",
+                "release_bundle"
+              ]
+            },
+            "url": {
+              "type": "string",
+              "description": "Git URL if type=git"
+            },
+            "ref": {
+              "type": "string",
+              "description": "Tag/branch/commit if type=git"
+            },
+            "path": {
+              "type": "string",
+              "description": "Local path if type=local"
+            },
+            "release_id": {
+              "type": "string",
+              "description": "Release identifier if type=release_bundle"
+            }
+          },
+          "additionalProperties": false
+        },
+        "version": {
+          "type": "string",
+          "description": "Semantic version or tag"
+        },
+        "created_from": {
+          "type": "string",
+          "description": "Optional human note (template name, generator, etc.)"
+        }
+      },
+      "additionalProperties": false
+    },
+    "project": {
+      "type": "object",
+      "required": [
+        "created_at"
+      ],
+      "properties": {
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_migrated_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "notes": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "policy": {
+      "type": "object",
+      "properties": {
+        "managed_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            ".vscode/**",
+            ".github/**",
+            "context/**",
+            "specs/**",
+            "docs/**",
+            ".editorconfig",
+            ".gitignore",
+            ".gitattributes",
+            ".vitaixmen.json"
+          ]
+        },
+        "excluded_paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "frontend/**",
+            "backend/**",
+            "src/**",
+            "dist/**",
+            "_site/**",
+            "node_modules/**",
+            ".venv/**"
+          ]
+        },
+        "markdown_managed_blocks": {
+          "type": "object",
+          "description": "Map of file path to allowed block IDs",
+          "additionalProperties": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "default": {}
+        },
+        "merge_rules": {
+          "type": "object",
+          "properties": {
+            "json_merge": {
+              "type": "string",
+              "enum": [
+                "merge_by_key_preserve_unknown"
+              ],
+              "default": "merge_by_key_preserve_unknown"
+            },
+            "text_merge": {
+              "type": "string",
+              "enum": [
+                "managed_blocks_only"
+              ],
+              "default": "managed_blocks_only"
+            },
+            "allow_deletes": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "history": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "version",
+          "migrated_at"
+        ],
+        "properties": {
+          "version": {
+            "type": "string"
+          },
+          "migrated_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "summary": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "default": []
+    }
+  },
+  "additionalProperties": false
+}

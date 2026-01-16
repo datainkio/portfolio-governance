@@ -1,0 +1,42 @@
+{
+	"search.exclude": {
+		".obsidian/**": true,
+		"**/node_modules/**": true,
+		"**/.cache/**": true,
+		"**/dist/**": true,
+		"**/build/**": true,
+		"**/_site/**": true,
+		"**/.sanity/**": true,
+		"**/temp/**": true,
+		"**/cache/**": true,
+		"**/models/**": true,
+		"**/output/**": true
+	},
+	"files.watcherExclude": {
+		".obsidian/**": true,
+		"**/node_modules/**": true,
+		"**/.cache/**": true,
+		"**/dist/**": true,
+		"**/build/**": true,
+		"**/_site/**": true,
+		"**/.sanity/**": true,
+		"**/temp/**": true,
+		"**/cache/**": true,
+		"**/models/**": true,
+		"**/output/**": true
+	},
+	"files.exclude": {
+		".obsidian/**": true,
+		"**/node_modules/**": true,
+		"**/.cache/**": true,
+		"**/dist/**": true,
+		"**/build/**": true,
+		"**/_site/**": true,
+		"**/.sanity/**": true,
+		"**/temp/**": true,
+		"**/cache/**": true,
+		"**/models/**": true,
+		"**/output/**": true
+	},
+	"workbench.startupEditor": "readme"
+}

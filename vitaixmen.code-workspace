@@ -1,0 +1,45 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../Portfolio/frontend"
+    }
+  ],
+
+  "settings": {
+    "workbench.startupEditor": "readme"
+  },
+
+  "extensions": {
+    "recommendations": [
+      // Core
+      "editorconfig.editorconfig",
+      "eamodio.gitlens",
+      "esbenp.prettier-vscode",
+
+      // Markdown / Obsidian-friendly
+      "yzhang.markdown-all-in-one",
+
+      // Web / 11ty / Sanity
+      "dbaeumer.vscode-eslint",
+      "bradlc.vscode-tailwindcss",
+      "samuelcolvin.jinjahtml",
+
+      // Python
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+
+      // JSON / YAML
+      "redhat.vscode-yaml",
+
+      // Optional quality-of-life
+      "usernamehw.errorlens"
+    ],
+
+    "unwantedRecommendations": [
+      "ms-vscode.cpptools"
+    ]
+  }
+}

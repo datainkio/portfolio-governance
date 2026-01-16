@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "agents": [
+    {
+      "name": "Concierge",
+      "promptPath": ".github/agents/Concierge.md"
+    }
+  ]
+}

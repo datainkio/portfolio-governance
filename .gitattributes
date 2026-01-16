@@ -1,0 +1,19 @@
+* text=auto eol=lf
+
+*.sh text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+
+# Treat common media as binary (no line ending normalization)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.zip binary
+*.mp4 binary
+*.mov binary
