@@ -2,10 +2,14 @@
 
 - **Title:** Domain-Specialized AI Coding Agent — Portfolio Frontend Toolkit
 - **Owner(s):** Russell
-- **Status:** draft
+- **Status:** MVP complete (iterating)
 - **Last reviewed:** 2026-01-16
 - **Scope:** Multi-root workspace with `aix/` (platform scaffold) + `frontend/` (11ty site)
 - **Primary objective:** Reduce iteration friction and errors when building/maintaining a portfolio frontend using 11ty/Nunjucks, Tailwind, GSAP choreography, and CMS-backed content.
+
+Links:
+- Decision: `docs/decisions/0002-portfolio-frontend-domain-model-a.md`
+- MVP evidence: `docs/logs/2026-01-16-portfolio-frontend-domain-mvp-evidence.md`
 
 ## Problem Statement
 General-purpose coding assistance tends to:
@@ -72,6 +76,9 @@ A dedicated prompt module that Concierge can route to for frontend-domain work.
 Routing note:
 - The domain module uses **Model A** (internal routing map inside a single module); Concierge remains the only router. See `docs/decisions/0002-portfolio-frontend-domain-model-a.md`.
 
+Current state (MVP):
+- The module contains a compact “signals table” for fast classification and a multi-area walkthrough example.
+
 ### D3 — Minimal Context Bundle (to be created in MVP)
 A stable, low-churn “what to read first” bundle for frontend tasks.
 - Location: `aix/context/projects/portfolio-frontend.md` (already exists; may be extended)
@@ -89,6 +96,9 @@ An MVP is complete when:
   - respects the guardrails above without being reminded
   - produces correct, minimal changes for at least 3 canonical tasks
 - Evaluation evidence is recorded (AIX metrics, brief notes, links to artifacts).
+
+MVP status:
+- Complete; see `docs/logs/2026-01-16-portfolio-frontend-domain-mvp-evidence.md`.
 
 ## Evaluation Plan (AIX)
 Use the AIX scorecard in `aix/specs/performance/aix.md`.

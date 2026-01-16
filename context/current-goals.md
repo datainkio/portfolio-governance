@@ -2,16 +2,20 @@
 
 This file is the single-source-of-truth for what matters *right now*.
 
-Last updated: 2026-01-16T19:34:01Z
+Last updated: 2026-01-16T22:41:28Z
 
 ## Now
-- Develop spec for a domain-specialized AI coding agent tailored to my preferred toolkit: 11ty + Nunjucks + JS + GSAP + Sanity. (Draft: `specs/ai/domain-specialized-coding-agent.md`)
-- Implement Model A for the domain module (internal routing map; Concierge remains the only router).
+- Complete Sanity adoption (full separation from Airtable).
+- Draft and iterate on the Sanity adoption spec (`specs/cms/sanity-adoption.md`).
+- Iterate on the frontend domain module (post-MVP refinements).
 
 ## Next
-- Deliver MVP of the domain-specialized coding agent.
 - Develop MVP through iteration.
 - Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Work).
+
+## Done (recent)
+- Address current goals freshness check inefficiency.
+- Deliver MVP of the domain-specialized coding agent.
 
 ## Not Now
 - Auto-generated global inventories (a full ToC of every log file) in the workspace map.

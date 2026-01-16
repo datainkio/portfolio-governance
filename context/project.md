@@ -1,9 +1,3 @@
-Below is **default, opinionated starter content** for `/context/project.md`, written **explicitly for AI agents (Copilot-first)** and aligned with your goal of *workspace hygiene → strong AIX → optimal DX*.
-
-This is meant to be **stable, low-churn context** that agents can rely on across sessions, repos, and machines.
-
----
-
 # Project Context
 
 ## Purpose of This Document

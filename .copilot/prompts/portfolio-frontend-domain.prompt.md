@@ -39,17 +39,21 @@ If the repo target is unclear, ask: “Should this be implemented in `frontend/`
 ## Internal Routing Map (Model A)
 This module is **not** a peer router to Concierge. It is a single domain module with an internal decision tree:
 
-### 1) Classify the request (choose 1–2 areas)
-Pick the smallest set of areas that must change. If two areas are plausible, prefer the one that matches the requested deliverable.
+### Signals table (fast)
+| Signal (keywords / intent) | Area | Likely path(s) | Smallest verify |
+|---|---|---|---|
+| macro/include/layout/molecule/organism/template/`njk` | `njk/` | `frontend/njk/**` | `npm run start:nobundle` |
+| Tailwind/@layer/utilities/theme/tokens/`main.css` | `styles/` | `frontend/styles/**` | `npm run build:css` |
+| GSAP/ScrollTrigger/ScrollSmoother/Director/AnimationBus | `js/choreography/` | `frontend/js/choreography/**` | `npm run test:choreography` |
+| collection/filter/shortcode/pagination/permalink/Eleventy | `eleventy/` | `frontend/eleventy/**`, `.eleventy.js` | `npm run build:11ty` |
+| Airtable/sync/cache/schema/fetch | `airtable/` (+ `eleventy/`) | `frontend/airtable/**`, `frontend/scripts/syncContent.js` | `npm run sync:content:quick` |
+| Sanity schema/studio/content model | `sanity/` | `frontend/sanity/**` | follow `frontend/sanity/**` workflow |
+| Figma/tokens/colors/typography generation | `figma/` | `frontend/figma/**`, `frontend/scripts/fetchFigma.js` | `npm run build:design` |
+| images/fonts/svg/video/assets paths | `assets/` | `frontend/assets/**` | `npm run start:nobundle` |
+| build scripts/dev pipeline/npm scripts | `scripts/` | `frontend/scripts/**`, `frontend/package.json` | `npm run build` |
+| `_site/` output | stop | `frontend/_site/**` | do not edit |
 
-Signals → area(s):
-- **Nunjucks/UI markup:** mentions pages, layouts, components, macros, atomic design, `njk/`, “template”, “include”, “molecule/organism” → `njk/`
-- **Styling/Tailwind:** mentions Tailwind classes, CSS layers, tokens, `styles/`, “theme”, “utilities”, “responsive styling” → `styles/`
-- **Motion/GSAP:** mentions animations, ScrollTrigger/ScrollSmoother, Director, AnimationBus events, section timelines, `js/choreography/` → `js/choreography/`
-- **11ty build-time behavior:** mentions collections, filters, shortcodes, permalinks, `.eleventy.js`, build pipeline, `eleventy/` → `eleventy/`
-- **Content integration:** mentions Airtable sync, caches, schema, Sanity studio integration/content model → usually `eleventy/` plus the relevant integration folder(s)
-
-If the request spans multiple areas (common), apply each area’s guardrails and keep changes minimal.
+Pick the smallest set of areas that must change (usually 1–2). If it spans multiple areas, apply each area’s guardrails and keep changes minimal.
 
 ### 2) Apply the area playbook
 For each selected area, follow these rules:
@@ -81,6 +85,17 @@ For each selected area, follow these rules:
 
 ### 4) Report output
 Always return the **Implementation Report** sections defined above and list the chosen area(s) in Notes.
+
+### Example (multi-area walkthrough)
+Request: “Add an ‘Organizations’ logo strip driven by Airtable and animate it on scroll; ensure styling uses existing tokens.”
+
+1) Classify via signals table → `airtable/` + `eleventy/` + `njk/` + `js/choreography/` + `styles/`.
+2) Confirm what already exists (avoid invention): search for existing Organizations templates/controllers and whether a `collections.organizations` (or similar) collection is already wired.
+3) Data: if a new/changed view/field is required, adjust the Airtable sync/config using existing patterns, then re-run a narrow sync (`npm run sync:content:quick`).
+4) Markup: create/update a reusable macro under `frontend/njk/_includes/` and render it in the appropriate page/section template.
+5) Style: prefer existing tokens/utilities; only add minimal CSS in the correct layer order (never edit generated token files).
+6) Motion: update the existing Organizations section controller/triggers to animate the new DOM targets; coordinate via AnimationBus if cross-section timing matters.
+7) Verify: `npm run start:nobundle` plus `npm run test:choreography` if choreography changed; add `npm run build:11ty` if pipeline behavior changed.
 
 ## Hard Guardrails (must comply)
 - Verify file existence before citing paths (use workspace search / file reads).

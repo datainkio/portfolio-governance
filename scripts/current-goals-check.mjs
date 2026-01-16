@@ -9,6 +9,7 @@ function parseArgs(argv) {
 		file: 'context/current-goals.md',
 		maxAgeDays: 7,
 		failOnUpdate: false,
+		includeGitDirty: false,
 		json: false,
 	};
 
@@ -28,6 +29,10 @@ function parseArgs(argv) {
 		}
 		if (token === '--fail-on-update') {
 			args.failOnUpdate = true;
+			continue;
+		}
+		if (token === '--include-git-dirty') {
+			args.includeGitDirty = true;
 			continue;
 		}
 		if (token === '--json') {
@@ -51,6 +56,7 @@ Options:
   --file <path>         Path to current-goals markdown (default: context/current-goals.md)
   --maxAgeDays <n>      Recommend update if older than N days (default: 7)
   --fail-on-update      Exit 1 if update is recommended
+	--include-git-dirty   Treat uncommitted changes as a recommendation signal
   --json                Emit JSON payload to stdout
   -h, --help            Show help
 `);
@@ -124,7 +130,9 @@ async function listRecentFiles({ absoluteDir, sinceMs, maxResults = 20 }) {
 				continue;
 			}
 
-			if (stat.mtimeMs >= sinceMs) {
+			// Use strict comparison to reduce false positives when mtimes match the
+			// last-updated timestamp at coarse filesystem resolution.
+			if (stat.mtimeMs > sinceMs) {
 				results.push({
 					path: absolutePath,
 					mtimeMs: stat.mtimeMs,
@@ -201,7 +209,7 @@ async function main() {
 	if (isGitRepo) {
 		const status = tryExecGit(['status', '--porcelain'], { cwd: rootDir });
 		dirty = Boolean(status);
-		if (dirty) {
+		if (dirty && args.includeGitDirty) {
 			reasons.push('Working tree has uncommitted changes');
 			score += 1;
 		}
