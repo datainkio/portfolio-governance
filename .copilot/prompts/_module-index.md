@@ -68,6 +68,14 @@ This index is the primary routing surface for Concierge. Each module lists a one
 **Primary Output type:** Workspace Migration Plan
 **Non-goal:** Does not refactor application code or alter build/deploy behavior unless explicitly requested.
 
+---
+
+## portfolio-frontend-domain.prompt.md
+**Purpose:** Implement changes in the `frontend/` repo (11ty/Nunjucks/Tailwind v4/GSAP/Airtable/Sanity) with strict project guardrails.
+**Top triggers:** frontend/, eleventy, 11ty, nunjucks, tailwind v4, gsap, choreography, AnimationBus, Director.js, airtable collections, eleventy filters/shortcodes
+**Primary Output type:** Implementation Report
+**Non-trigger:** Do not select unless the request explicitly targets `frontend/` or clearly references the portfolio frontend stack.
+
 ## navigator.prompt.md
 **Purpose:** Help locate the right file/folder/entrypoint and define where changes should live.
 **Top triggers:** where is, where should this go, file location, entry point, codebase navigation

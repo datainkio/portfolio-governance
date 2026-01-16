@@ -27,11 +27,6 @@ Important: Do not regenerate agent instructions (i.e. the button you get in the 
 - ✅ Provides templates and doc structure for consistent project documentation
 - ❌ Does not implement your product code (push that into project repos)
 
-## Workspace actions
-
-- [New Project](command:workbench.action.tasks.runTask?%22New%20Project%22) (POC task)
-- [Agent Index](docs/agents.md)
-
 ## Concierge prompts
 
 Concierge is the single Copilot Chat entrypoint for this workspace. Copy/paste prompts below.

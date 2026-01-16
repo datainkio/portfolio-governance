@@ -18,6 +18,10 @@ Decision rule:
 - If two modules are plausible, pick the one that best matches the *deliverable* the user wants.
 - Never load more than 2 modules.
 
+Domain-module rule:
+- Only select a domain-specific module (e.g., project-specific frontend modules) when the user request clearly targets that repo/domain (explicit `frontend/` references or unmistakable stack keywords).
+- If the repo/domain is ambiguous, default to a general module (Navigator for location, Implementer for coding) and proceed with minimal assumptions.
+
 ## Step 2 — Blocking question policy
 Ask **at most one** question *only if blocked* (i.e., you cannot produce a safe/usable output without it).
 If blocked:

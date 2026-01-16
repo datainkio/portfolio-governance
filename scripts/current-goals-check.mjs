@@ -78,10 +78,14 @@ async function pathExists(absolutePath) {
 }
 
 function parseLastUpdated(markdown) {
-	const match = markdown.match(/^\s*Last updated:\s*(\d{4}-\d{2}-\d{2})\s*$/m);
+	const match = markdown.match(
+		/^\s*Last updated:\s*(\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}(?::\d{2}(?:\.\d{1,3})?)?(?:Z|[+-]\d{2}:\d{2})?)?)\s*$/m
+	);
 	if (!match) return null;
-	const iso = match[1];
-	const date = new Date(`${iso}T00:00:00Z`);
+
+	const raw = match[1];
+	const iso = raw;
+	const date = raw.includes('T') ? new Date(raw) : new Date(`${raw}T00:00:00Z`);
 	if (Number.isNaN(date.getTime())) return null;
 	return { iso, date };
 }

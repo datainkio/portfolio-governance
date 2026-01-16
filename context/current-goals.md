@@ -2,25 +2,27 @@
 
 This file is the single-source-of-truth for what matters *right now*.
 
-Last updated: 2026-01-16
+Last updated: 2026-01-16T18:50:00Z
 
 ## Now
-- Reduce TTUO for humans by keeping a concise, copy/paste prompt set in the root README (with a linked full catalog in docs/).
-
-- Deconflict routing surfaces: keep Concierge as the only entrypoint; describe other capabilities as routed modules.
+- Develop spec for a domain-specialized AI coding agent tailored to my preferred toolkit: 11ty + Nunjucks + JS + GSAP + Sanity. (Draft: `specs/ai/domain-specialized-coding-agent.md`)
 
 ## Next
+- Deliver MVP of the domain-specialized coding agent.
+- Develop MVP through iteration.
+- Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Work).
+
+## Not Now
+- Auto-generated global inventories (a full ToC of every log file) in the workspace map.
+- Heavy automation for logging/indexing until the evidence loop stabilizes and proves it saves time.
+- Broad refactors inside mounted projects in the name of “cleanup” (unless explicitly approved).
+- Remove non-fatal Tailwind watch shutdown noise (console error when stopping dev server)
 - Establish a lightweight AIX evidence loop:
 	- Run a small probe set after context refreshes.
 	- Record a dated snapshot in `docs/logs/` with outcomes + links.
 - Standardize project log naming and structure across mounted repos:
 	- `docs/logs/projects/<project-slug>/YYYY-MM-DD-<topic>.md`
 	- Keep a short per-project README describing what’s inside.
-
-## Not Now
-- Auto-generated global inventories (a full ToC of every log file) in the workspace map.
-- Heavy automation for logging/indexing until the evidence loop stabilizes and proves it saves time.
-- Broad refactors inside mounted projects in the name of “cleanup” (unless explicitly approved).
 
 ## Notes
 - Keep this list short (3–7 bullets per section).
