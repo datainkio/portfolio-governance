@@ -140,6 +140,7 @@ async function listRecentFiles({ absoluteDir, sinceMs, maxResults = 20 }) {
 		'.turbo',
 		'.cache',
 		'.parcel-cache',
+		'logs',
 	]);
 
 	async function walk(dir) {
@@ -188,6 +189,29 @@ function summarizePaths(files, rootDir) {
 	return files.map((f) => toRelative(f.path, rootDir));
 }
 
+function normalizePosix(p) {
+	return p.split(path.sep).join('/');
+}
+
+function matchStrengthRules({ insideRootPaths, rules }) {
+	if (!Array.isArray(rules) || rules.length === 0) return { bonus: 0, hits: [] };
+	const hits = [];
+	let bonus = 0;
+
+	for (const rule of rules) {
+		const prefixes = Array.isArray(rule?.prefixes) ? rule.prefixes : [];
+		const exact = Array.isArray(rule?.exact) ? rule.exact : [];
+		const didMatch = insideRootPaths.some((p) =>
+			exact.includes(p) || prefixes.some((prefix) => p.startsWith(prefix))
+		);
+		if (!didMatch) continue;
+		hits.push(rule.id);
+		bonus += Number(rule.bonus) || 0;
+	}
+
+	return { bonus, hits };
+}
+
 function isoTodayUtc() {
 	const now = new Date();
 	const pad = (n) => String(n).padStart(2, '0');
@@ -204,7 +228,20 @@ const CONTEXT_FILES = [
 			{ id: 'specs', rel: 'specs', weight: 2 },
 			{ id: 'decisions', rel: 'docs/decisions', weight: 3 },
 			{ id: 'logs', rel: 'docs/logs', weight: 1 },
-			{ id: 'frontend', rel: '../frontend', weight: 2, scaleWithCount: true, maxResults: 20 },
+			{
+				id: 'frontend',
+				rel: '../frontend',
+				weight: 1,
+				scaleWithCount: true,
+				maxResults: 30,
+				strengthRules: [
+					{ id: 'pages', bonus: 2, prefixes: ['njk/_pages/'] },
+					{ id: 'includes', bonus: 1, prefixes: ['njk/_includes/'] },
+					{ id: 'choreography', bonus: 2, prefixes: ['js/choreography/'] },
+					{ id: 'eleventy', bonus: 2, prefixes: ['eleventy/'], exact: ['.eleventy.js', '.eleventyignore'] },
+					{ id: 'styles', bonus: 1, prefixes: ['styles/'] },
+				],
+			},
 		],
 	},
 	{
@@ -223,7 +260,20 @@ const CONTEXT_FILES = [
 		label: 'decisions',
 		watchRoots: [
 			{ id: 'decisions', rel: 'docs/decisions', weight: 3 },
-			{ id: 'frontend', rel: '../frontend', weight: 2, scaleWithCount: true, maxResults: 20 },
+			{
+				id: 'frontend',
+				rel: '../frontend',
+				weight: 1,
+				scaleWithCount: true,
+				maxResults: 30,
+				strengthRules: [
+					{ id: 'pages', bonus: 2, prefixes: ['njk/_pages/'] },
+					{ id: 'includes', bonus: 1, prefixes: ['njk/_includes/'] },
+					{ id: 'choreography', bonus: 2, prefixes: ['js/choreography/'] },
+					{ id: 'eleventy', bonus: 2, prefixes: ['eleventy/'], exact: ['.eleventy.js', '.eleventyignore'] },
+					{ id: 'styles', bonus: 1, prefixes: ['styles/'] },
+				],
+			},
 		],
 	},
 ];
@@ -342,18 +392,36 @@ async function evaluateFileWithDrift({ rootDir, config, maxAgeDays, includeGitDi
 
 		const relativePaths = summarizePaths(recent, rootDir);
 		signals.push({ id: `recent:${root.id}`, value: relativePaths });
+		const insideRootPaths = recent
+			.map((f) => normalizePosix(path.relative(absoluteDir, f.path)))
+			.filter((p) => p && p !== '.');
 
 		const nonSelf = relativePaths.filter((p) => p !== selfRel);
 		if (nonSelf.length === 0) continue;
 
 		const saturated = recent.length >= maxResults;
 		const shown = Math.min(nonSelf.length, maxResults);
+		const { bonus: strengthBonus, hits: strengthHits } = matchStrengthRules({
+			insideRootPaths,
+			rules: root.strengthRules,
+		});
+
+		const strengthSuffix =
+			strengthHits.length > 0 ? `; strong signals: ${strengthHits.join(', ')}` : '';
+
 		reasons.push(
-			`New/updated ${root.id} artifacts since last update (${shown}${saturated ? '+' : ''} shown)`
+			`New/updated ${root.id} artifacts since last update (${shown}${saturated ? '+' : ''} shown${strengthSuffix})`
 		);
 
-		const multiplier = root.scaleWithCount && saturated ? 2 : 1;
+		let multiplier = 1;
+		if (root.scaleWithCount) {
+			// Scale with count so a small-but-realistic set of frontend edits can trip the threshold.
+			// 1-2 files => x1, 3-4 => x2, 5-6 => x3 (capped)
+			multiplier = Math.min(3, Math.max(1, Math.ceil(nonSelf.length / 2)));
+		}
+
 		score += root.weight * multiplier;
+		score += strengthBonus;
 	}
 
 	const recommended = score >= 3;

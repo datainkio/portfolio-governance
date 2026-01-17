@@ -25,6 +25,7 @@ const ANSI = {
 function parseArgs(argv) {
 	const args = {
 		init: false,
+		markReviewed: false,
 		alertThreshold: DEFAULT_ALERT_THRESHOLD,
 		maxAgeDays: DEFAULT_MAX_AGE_DAYS,
 		failOnThreshold: false,
@@ -35,6 +36,10 @@ function parseArgs(argv) {
 		const token = argv[i];
 		if (token === '--init') {
 			args.init = true;
+			continue;
+		}
+		if (token === '--mark-reviewed' || token === '--markReviewed') {
+			args.markReviewed = true;
 			continue;
 		}
 		if (token === '--help' || token === '-h') {
@@ -73,6 +78,7 @@ Usage:
 
 Options:
   --init         Initialize context/.freshness.json for all context files (one-time)
+	--mark-reviewed        Update sidecar reviewedAt for all context files (records a review without editing files)
 	--alert-threshold <n>  Alert on commit when aggregate drift score >= n (default: ${DEFAULT_ALERT_THRESHOLD})
 	--maxAgeDays <n>       Pass-through for drift scoring (default: ${DEFAULT_MAX_AGE_DAYS})
 	--fail-on-threshold    Exit non-zero when the drift threshold is exceeded (commit-blocking)
@@ -194,7 +200,7 @@ async function main() {
 	const rootDir = gitRoot;
 
 	let targetFiles = [];
-	if (args.init) {
+	if (args.init || args.markReviewed) {
 		targetFiles = [...CONTEXT_FILES];
 	} else {
 		const staged = execGit(['diff', '--cached', '--name-only'], { cwd: rootDir })
@@ -207,8 +213,11 @@ async function main() {
 
 	const sidecarAbs = path.join(rootDir, SIDECAR_REL);
 
-	// 1) Update sidecar only when relevant context files are staged (or init mode).
-	if (args.init || targetFiles.length > 0) {
+	// 1) Update sidecar when:
+	//    - init mode (one-time bootstrap)
+	//    - mark-reviewed mode (records review time)
+	//    - staged context files exist (normal pre-commit behavior)
+	if (args.init || args.markReviewed || targetFiles.length > 0) {
 		const existing = (await readJsonIfExists(sidecarAbs)) || {};
 		const next = {
 			version: 1,
@@ -220,7 +229,7 @@ async function main() {
 
 		let changed = false;
 		for (const relPath of targetFiles) {
-			const content = args.init
+			const content = args.init || args.markReviewed
 				? await getWorkingTreeContent(relPath, { rootDir })
 				: getStagedContent(relPath, { cwd: rootDir });
 
@@ -228,6 +237,17 @@ async function main() {
 
 			const hash = sha256(content);
 			const prev = next.files[relPath];
+
+			// In mark-reviewed mode, always bump reviewedAt even if contentHash hasn't changed.
+			if (args.markReviewed) {
+				next.files[relPath] = {
+					reviewedAt: isoNowUtc(),
+					contentHash: hash,
+				};
+				changed = true;
+				continue;
+			}
+
 			if (!prev || prev.contentHash !== hash) {
 				next.files[relPath] = {
 					reviewedAt: isoNowUtc(),
@@ -244,11 +264,10 @@ async function main() {
 			// Stage the sidecar so the commit includes the freshness record.
 			execGit(['add', SIDECAR_REL], { cwd: rootDir });
 
-			process.stdout.write(
-				args.init
-					? `update-context-freshness: initialized and staged ${SIDECAR_REL}\n`
-					: `update-context-freshness: updated and staged ${SIDECAR_REL}\n`
-			);
+			let msg = `update-context-freshness: updated and staged ${SIDECAR_REL}\n`;
+			if (args.init) msg = `update-context-freshness: initialized and staged ${SIDECAR_REL}\n`;
+			if (args.markReviewed) msg = `update-context-freshness: marked reviewed and staged ${SIDECAR_REL}\n`;
+			process.stdout.write(msg);
 		}
 	}
 

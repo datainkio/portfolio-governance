@@ -59,6 +59,11 @@ Initialize the sidecar once per repo (so strict CI has baselines for all context
 - VS Code task: **Init Context Freshness Sidecar**
 - CLI: `node scripts/update-context-freshness.mjs --init`
 
+If you reviewed context and decided no content changes were needed, record the review without editing context files:
+
+- VS Code task: **Mark Context Reviewed (Sidecar)**
+- CLI: `node scripts/update-context-freshness.mjs --mark-reviewed`
+
 How it works:
 
 - When you commit changes to any of the context files, the hook runs `scripts/update-context-freshness.mjs`.
@@ -69,6 +74,11 @@ Commit blocking:
 
 - The pre-commit hook also runs a drift threshold check and will fail the commit when drift exceeds the configured threshold.
 - Bypass (use sparingly): `git commit --no-verify`
+
+VS Code UI notes:
+
+- When committing via the VS Code Source Control UI, hook output is typically shown in **Output → Git** (not the integrated terminal).
+- If the commit is blocked, VS Code will surface the failure as a commit error.
 
 ### Cross-repo drift (frontend work)
 

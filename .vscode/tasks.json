@@ -131,6 +131,18 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Mark Context Reviewed (Sidecar)",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/update-context-freshness.mjs\" --mark-reviewed",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
 			"label": "Update Context Freshness Sidecar (From Staged)",
 			"type": "shell",
 			"command": "node \"${workspaceFolder}/scripts/update-context-freshness.mjs\"",
