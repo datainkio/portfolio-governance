@@ -59,6 +59,54 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Check Context Freshness (All)",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/context-freshness-check.mjs\"",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Check Context Freshness (CI Mode)",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/context-freshness-check.mjs\" --fail-on-update --maxAgeDays 14",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Refresh Context (Guided)",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/context-refresh.mjs\" --open",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Install Git Hooks (core.hooksPath)",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/install-git-hooks.mjs\"",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
 			"label": "Open Current Goals",
 			"type": "shell",
 			"command": "code \"${workspaceFolder}/context/current-goals.md\"",

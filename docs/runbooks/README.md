@@ -19,3 +19,4 @@ Operational how-tos live here. Each runbook should be actionable, time-bounded, 
 
 ## Examples
 - [Refresh AI Context & Indexes](refresh-ai-context.md)
+- [Context Freshness & Guided Refresh](context-freshness.md)

@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# Keep workspace context freshness metadata in sync.
+# Uses core.hooksPath=.githooks (see scripts/install-git-hooks.mjs).
+
+set -eu
+
+# Run from repo root for consistent relative paths.
+ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
+if [ -z "$ROOT" ]; then
+  exit 0
+fi
+
+cd "$ROOT"
+
+# Only run if the script exists (safe for partial checkouts).
+if [ -f "scripts/update-context-freshness.mjs" ]; then
+  node scripts/update-context-freshness.mjs
+fi
+
+exit 0

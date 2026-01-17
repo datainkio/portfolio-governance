@@ -1,13 +1,16 @@
 # Current Goals
 
 This file is the single-source-of-truth for what matters *right now*.
-
-Last updated: 2026-01-16T22:41:28Z
+Last updated: 2026-01-17T14:14:02.854Z
 
 ## Now
-- Respond to identified contradictions/drift risks
+- Streamline process of keeping decisions and constraints fresh
+- Tighten CI so it requires sidecar freshness (and ignores Last updated: entirely) once the hook has been installed everywhere.
+
 
 ## Next
+- Document UX for maintain project context
+- Define and document command permissions (e.g. zsh) to streamline agent work
 - Develop MVP through iteration.
 - Optimize frontend by moving agents out and integrating into aix repo.
 - Complete Sanity adoption (full separation from Airtable).
@@ -16,6 +19,7 @@ Last updated: 2026-01-16T22:41:28Z
 - Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Organizations, etc.).
 
 ## Done (recent)
+- Respond to identified contradictions/drift risks
 - Address current goals freshness check inefficiency.
 - Deliver MVP of the domain-specialized coding agent.
 

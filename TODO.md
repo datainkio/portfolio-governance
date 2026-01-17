@@ -12,3 +12,4 @@ Last updated: 2026-01-16
 ## Future improvements for Vitaixmen
 This section contains TODO items marking opportunities for improving Vitaixmen through lessons learned in this project.
 - [ ] Integrate maintenance of constraints and decisions 
+- [ ] Reinforce constraint that managing context does not require humans touching meta lines in files.
