@@ -32,6 +32,10 @@ Update the relevant context file when any of these happen:
 CI-friendly:
 - `node scripts/context-freshness-check.mjs --fail-on-update --maxAgeDays 14`
 
+Strict CI mode (requires sidecar freshness; ignores `Last updated:` as a baseline):
+
+- `node scripts/context-freshness-check.mjs --require-sidecar --fail-on-update --maxAgeDays 14`
+
 ### 2) Guided refresh (drift report + open files)
 
 - VS Code task: **Refresh Context (Guided)**
@@ -49,6 +53,11 @@ Install the repo-managed hooks once per clone:
 
 - VS Code task: **Install Git Hooks (core.hooksPath)**
 - CLI: `node scripts/install-git-hooks.mjs`
+
+Initialize the sidecar once per repo (so strict CI has baselines for all context files):
+
+- VS Code task: **Init Context Freshness Sidecar**
+- CLI: `node scripts/update-context-freshness.mjs --init`
 
 How it works:
 

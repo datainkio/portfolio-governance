@@ -160,6 +160,7 @@ async function listRecentFiles({ absoluteDir, sinceMs, maxResults = 20 }) {
 			}
 			if (!entry.isFile()) continue;
 			if (entry.name === '.DS_Store') continue;
+			if (entry.name === '.freshness.json') continue;
 
 			let stat;
 			try {

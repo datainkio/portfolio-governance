@@ -12,6 +12,40 @@ const CONTEXT_FILES = [
 	'context/decisions.md',
 ];
 
+function parseArgs(argv) {
+	const args = {
+		init: false,
+	};
+
+	for (let i = 0; i < argv.length; i += 1) {
+		const token = argv[i];
+		if (token === '--init') {
+			args.init = true;
+			continue;
+		}
+		if (token === '--help' || token === '-h') {
+			args.help = true;
+			continue;
+		}
+	}
+
+	return args;
+}
+
+function printHelp() {
+	process.stdout.write(`\
+Usage:
+  node scripts/update-context-freshness.mjs [options]
+
+Options:
+  --init         Initialize context/.freshness.json for all context files (one-time)
+  -h, --help     Show help
+
+Notes:
+  Default mode runs during pre-commit and only updates entries for staged context files.
+`);
+}
+
 function tryExecGit(args, { cwd } = {}) {
 	try {
 		return execFileSync('git', args, {
@@ -76,7 +110,21 @@ function getStagedContent(relPath, { cwd }) {
 	}
 }
 
+async function getWorkingTreeContent(relPath, { rootDir }) {
+	try {
+		return await fs.readFile(path.join(rootDir, relPath), 'utf8');
+	} catch {
+		return null;
+	}
+}
+
 async function main() {
+	const args = parseArgs(process.argv.slice(2));
+	if (args.help) {
+		printHelp();
+		process.exit(0);
+	}
+
 	const cwd = process.cwd();
 	const gitRoot = tryExecGit(['rev-parse', '--show-toplevel'], { cwd });
 	if (!gitRoot) {
@@ -85,14 +133,20 @@ async function main() {
 	}
 
 	const rootDir = gitRoot;
-	const staged = execGit(['diff', '--cached', '--name-only'], { cwd: rootDir })
-		.split('\n')
-		.map((s) => s.trim())
-		.filter(Boolean);
 
-	const stagedContextFiles = CONTEXT_FILES.filter((p) => staged.includes(p));
-	if (stagedContextFiles.length === 0) {
-		process.exit(0);
+	let targetFiles = [];
+	if (args.init) {
+		targetFiles = [...CONTEXT_FILES];
+	} else {
+		const staged = execGit(['diff', '--cached', '--name-only'], { cwd: rootDir })
+			.split('\n')
+			.map((s) => s.trim())
+			.filter(Boolean);
+
+		targetFiles = CONTEXT_FILES.filter((p) => staged.includes(p));
+		if (targetFiles.length === 0) {
+			process.exit(0);
+		}
 	}
 
 	const sidecarAbs = path.join(rootDir, SIDECAR_REL);
@@ -107,11 +161,14 @@ async function main() {
 	};
 
 	let changed = false;
-	for (const relPath of stagedContextFiles) {
-		const stagedContent = getStagedContent(relPath, { cwd: rootDir });
-		if (stagedContent == null) continue;
+	for (const relPath of targetFiles) {
+		const content = args.init
+			? await getWorkingTreeContent(relPath, { rootDir })
+			: getStagedContent(relPath, { cwd: rootDir });
 
-		const hash = sha256(stagedContent);
+		if (content == null) continue;
+
+		const hash = sha256(content);
 		const prev = next.files[relPath];
 		if (!prev || prev.contentHash !== hash) {
 			next.files[relPath] = {
@@ -132,7 +189,11 @@ async function main() {
 	// Stage the sidecar so the commit includes the freshness record.
 	execGit(['add', SIDECAR_REL], { cwd: rootDir });
 
-	process.stdout.write(`update-context-freshness: updated and staged ${SIDECAR_REL}\n`);
+	process.stdout.write(
+		args.init
+			? `update-context-freshness: initialized and staged ${SIDECAR_REL}\n`
+			: `update-context-freshness: updated and staged ${SIDECAR_REL}\n`
+	);
 	process.exit(0);
 }
 

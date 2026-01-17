@@ -3,6 +3,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
+import crypto from 'node:crypto';
 
 const SIDECAR_REL = 'context/.freshness.json';
 
@@ -11,6 +12,7 @@ function parseArgs(argv) {
 		maxAgeDays: 7,
 		failOnUpdate: false,
 		includeGitDirty: false,
+		requireSidecar: false,
 		json: false,
 		help: false,
 	};
@@ -30,6 +32,10 @@ function parseArgs(argv) {
 		}
 		if (token === '--include-git-dirty') {
 			args.includeGitDirty = true;
+			continue;
+		}
+		if (token === '--require-sidecar') {
+			args.requireSidecar = true;
 			continue;
 		}
 		if (token === '--json') {
@@ -54,9 +60,14 @@ Options:
 	--maxAgeDays <n>      Recommend update if freshness baseline is older than N days (default: 7)
   --fail-on-update      Exit 1 if any context file update is recommended
   --include-git-dirty   Treat uncommitted changes as a recommendation signal
+	--require-sidecar     Require context/.freshness.json for freshness (no Last updated fallback)
   --json                Emit JSON payload to stdout
   -h, --help            Show help
 `);
+}
+
+function sha256(text) {
+	return crypto.createHash('sha256').update(text).digest('hex');
 }
 
 function tryExecGit(args, { cwd } = {}) {
@@ -135,6 +146,7 @@ async function listRecentFiles({ absoluteDir, sinceMs, maxResults = 20 }) {
 			}
 			if (!entry.isFile()) continue;
 			if (entry.name === '.DS_Store') continue;
+			if (entry.name === '.freshness.json') continue;
 
 			let stat;
 			try {
@@ -217,6 +229,7 @@ async function evaluateFile({ rootDir, relPath, maxAgeDays, includeGitDirty }) {
 	const content = await fs.readFile(absolutePath, 'utf8');
 	const lastUpdated = parseLastUpdated(content);
 	const now = new Date();
+	const contentHash = sha256(content);
 
 	const reasons = [];
 	const signals = [];
@@ -244,6 +257,7 @@ async function evaluateFile({ rootDir, relPath, maxAgeDays, includeGitDirty }) {
 		score,
 		file: relPath,
 		lastUpdated: lastUpdated?.raw || null,
+		contentHash,
 		reasons,
 		signals,
 		sinceMs,
@@ -251,7 +265,7 @@ async function evaluateFile({ rootDir, relPath, maxAgeDays, includeGitDirty }) {
 }
 
 
-async function evaluateFileWithDrift({ rootDir, config, maxAgeDays, includeGitDirty, freshnessSidecar }) {
+async function evaluateFileWithDrift({ rootDir, config, maxAgeDays, includeGitDirty, freshnessSidecar, requireSidecar }) {
 	const base = await evaluateFile({ rootDir, relPath: config.rel, maxAgeDays, includeGitDirty });
 	const now = new Date();
 	const signals = [...(base.signals || [])];
@@ -261,13 +275,19 @@ async function evaluateFileWithDrift({ rootDir, config, maxAgeDays, includeGitDi
 	const sidecarEntry = freshnessSidecar?.files?.[config.rel] || null;
 	const reviewedAtRaw = sidecarEntry?.reviewedAt || null;
 	const reviewedAtDate = parseIsoDate(reviewedAtRaw);
+	const sidecarContentHash = sidecarEntry?.contentHash || null;
+
+	if (sidecarContentHash && base.contentHash && sidecarContentHash !== base.contentHash) {
+		reasons.push('Freshness sidecar is out of sync with file content (run git commit hook to refresh)');
+		score += 3;
+	}
 
 	let baselineDate = null;
 	let baselineSource = null;
 	if (reviewedAtDate) {
 		baselineDate = reviewedAtDate;
 		baselineSource = 'sidecar.reviewedAt';
-	} else if (base.lastUpdated) {
+	} else if (!requireSidecar && base.lastUpdated) {
 		// base.lastUpdated can be either YYYY-MM-DD or full ISO.
 		const fallbackRaw = base.lastUpdated.includes('T') ? base.lastUpdated : `${base.lastUpdated}T00:00:00Z`;
 		const fallbackDate = parseIsoDate(fallbackRaw);
@@ -346,6 +366,7 @@ async function main() {
 				maxAgeDays: args.maxAgeDays,
 				includeGitDirty: args.includeGitDirty,
 				freshnessSidecar,
+				requireSidecar: args.requireSidecar,
 			})
 		);
 	}

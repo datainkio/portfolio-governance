@@ -83,6 +83,18 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Check Context Freshness (Strict Sidecar)",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/context-freshness-check.mjs\" --require-sidecar --fail-on-update --maxAgeDays 14",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
 			"label": "Refresh Context (Guided)",
 			"type": "shell",
 			"command": "node \"${workspaceFolder}/scripts/context-refresh.mjs\" --open",
@@ -98,6 +110,18 @@
 			"label": "Install Git Hooks (core.hooksPath)",
 			"type": "shell",
 			"command": "node \"${workspaceFolder}/scripts/install-git-hooks.mjs\"",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Init Context Freshness Sidecar",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/update-context-freshness.mjs\" --init",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated",
