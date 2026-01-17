@@ -50,9 +50,7 @@ Note: Vitaixmen is a workspace starter (hygiene + docs + agent workflows). It do
 - When you add files, include a small manifest (`README.md` or `manifest.json`) so agents can locate media/data fast.
 
 ## Agent Workflows (roles/playbooks)
-- [.agent/README.md](../../.agent/README.md) — roles, workflows, and logging expectations.
-- Roles: [.agent/roles/](../../.agent/roles/)
-- Workflows/checklists: [.agent/workflows/](../../.agent/workflows/) and [.agent/checklists/](../../.agent/checklists/)
+- [docs/agent-roles-and-workflows.md](../../docs/agent-roles-and-workflows.md) — roles, workflows, and logging expectations.
 
 ## Copilot Agent Registration
 - [copilot-agents.json](../../copilot-agents.json) — which agent(s) Copilot Chat can see.

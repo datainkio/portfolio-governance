@@ -25,7 +25,7 @@ This repo is **Vitaixmen**: a VS Code workspace starter with repo hygiene, docum
 - Notes/logs (non-authoritative): `docs/notes/`, `docs/logs/`
 - Copilot/agent system:
   - Copilot prompts/routing: `.copilot/`
-  - Agent roles/workflows: `.agent/`
+  - Agent roles/workflows: [docs/agent-roles-and-workflows.md](../agent-roles-and-workflows.md)
 
 ## Conventions
 

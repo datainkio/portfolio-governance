@@ -1,6 +1,7 @@
 {
 	"search.exclude": {
 		".obsidian/**": true,
+		".obsidian-workspace": true,
 		"**/node_modules/**": true,
 		"**/.cache/**": true,
 		"**/dist/**": true,
@@ -14,6 +15,7 @@
 	},
 	"files.watcherExclude": {
 		".obsidian/**": true,
+		".obsidian-workspace": true,
 		"**/node_modules/**": true,
 		"**/.cache/**": true,
 		"**/dist/**": true,
@@ -27,6 +29,7 @@
 	},
 	"files.exclude": {
 		".obsidian/**": true,
+		".obsidian-workspace": true,
 		"**/node_modules/**": true,
 		"**/.cache/**": true,
 		"**/dist/**": true,

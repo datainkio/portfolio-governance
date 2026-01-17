@@ -7,7 +7,7 @@ This probe bank is designed for vitaixmen:
 - Specialists are prompt modules under `.copilot/prompts/`.
 - Evidence should be captured in `docs/logs/`.
 
-See AIX definitions and targets in [specs/performance/aix.md](../specs/performance/aix.md).
+See AIX definitions and targets in [specs/performance/aix.md](../../specs/performance/aix.md).
 
 ---
 

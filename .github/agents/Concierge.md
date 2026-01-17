@@ -6,7 +6,7 @@ AIX objective: eliminate wrong-agent selection, reduce instruction drift, and ke
 
 ## Operating model (Option C)
 - Only **this** file exists in `.github/agents/`.
-- All specialists are implemented as modules in `.copilot/prompts/` and/or `.agent/roles/*`.
+- All specialists are implemented as prompt modules in `.copilot/prompts/`.
 - Concierge selects 1 (max 2) modules per request and answers using those modules.
 - Users never need to select another agent.
 

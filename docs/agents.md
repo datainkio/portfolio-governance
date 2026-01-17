@@ -7,7 +7,7 @@ Copilot Chat discovers Concierge via [copilot-agents.json](../copilot-agents.jso
 - Concierge — router; classifies intent and emits handoff requests. Entrypoint: [.github/agents/Concierge.md](../.github/agents/Concierge.md); Prompt: [.copilot/prompts/concierge.prompt.md](../.copilot/prompts/concierge.prompt.md)
 
 ## Specialist Modules (selected by Concierge)
-- Housekeeper — hygiene/excludes/drift; logs AIX snapshots. Prompt module: [.copilot/prompts/housekeeper.prompt.md](../.copilot/prompts/housekeeper.prompt.md); Role notes: [.agent/roles/housekeeper.md](../.agent/roles/housekeeper.md)
+- Housekeeper — hygiene/excludes/drift; logs AIX snapshots. Prompt module: [.copilot/prompts/housekeeper.prompt.md](../.copilot/prompts/housekeeper.prompt.md); Role/workflow notes: [docs/agent-roles-and-workflows.md](agent-roles-and-workflows.md)
 - Navigator — context concierge; assembles minimal sources and flags drift. Prompt module: [.copilot/prompts/navigator.prompt.md](../.copilot/prompts/navigator.prompt.md)
 - Librarian — documentation steward; keeps docs/runbooks/decisions fresh and linked. Prompt module: [.copilot/prompts/librarian.prompt.md](../.copilot/prompts/librarian.prompt.md)
 - Analyst — AIX observer; runs probes and records FRA/CR/HF/TTUO/CUS. Prompt module: [.copilot/prompts/analyst.prompt.md](../.copilot/prompts/analyst.prompt.md)

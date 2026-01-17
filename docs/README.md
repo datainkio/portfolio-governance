@@ -14,7 +14,7 @@ This folder is the **human-facing docs hub** for the workspace.
 
 ## Key areas
 
-- Agents and roles: `docs/agents.md` (see also `.agent/` and `.copilot/`)
+- Agent Index: [docs/agents.md](agents.md) (see also `.copilot/`)
 - Decisions (ADRs): `docs/decisions/`
 - Runbooks (operational how-tos): `docs/runbooks/`
 - Notes (exploration / not authoritative): `docs/notes/`
