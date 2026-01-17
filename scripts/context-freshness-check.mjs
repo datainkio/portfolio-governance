@@ -128,6 +128,19 @@ function daysBetweenUtc(a, b) {
 
 async function listRecentFiles({ absoluteDir, sinceMs, maxResults = 20 }) {
 	const results = [];
+	const IGNORE_DIRS = new Set([
+		'.git',
+		'node_modules',
+		'_site',
+		'dist',
+		'build',
+		'coverage',
+		'.next',
+		'.nuxt',
+		'.turbo',
+		'.cache',
+		'.parcel-cache',
+	]);
 
 	async function walk(dir) {
 		let entries;
@@ -140,7 +153,7 @@ async function listRecentFiles({ absoluteDir, sinceMs, maxResults = 20 }) {
 		for (const entry of entries) {
 			const absolutePath = path.join(dir, entry.name);
 			if (entry.isDirectory()) {
-				if (entry.name === 'node_modules' || entry.name === '.git') continue;
+				if (IGNORE_DIRS.has(entry.name)) continue;
 				await walk(absolutePath);
 				continue;
 			}
@@ -191,6 +204,7 @@ const CONTEXT_FILES = [
 			{ id: 'specs', rel: 'specs', weight: 2 },
 			{ id: 'decisions', rel: 'docs/decisions', weight: 3 },
 			{ id: 'logs', rel: 'docs/logs', weight: 1 },
+			{ id: 'frontend', rel: '../frontend', weight: 2, scaleWithCount: true, maxResults: 20 },
 		],
 	},
 	{
@@ -207,7 +221,10 @@ const CONTEXT_FILES = [
 		id: 'decisions',
 		rel: 'context/decisions.md',
 		label: 'decisions',
-		watchRoots: [{ id: 'decisions', rel: 'docs/decisions', weight: 3 }],
+		watchRoots: [
+			{ id: 'decisions', rel: 'docs/decisions', weight: 3 },
+			{ id: 'frontend', rel: '../frontend', weight: 2, scaleWithCount: true, maxResults: 20 },
+		],
 	},
 ];
 
@@ -319,7 +336,8 @@ async function evaluateFileWithDrift({ rootDir, config, maxAgeDays, includeGitDi
 		const absoluteDir = path.join(rootDir, root.rel);
 		if (!(await pathExists(absoluteDir))) continue;
 
-		const recent = await listRecentFiles({ absoluteDir, sinceMs, maxResults: 10 });
+		const maxResults = root.maxResults ?? 10;
+		const recent = await listRecentFiles({ absoluteDir, sinceMs, maxResults });
 		if (recent.length === 0) continue;
 
 		const relativePaths = summarizePaths(recent, rootDir);
@@ -328,8 +346,14 @@ async function evaluateFileWithDrift({ rootDir, config, maxAgeDays, includeGitDi
 		const nonSelf = relativePaths.filter((p) => p !== selfRel);
 		if (nonSelf.length === 0) continue;
 
-		reasons.push(`New/updated ${root.id} artifacts since last update (${Math.min(nonSelf.length, 10)} shown)`);
-		score += root.weight;
+		const saturated = recent.length >= maxResults;
+		const shown = Math.min(nonSelf.length, maxResults);
+		reasons.push(
+			`New/updated ${root.id} artifacts since last update (${shown}${saturated ? '+' : ''} shown)`
+		);
+
+		const multiplier = root.scaleWithCount && saturated ? 2 : 1;
+		score += root.weight * multiplier;
 	}
 
 	const recommended = score >= 3;

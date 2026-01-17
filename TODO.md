@@ -13,3 +13,5 @@ Last updated: 2026-01-16
 This section contains TODO items marking opportunities for improving Vitaixmen through lessons learned in this project.
 - [ ] Integrate maintenance of constraints and decisions 
 - [ ] Reinforce constraint that managing context does not require humans touching meta lines in files.
+- [ ] Handle EOF and syntax errors (e.g. SyntaxError: Unexpected end of JSON input) when processing files
+- [ ] Learn user's UX style/preferences/priorities

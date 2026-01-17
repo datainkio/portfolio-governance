@@ -70,6 +70,25 @@ Commit blocking:
 - The pre-commit hook also runs a drift threshold check and will fail the commit when drift exceeds the configured threshold.
 - Bypass (use sparingly): `git commit --no-verify`
 
+### Cross-repo drift (frontend work)
+
+Substantial work in the sibling `frontend/` repo can make AIX context stale even if `aix/context/*` wasn’t edited.
+
+This runbook supports that in two ways:
+
+- AIX drift scoring includes recent changes under `../frontend` (build outputs like `frontend/_site` are ignored).
+- Optional: gate frontend commits using a frontend pre-commit hook that runs the AIX context gate.
+
+To enable frontend commit gating (once per clone):
+
+- From `frontend/`: run `npm run hooks:install`
+
+If your repo layout differs, set `AIX_ROOT` for the frontend hook (example):
+
+- `AIX_ROOT=/absolute/path/to/aix git commit ...`
+
+This will configure `core.hooksPath=.githooks` in the frontend repo and run the AIX threshold gate during frontend commits.
+
 Optional (legacy; only updates `Last updated:` lines; does not change content):
 
 - Touch recommended files: `node scripts/context-refresh.mjs --touch`
