@@ -2,17 +2,17 @@
   "files": {
     "context/constraints.md": {
       "contentHash": "205efbb41ff8ac7fafd4cf3843e7b9d6596e971226c3ee8d8317386a97037ee2",
-      "reviewedAt": "2026-01-17T14:35:55.086Z"
+      "reviewedAt": "2026-01-17T16:21:50.434Z"
     },
     "context/current-goals.md": {
       "contentHash": "aead0e4c52efea0b5dc1b7ac4b2f1163682eb3bea2cee3b60f7d3555c17b5080",
-      "reviewedAt": "2026-01-17T14:51:38.312Z"
+      "reviewedAt": "2026-01-17T16:21:50.433Z"
     },
     "context/decisions.md": {
       "contentHash": "d043581825c487e35ac3c5f916128aa64969d73511e127e054e0b3aaee5f15ee",
-      "reviewedAt": "2026-01-17T14:35:55.087Z"
+      "reviewedAt": "2026-01-17T16:21:50.434Z"
     }
   },
-  "updatedAt": "2026-01-17T14:51:38.297Z",
+  "updatedAt": "2026-01-17T16:21:50.425Z",
   "version": 1
 }
