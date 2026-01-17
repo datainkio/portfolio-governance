@@ -15,3 +15,4 @@ This section contains TODO items marking opportunities for improving Vitaixmen t
 - [ ] Reinforce constraint that managing context does not require humans touching meta lines in files.
 - [ ] Handle EOF and syntax errors (e.g. SyntaxError: Unexpected end of JSON input) when processing files
 - [ ] Learn user's UX style/preferences/priorities
+- [ ] Testing drift check on commit.
