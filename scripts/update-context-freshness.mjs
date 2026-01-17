@@ -15,12 +15,20 @@ const CONTEXT_FILES = [
 const DEFAULT_ALERT_THRESHOLD = 6;
 const DEFAULT_MAX_AGE_DAYS = 14;
 
+const ANSI = {
+	reset: '\x1b[0m',
+	bold: '\x1b[1m',
+	red: '\x1b[31m',
+	green: '\x1b[32m',
+};
+
 function parseArgs(argv) {
 	const args = {
 		init: false,
 		alertThreshold: DEFAULT_ALERT_THRESHOLD,
 		maxAgeDays: DEFAULT_MAX_AGE_DAYS,
 		failOnThreshold: false,
+		noColor: false,
 	};
 
 	for (let i = 0; i < argv.length; i += 1) {
@@ -49,6 +57,10 @@ function parseArgs(argv) {
 			args.failOnThreshold = true;
 			continue;
 		}
+		if (token === '--no-color' || token === '--noColor') {
+			args.noColor = true;
+			continue;
+		}
 	}
 
 	return args;
@@ -64,6 +76,7 @@ Options:
 	--alert-threshold <n>  Alert on commit when aggregate drift score >= n (default: ${DEFAULT_ALERT_THRESHOLD})
 	--maxAgeDays <n>       Pass-through for drift scoring (default: ${DEFAULT_MAX_AGE_DAYS})
 	--fail-on-threshold    Exit non-zero when the drift threshold is exceeded (commit-blocking)
+	--no-color             Disable ANSI color output
   -h, --help     Show help
 
 Notes:
@@ -103,6 +116,13 @@ function tryExecNodeJson(scriptArgs, { cwd } = {}) {
 	} catch {
 		return null;
 	}
+}
+
+function style(text, { color, bold = false, enabled = true } = {}) {
+	if (!enabled) return text;
+	const colorCode = color && ANSI[color] ? ANSI[color] : '';
+	const boldCode = bold ? ANSI.bold : '';
+	return `${boldCode}${colorCode}${text}${ANSI.reset}`;
 }
 
 function sha256(text) {
@@ -245,11 +265,14 @@ async function main() {
 			{ cwd: rootDir }
 		);
 
+		const useColor = !args.noColor && !process.env.NO_COLOR;
 		const files = Array.isArray(payload?.files) ? payload.files : [];
 		const aggregateScore = files.reduce((sum, f) => sum + (Number(f?.score) || 0), 0);
+
 		if (aggregateScore >= args.alertThreshold && aggregateScore > 0) {
 			process.stdout.write(
-				`\ncontext-freshness alert: drift score ${aggregateScore} >= ${args.alertThreshold}.\n` +
+				`\n${style('CONTEXT FRESHNESS: THRESHOLD EXCEEDED', { color: 'red', bold: true, enabled: useColor })}\n` +
+				`${style(`drift score ${aggregateScore} >= ${args.alertThreshold}`, { color: 'red', enabled: useColor })}\n` +
 				`Consider reviewing/updating context (task: \"Refresh Context (Guided)\").\n`
 			);
 
@@ -266,10 +289,21 @@ async function main() {
 			process.stdout.write('\n');
 
 			if (args.failOnThreshold) {
-				process.stderr.write('context-freshness: commit blocked (threshold exceeded)\n');
+				process.stderr.write(
+					`${style('context-freshness: commit blocked (threshold exceeded)', {
+						color: 'red',
+						bold: true,
+						enabled: useColor,
+					})}\n`
+				);
 				process.stderr.write('Next: update/review context, or use `git commit --no-verify` to bypass.\n');
 				process.exit(1);
 			}
+		} else {
+			process.stdout.write(
+				`${style('context-freshness: OK', { color: 'green', bold: true, enabled: useColor })} ` +
+				`(drift score ${aggregateScore} < ${args.alertThreshold})\n`
+			);
 		}
 	}
 
