@@ -7,6 +7,12 @@ If a constraint is project-specific (e.g., only `/frontend`), link to that proje
 
 Last updated: 2026-01-17
 
+## Context freshness constraints
+
+- **Deterministic drift only**: context freshness enforcement must remain deterministic and local (filesystem/git signals), not semantic/LLM-based.
+- **Sidecar is authoritative for freshness**: review freshness is tracked in `context/.freshness.json`; avoid workflows that require humans editing meta lines to stay unblocked.
+- **Commit-time enforcement is expected**: the pre-commit gate may exit non-zero to block commits; VS Code may surface that as a modal when using the Source Control UI.
+
 ## Durable constraints (always)
 
 - **Canonical truth lives in** `/context` and `/specs`.

@@ -95,6 +95,8 @@ AI agents should consistently optimize for the following:
 * Fewer hallucinated assumptions
 * Faster, more accurate completions
 
+This workspace also uses lightweight, deterministic tooling to keep `/context` review freshness from drifting too far as work changes (including changes in mounted sibling repos).
+
 Agents should **prefer reading context over inferring intent**.
 
 ---

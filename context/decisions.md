@@ -7,6 +7,12 @@ Full decision records live as ADRs under `/docs/decisions/`.
 
 Last updated: 2026-01-17
 
+## Recently accepted
+
+- **ADR 0003 — Context Freshness Gate (Sidecar + Deterministic Drift Scoring)**
+	- Keeps `/context` review metadata in a sidecar and enforces drift thresholds via repo-managed git hooks (including cross-repo frontend signals).
+	- Source: `/docs/decisions/0003-context-freshness-gate.md`
+
 ## Decision precedence
 
 1. Latest **accepted ADR** wins when decisions conflict.

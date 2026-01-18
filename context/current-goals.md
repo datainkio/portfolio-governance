@@ -1,10 +1,10 @@
 # Current Goals
 
 This file is the single-source-of-truth for what matters *right now*.
-Last updated: 2026-01-17T15:02:00Z
+Last updated: 2026-01-18
 
 ## Now
-- Document UX for maintaining project context
+- Improve drift gate messaging surfaced by VS Code (keep it short and actionable)
 
 
 ## Next
@@ -20,6 +20,10 @@ Last updated: 2026-01-17T15:02:00Z
 - Implement workspace-wide context freshness tooling (check + guided refresh)
 - Add sidecar-based review freshness (`context/.freshness.json`) updated automatically via git hooks
 - Enforce strict sidecar freshness in CI + add daily drift reminder (6am EST)
+- Add commit-time drift threshold gating (pre-commit blocks when threshold exceeded)
+- Extend drift detection to include sibling `../frontend` activity and gate frontend commits via delegation
+- Add deterministic "signal strength" tiers for frontend changes (pages/includes/choreography/eleventy/styles)
+- Add a "mark reviewed" workflow to reset drift without editing meta lines
 - Respond to identified contradictions/drift risks
 - Address current goals freshness check inefficiency.
 - Deliver MVP of the domain-specialized coding agent.
