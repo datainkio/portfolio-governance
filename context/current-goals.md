@@ -4,8 +4,8 @@ This file is the single-source-of-truth for what matters *right now*.
 Last updated: 2026-01-18
 
 ## Now
+- Confirm implementation of status bar action buttons for VS Code tasks
 - Develop the spec for an animation-focused Concierge module based on specs/animation/choreographer.animation-spec.md
-- Improve DX for running VS Code tasks by adding buttons to the workspace status bar via VS Code Action Buttons extension.
 
 ## Next
 - Define and document command permissions (e.g. zsh) to streamline agent work
@@ -23,9 +23,6 @@ Last updated: 2026-01-18
 - Add commit-time drift threshold gating (pre-commit blocks when threshold exceeded)
 - Extend drift detection to include sibling `../frontend` activity and gate frontend commits via delegation
 - Add deterministic "signal strength" tiers for frontend changes (pages/includes/choreography/eleventy/styles)
-- Add a "mark reviewed" workflow to reset drift without editing meta lines
-- Respond to identified contradictions/drift risks
-- Address current goals freshness check inefficiency.
 - Deliver MVP of the domain-specialized coding agent.
 
 ## Not Now

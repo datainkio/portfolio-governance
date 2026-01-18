@@ -9,7 +9,8 @@
 - [ ] Drift gate DX: format the pre-commit failure output so the VS Code commit-block dialog shows a clean, actionable summary (1–3 lines + next steps).
 - [ ] Resolve Concierge stops mid-task when no user input is needed to continue. For example: "I'm going to..." 
 - [ ] Open permissions to running VS Code tasks without user input, even for sensitive files such as tasks.json.
-- [ ] Improve readability of terminal messages on task run
+- [ ] Improve value of terminal messages on task run:
+-- "Next: open context/current-goals.md and adjust Now/Next/Not Now.": define what "adjust means"
 
 ## Future improvements for Vitaixmen
 This section contains TODO items marking opportunities for improving Vitaixmen through lessons learned in this project.
