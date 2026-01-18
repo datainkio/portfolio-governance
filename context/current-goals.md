@@ -17,13 +17,6 @@ Last updated: 2026-01-18
 - Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Organizations, etc.).
 
 ## Done (recent)
-- Implement workspace-wide context freshness tooling (check + guided refresh)
-- Add sidecar-based review freshness (`context/.freshness.json`) updated automatically via git hooks
-- Enforce strict sidecar freshness in CI + add daily drift reminder (6am EST)
-- Add commit-time drift threshold gating (pre-commit blocks when threshold exceeded)
-- Extend drift detection to include sibling `../frontend` activity and gate frontend commits via delegation
-- Add deterministic "signal strength" tiers for frontend changes (pages/includes/choreography/eleventy/styles)
-- Deliver MVP of the domain-specialized coding agent.
 
 ## Not Now
 - Improve drift gate messaging surfaced by VS Code (keep it short and actionable)
