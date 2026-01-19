@@ -3,6 +3,8 @@
 Concierge is the only agent registered in Copilot Chat; it routes to specialists.
 Copilot Chat discovers Concierge via [copilot-agents.json](../copilot-agents.json) and loads the entrypoint in [.github/agents/Concierge.md](../.github/agents/Concierge.md).
 
+Concierge occasionally emits a ceremonial callout (p = 1/6) before the standard response when the user sends a short advance/continue confirmation; see [specs/ai/ceremonial-response-spec.md](../specs/ai/ceremonial-response-spec.md) for the gate and phrase pools.
+
 ## Agents
 - Concierge — router; classifies intent and emits handoff requests. Entrypoint: [.github/agents/Concierge.md](../.github/agents/Concierge.md); Prompt: [.copilot/prompts/concierge.prompt.md](../.copilot/prompts/concierge.prompt.md)
 

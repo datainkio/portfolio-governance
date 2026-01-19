@@ -21,19 +21,19 @@
           "tooltip": "Section header for workspace hygiene shortcuts"
         },
         {
-          "name": "Pre-Commit",
+          "name": "Review",
           "singleInstance": true,
           "command": "cd \"${workspaceFolder}/../aix\" && node scripts/pre-pr-check.mjs",
           "tooltip": "Runs the pre-PR hygiene script from the aix root and reports blocking issues"
         },
         {
-          "name": "Update Context",
+          "name": "Refresh",
           "singleInstance": true,
           "command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-auto.mjs",
           "tooltip": "Checks drift, groups causes, auto-runs available hygiene tasks; no auto-baseline"
         },
         {
-          "name": "Drift: Active File",
+          "name": "File Drift",
           "singleInstance": true,
           "command": "cd \"${workspaceFolder}/../aix\" && node scripts/drift-file-report.mjs --file \"${file}\"",
           "tooltip": "Plain-language drift readout for the focused editor file plus aggregate drift"
