@@ -14,10 +14,19 @@
 - **Least power that works:** Prefer Tailwind when it fully satisfies requirements; prefer GSAP when choreography, measurement, or scroll linkage is required.
 
 ## Primitives & Utilities
+### Canonical Sources
+- Motion tokens: [specs/animation/motion.tokens.js](specs/animation/motion.tokens.js) (single source of truth for durations, eases, distances, staggers; used by GSAP + Tailwind)
+- Tailwind mapping: [specs/animation/tailwind.motion.config.cjs](specs/animation/tailwind.motion.config.cjs) (maps tokens into duration/ease utilities; keep import order consistent with main Tailwind setup)
+- Accessibility policy: [specs/animation/motion-accessibility-policy.md](specs/animation/motion-accessibility-policy.md) (reduced-motion rules and strategies)
+
 ### Shared Motion Tokens (source of truth)
 - **Durations:** fast / base / slow (project-defined ms)
 - **Eases:** standard / enter / exit / emphasis (project-defined curves)
 - **Staggers:** tight / base / loose (project-defined offsets)
+
+Implementation guidance:
+- GSAP: import tokens from `motion.tokens.js`; do not hard-code timings/eases.
+- Tailwind: rely on the utilities emitted by `tailwind.motion.config.cjs`; avoid ad-hoc durations/eases in templates.
 
 ### Tailwind Utilities (when Tailwind is selected)
 - Custom utilities should map to motion tokens:
@@ -35,6 +44,26 @@
   - data-anim="<scene>" on root
   - data-anim-item for children
   - optional data-anim-trigger overrides
+- **File structure & registration:**
+  - Place GSAP scenes under `frontend/js/choreography/sections/<Scene>/<Scene>.js` (or `sequences/` for multi-section flows) and export init/kill.
+  - Register scenes via the Director/Stage wiring (e.g., `Director.js`) so lifecycle and bus events remain centralized.
+  - Keep shared helpers (e.g., reduced-motion guards, measurement utilities) under `frontend/js/choreography/managers/` or `utils/` to avoid per-scene duplication.
+
+### How to consume motion tokens (copy/paste)
+- **GSAP:**
+  ```js
+  import { motion, motionTokens } from '../../specs/animation/motion.tokens.js';
+
+  const tl = gsap.timeline({ defaults: { duration: motion.duration('base'), ease: motion.ease('standard') } });
+  tl.from(items, { y: motion.distance('md'), stagger: motion.stagger('base'), opacity: 0 });
+  ```
+- **Tailwind:** use utilities emitted by `tailwind.motion.config.cjs`; keep motion gated:
+  ```html
+  <button class="
+    motion-safe:duration-base motion-safe:ease-enter motion-safe:transition-transform motion-safe:hover:-translate-y-1
+    motion-reduce:transition-none motion-reduce:transform-none
+  ">Action</button>
+  ```
 
 ## Patterns by Component/View
 ### Tailwind-first Patterns (micro-interactions)
@@ -117,6 +146,13 @@ Required output from the module:
   - Add a dev flag to enable GSAP markers and timing logs (project runbook)
 
 ## Accessibility
+- Follow the workspace policy in [specs/animation/motion-accessibility-policy.md](specs/animation/motion-accessibility-policy.md): reduced motion defaults to disable/simplify per pattern type and priority.
+- Default strategies (if spec does not override):
+  - ui: essential → simplify; decorative → disable
+  - reveal: essential → simplify; decorative → disable
+  - narrative: essential → disable; decorative → disable
+- Simplify means: no scroll-linking, no/ tiny stagger, distance 0–xs, prefer fade-only, short durations (instant/fast/base).
+- Disable means: skip animation and set final/rest state.
 - **prefers-reduced-motion:**
   - Tailwind: use motion-safe/motion-reduce variants; reduced-motion defaults to minimal fade or no motion
   - GSAP: respect reduced motion by shortening timelines, removing movement, and avoiding scroll-scrub; provide instant state or fades
@@ -125,6 +161,12 @@ Required output from the module:
   - Modals/overlays must maintain focus trap and restore focus on close (if applicable)
 - **Fallbacks:**
   - When JS fails, UI must remain usable; Tailwind state classes should not depend on JS for baseline visibility
+
+### Reduced-motion implementation checklist (apply per scene)
+- Gate scene init with `isReducedMotion()`; if reduced, apply disable/simplify per strategy before registering ScrollTriggers/tweens.
+- Enforce token constraints under reduced motion: durations ∈ {instant, fast, base}; distance ∈ {0, xs}; eases ∈ {standard, enter, exit}; no springy/overshoot.
+- No scroll narratives (scrub/pin/parallax) in reduced motion; avoid continuous/looping motion.
+- Provide non-motion state cues (text/icon/ARIA) so motion is never required for comprehension.
 
 ## Testing & Validation
 - **Functional verification:**
@@ -145,7 +187,5 @@ Required output from the module:
 - **Single token system** required so Tailwind and GSAP outputs feel cohesive.
 
 ## Open Questions
-- Where are motion tokens defined (Tailwind config vs motion/tokens.js) and what is the canonical source?
 - Standard file structure for GSAP scenes and registration (exact paths)?
-- What is the project’s preferred reduced-motion behavior for scroll-linked scenes (disable scrub vs replace with discrete enter)?
 - Do we need an ADR for the decision rubric and tie-break rule?
