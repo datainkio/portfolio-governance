@@ -65,3 +65,4 @@ Note: some projects may include their own domain-specific agents (e.g., choreogr
 - Workspace map: [.copilot/context/workspace-map.md](../.copilot/context/workspace-map.md)
 - AIX spec: [specs/performance/aix.md](../specs/performance/aix.md)
 - Logs folder: [docs/logs/](logs/README.md)
+- Docs publishing spec: [specs/features/brower-accessible-documentation.md](../specs/features/brower-accessible-documentation.md)

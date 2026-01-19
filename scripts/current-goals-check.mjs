@@ -268,9 +268,7 @@ async function main() {
 			process.exit(0);
 		}
 
-		process.stdout.write('Update recommended for current-goals.\n\n');
 		for (const reason of reasons) process.stdout.write(`- ${reason}\n`);
-		process.stdout.write(`\nNext: review ${payload.file} and update the Now/Next/Not Now sections to reflect the changes above.\n`);
 	}
 
 	process.exit(args.failOnUpdate && recommended ? 1 : 0);

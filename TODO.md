@@ -1,4 +1,5 @@
 # TODO
+The primary audience for this document is human, not AI.
 
 ## AIX / DX
 - [ ] Reduce syntax errors from AI edits (e.g. "SyntaxError: Unexpected token '}'")

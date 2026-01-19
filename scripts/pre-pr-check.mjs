@@ -116,15 +116,12 @@ function printHuman(results, summary) {
 		return;
 	}
 
-	process.stdout.write('Pre-PR Check: UPDATE RECOMMENDED\n');
-	process.stdout.write('Fix the items below, then re-run this task.\n\n');
+	process.stdout.write('Pre-PR Check: UPDATE RECOMMENDED\n\n');
 
 	for (const r of results) {
 		if (r.status === 0) continue;
-		process.stdout.write(`--- ${r.scriptRel} (exit ${r.status}) ---\n`);
 		if (r.stdout) process.stdout.write(r.stdout + '\n');
 		if (r.stderr) process.stdout.write(r.stderr + '\n');
-		process.stdout.write('\n');
 	}
 }
 

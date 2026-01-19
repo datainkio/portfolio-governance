@@ -37,6 +37,10 @@ These documents are more stable than notes and more detailed than context summar
 
 Both humans and AI agents should reference them before making non-trivial changes.
 
+## Feature Specs
+
+- [Browser-accessible documentation](features/brower-accessible-documentation.md)
+
 # Project Context (Canonical)
 
 This folder contains the authoritative, tool-agnostic context for this project. It answers the following questions:

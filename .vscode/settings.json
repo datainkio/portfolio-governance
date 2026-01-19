@@ -54,7 +54,14 @@
 				"name": "AIX: Refresh Context",
 				"singleInstance": true,
 				"color": "#1565C0",
-				"command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs --open"
+				"command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs"
+			},
+			{
+				"name": "AIX: Drift (Active File)",
+				"singleInstance": true,
+				"color": "#0D47A1",
+				"command": "cd \"${workspaceFolder}/../aix\" && node scripts/drift-file-report.mjs --file \"${file}\"",
+				"tooltip": "Plain-language drift readout for the focused editor file plus aggregate drift"
 			},
 			{
 				"name": "AIX: Freshness (CI)",

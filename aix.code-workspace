@@ -29,8 +29,14 @@
         {
           "name": "Update Context   $(debug-stackframe-dot)",
           "singleInstance": true,
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs --open",
-          "tooltip": "Calculates context/doc/spec drift and opens the top drifted files in VS Code"
+          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs",
+          "tooltip": "Calculates context/doc/spec drift without opening files"
+        },
+        {
+          "name": "Drift: Active File   $(run-all)",
+          "singleInstance": true,
+          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/drift-file-report.mjs --file \"${file}\"",
+          "tooltip": "Plain-language drift readout for the focused editor file plus aggregate drift"
         },
         {
           "name": "Freshness Checkup   $(debug-stackframe-dot)",

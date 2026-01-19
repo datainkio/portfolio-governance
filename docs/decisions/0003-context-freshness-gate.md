@@ -63,6 +63,6 @@ We want a low-friction mechanism that:
 - Run the checker manually:
    - `node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10`
 - Guided refresh workflow:
-   - `node scripts/context-refresh.mjs --open`
+   - `node scripts/context-refresh.mjs`
 - Accept baseline after review:
    - `node scripts/update-context-freshness.mjs --set-baseline HEAD --note "reason"`

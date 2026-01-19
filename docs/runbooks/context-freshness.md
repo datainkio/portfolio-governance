@@ -11,10 +11,10 @@ CI-style hard fail at the warn threshold:
 
 - `node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10`
 
-### 2) Guided refresh (drift report + open files)
+### 2) Guided refresh (drift report)
 
 - VS Code task: **Refresh Context (Guided)**
-- CLI: `node scripts/context-refresh.mjs --open`
+- CLI: `node scripts/context-refresh.mjs`
 
 ### 3) Manage drift baselines
 

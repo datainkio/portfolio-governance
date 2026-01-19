@@ -41,10 +41,8 @@ function parseArgs(argv) {
 			i += 1;
 			continue;
 		}
-		if (token === '--open') {
-			args.open = true;
-			continue;
-		}
+		// --open is deprecated; kept for compatibility but ignored to avoid auto-opening files.
+		if (token === '--open') continue;
 		if (token === '--json') {
 			args.json = true;
 			continue;
@@ -68,7 +66,7 @@ Options:
 	--fail-threshold <n>  Fail when aggregate drift score >= n (default: ${DEFAULTS.failThreshold})
 	--baseline <hash>     Override drift baseline (default: context/drift-baseline.json or origin/main)
 	--path <glob>         Limit drift calculation to paths (repeatable, default: context specs docs)
-	--open                Open drifted files in VS Code
+	--open                (deprecated; ignored)
   --json               Emit JSON payload
   -h, --help           Show help
 \nNotes:
@@ -94,18 +92,6 @@ async function main() {
 	const sorted = [...report.files].sort((a, b) => b.score - a.score);
 	const top = sorted.slice(0, 10);
 
-	if (args.open && top.length > 0) {
-		try {
-			execFileSync('code', top.map((f) => f.path), { cwd, stdio: ['ignore', 'ignore', 'ignore'] });
-		} catch (err) {
-			const tip =
-				process.platform === 'darwin'
-					? 'Open VS Code and run "Shell Command: Install \"code\" command in PATH" from the Command Palette.'
-				: 'Ensure the VS Code `code` CLI is installed and on your PATH.';
-			process.stderr.write(`context-refresh could not launch VS Code: ${err?.message || err}\n${tip}\n`);
-		}
-	}
-
 	const payload = {
 		ok: report.aggregate < args.warnThreshold,
 		recommended,
@@ -121,21 +107,16 @@ async function main() {
 		process.exit(report.aggregate >= args.failThreshold ? 2 : recommended ? 1 : 0);
 	}
 
-	process.stdout.write('Context refresh (drift-guided)\n');
-	process.stdout.write(`Baseline: ${baseline.baselineHash} (warn ${args.warnThreshold}, fail ${args.failThreshold})\n`);
+	process.stdout.write('Context Drift Report\n');
 	process.stdout.write(`Aggregate drift: ${report.aggregate.toFixed(2)}\n`);
 	process.stdout.write(`Recommended: ${recommended ? 'yes' : 'no'}\n`);
 
 	if (top.length) {
 		process.stdout.write('\nTop contributors:\n');
 		for (const f of top) {
-			process.stdout.write(
-				`- ${f.path}: score ${f.score.toFixed(2)} (+${f.added}/-${f.deleted}, crit ${f.criticalityWeight}, sem ${f.semanticWeight} ${f.semanticBucket})\n`
-			);
+			process.stdout.write(`- ${f.path}\n`);
 		}
 	}
-
-	process.stdout.write('\nNext: review the drifted files and update as needed, then re-run this task.\n');
 	process.exit(report.aggregate >= args.failThreshold ? 2 : recommended ? 1 : 0);
 }
 

@@ -95,6 +95,22 @@
 			"problemMatcher": []
 		},
 		{
+			"label": "Drift: Active File",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/drift-file-report.mjs\" --file \"${file}\"",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"detail": "Plain-language drift readout for the focused editor file plus the aggregate drift score.",
+			"runOptions": {
+				"reevaluateOnRerun": true
+			},
+			"problemMatcher": []
+		},
+		{
 			"label": "Refresh Context (Guided)",
 			"type": "shell",
 			"command": "node \"${workspaceFolder}/scripts/context-refresh.mjs\" --open",

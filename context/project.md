@@ -117,6 +117,10 @@ Agents should **prefer reading context over inferring intent**.
 
 If information belongs in more than one place, **it probably belongs in `/context` or `/specs`, not `/docs`.**
 
+### Docs / Publishing
+
+- Browser-accessible documentation (MkDocs Material + GitHub Pages): see [specs/features/brower-accessible-documentation.md](specs/features/brower-accessible-documentation.md)
+
 ---
 
 ## Decision-Making Guidance for AI Agents
