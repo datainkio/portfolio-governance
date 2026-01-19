@@ -5,7 +5,7 @@
 - **Owners:** Russell
 
 ## Context
-We want a domain-specialized module for the portfolio frontend (11ty + Nunjucks + Tailwind v4 + GSAP + Airtable + Sanity) that reduces mistakes and enforces project guardrails.
+We want a domain-specialized module for the portfolio frontend (11ty + Nunjucks + Tailwind v4 + GSAP + Airtable + Sanity) that reduces mistakes and enforces project guardrails. The module now lives in the mounted project at `frontend/.copilot/prompts/domain.prompt.md`.
 
 A question arose: should the new `portfolio-frontend-domain` module act as a router in the same sense as Concierge (i.e., Concierge routes to the domain module, then the domain module routes again to sub-prompts like Nunjucks/Tailwind/11ty)?
 
@@ -36,4 +36,4 @@ Adopt **Model A**.
 
 ## Related
 - [Spec: Domain-Specialized AI Coding Agent](../../specs/ai/domain-specialized-coding-agent.spec.md)
-- [Prompt module: portfolio-frontend-domain](../../.copilot/prompts/portfolio-frontend-domain.prompt.md)
+- [Prompt module: frontend domain](../../../frontend/.copilot/prompts/domain.prompt.md)

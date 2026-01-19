@@ -19,9 +19,9 @@ Concierge occasionally emits a ceremonial callout (p = 1/6) before the standard 
 - Migrator — scaffold migration/upgrades; audits differences, applies safe updates, writes changelogs. Prompt module: [.copilot/prompts/migrator.updater.prompt.md](../.copilot/prompts/migrator.updater.prompt.md); Guide: [docs/migration.md](../docs/migration.md)
 
 ## Project Domain Modules (selected by Concierge when in-scope)
-- Portfolio Frontend Domain — frontend implementation guardrails (11ty/Nunjucks/Tailwind v4/GSAP/Airtable/Sanity). Prompt module: [.copilot/prompts/portfolio-frontend-domain.prompt.md](../.copilot/prompts/portfolio-frontend-domain.prompt.md)
-- Portfolio Frontend — Choreography Planning — plan-only module for motion timelines/triggers/a11y in `frontend/`. Prompt module: [.copilot/prompts/portfolio-frontend-choreography-planning.prompt.md](../.copilot/prompts/portfolio-frontend-choreography-planning.prompt.md)
-- Portfolio Frontend — Choreography Implementation — implement approved choreography plans in `frontend/`. Prompt module: [.copilot/prompts/portfolio-frontend-choreography-implementation.prompt.md](../.copilot/prompts/portfolio-frontend-choreography-implementation.prompt.md)
+- Portfolio Frontend Domain — frontend implementation guardrails (11ty/Nunjucks/Tailwind v4/GSAP/Airtable/Sanity). Prompt module: [frontend/.copilot/prompts/domain.prompt.md](../../frontend/.copilot/prompts/domain.prompt.md)
+- Portfolio Frontend — Choreography Planning — plan-only module for motion timelines/triggers/a11y in `frontend/`. Prompt module: [frontend/.copilot/prompts/choreography-planning.prompt.md](../../frontend/.copilot/prompts/choreography-planning.prompt.md)
+- Portfolio Frontend — Choreography Implementation — implement approved choreography plans in `frontend/`. Prompt module: [frontend/.copilot/prompts/choreography-implementation.prompt.md](../../frontend/.copilot/prompts/choreography-implementation.prompt.md)
 
 Note: some projects may include their own domain-specific agents (e.g., choreography or framework-specific helpers). Prefer the project context packs under `context/projects/`.
 
