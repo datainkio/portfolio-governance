@@ -22,10 +22,15 @@ Domain-module rule:
 - Only select a domain-specific module (e.g., project-specific frontend modules) when the user request clearly targets that repo/domain (explicit `frontend/` references or unmistakable stack keywords).
 - If the repo/domain is ambiguous, default to a general module (Navigator for location, Implementer for coding) and proceed with minimal assumptions.
 
-Portfolio frontend sub-routing (when domain is clear):
-- Planning motion/choreography → `portfolio-frontend-choreography-planning.prompt.md`
-- Implementing an approved choreography plan → `portfolio-frontend-choreography-implementation.prompt.md`
-- General frontend implementation work → `portfolio-frontend-domain.prompt.md`
+Mounted-project routing (frontend example):
+- Detect explicit `frontend/` scope or stack cues (11ty/Nunjucks/Tailwind v4/GSAP/AnimationBus/Director.js).
+- Route using the mounted index at `frontend/.copilot/prompts/index.md`; select modules from that index:
+	- Templates/Nunjucks/11ty → `display.prompt.md`
+	- Browser JS (progressive enhancement) → `js.prompt.md`
+	- Choreography planning (no code) → `choreography-planning.prompt.md`
+	- Choreography implementation (code) → `choreography-implementation.prompt.md`
+	- General frontend/domain work → `domain.prompt.md`
+- Safety: respect the mounted-project allowlist/denylist in `specs/features/concierge-mounted-project-aix.md` (report-only by default; edits only within allowlisted AIX surfaces).
 
 ## Step 2 — Blocking question policy
 Ask **at most one** question *only if blocked* (i.e., you cannot produce a safe/usable output without it).

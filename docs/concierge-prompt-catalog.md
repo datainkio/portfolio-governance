@@ -3,6 +3,8 @@
 This catalog is a **human-friendly menu of high-value things to ask Concierge** (the workspace’s single Copilot Chat entrypoint).
 Concierge will classify your intent and route work to the right specialist module (Housekeeper, Navigator, Librarian, Mechanic, Architect, Analyst, Editor, Migrator), then return an end-to-end result.
 
+For mounted projects (e.g., `frontend/`), Concierge can load that project’s prompt index (see `frontend/.copilot/prompts/index.md`) and route into its modules instead of the scaffold defaults.
+
 Use this when you want:
 - faster “time to useful output” (TTUO)
 - fewer wrong turns in multi-root workspaces

@@ -70,11 +70,11 @@ This index is the primary routing surface for Concierge. Each module lists a one
 
 ---
 
-## portfolio-frontend-domain.prompt.md
-**Purpose:** Implement changes in the `frontend/` repo (11ty/Nunjucks/Tailwind v4/GSAP/Airtable/Sanity) with strict project guardrails.
-**Top triggers:** frontend/, eleventy, 11ty, nunjucks, tailwind v4, gsap, choreography, AnimationBus, Director.js, airtable collections, eleventy filters/shortcodes
-**Primary Output type:** Implementation Report
-**Non-trigger:** Do not select unless the request explicitly targets `frontend/` or clearly references the portfolio frontend stack.
+## Mounted frontend modules (from frontend/.copilot/prompts/index.md)
+**Purpose:** Use the mounted project’s prompt modules for portfolio frontend work (11ty/Nunjucks/Tailwind v4/GSAP/Airtable/Sanity).
+**Top triggers:** explicit `frontend/` scope or stack cues (eleventy/11ty, Nunjucks, Tailwind v4, GSAP, AnimationBus, Director.js, Airtable collections, choreography).
+**Primary Output type:** Implementation Report (module-specific).
+**Modules:** display.prompt.md (templates/Nunjucks), js.prompt.md (browser JS), choreography-planning.prompt.md (motion plan, no code), choreography-implementation.prompt.md (GSAP/choreography code), domain.prompt.md (general frontend).
 
 ## navigator.prompt.md
 **Purpose:** Help locate the right file/folder/entrypoint and define where changes should live.
