@@ -41,8 +41,7 @@
 		"**/models/**": true,
 		"**/output/**": true
 	},
-	"workbench.startupEditor": "readme"
-	,
+	"workbench.startupEditor": "readme",
 	"actionButtons": {
 		"commands": [
 			{

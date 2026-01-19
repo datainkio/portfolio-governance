@@ -14,6 +14,7 @@
 
 ## Future improvements for Vitaixmen
 This section contains TODO items marking opportunities for improving Vitaixmen through lessons learned in this project.
+- [ ] Provide direction for maintaining currency of README files (e.g. "always reflect the current state of the folder and the files it contains... describe goals and functions...")
 - [x] Integrate maintenance of constraints and decisions 
 - [x] Reinforce constraint that managing context does not require humans touching meta lines in files.
 - [ ] Handle EOF and syntax errors (e.g. SyntaxError: Unexpected end of JSON input) when processing files
