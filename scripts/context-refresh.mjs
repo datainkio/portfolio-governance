@@ -72,7 +72,7 @@ Options:
   --json               Emit JSON payload
   -h, --help           Show help
 \nNotes:
-	This guided workflow reports drift using the same scoring model as context-freshness-check.mjs (git diff vs baseline).
+	This guided workflow reports drift using the shared scoring model (git diff vs baseline, no timestamps).
 	It does not rely on file timestamps or sidecar reviewedAt; recommendations are driven by drift scores.
 	It does not rewrite goals/constraints/decisions content.
 `);
@@ -95,7 +95,15 @@ async function main() {
 	const top = sorted.slice(0, 10);
 
 	if (args.open && top.length > 0) {
-		execFileSync('code', top.map((f) => f.path), { cwd, stdio: ['ignore', 'ignore', 'ignore'] });
+		try {
+			execFileSync('code', top.map((f) => f.path), { cwd, stdio: ['ignore', 'ignore', 'ignore'] });
+		} catch (err) {
+			const tip =
+				process.platform === 'darwin'
+					? 'Open VS Code and run "Shell Command: Install \"code\" command in PATH" from the Command Palette.'
+				: 'Ensure the VS Code `code` CLI is installed and on your PATH.';
+			process.stderr.write(`context-refresh could not launch VS Code: ${err?.message || err}\n${tip}\n`);
+		}
 	}
 
 	const payload = {

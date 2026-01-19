@@ -1,63 +1,31 @@
 # Runbook: Context Freshness & Guided Refresh
 
-- **Owner:** DX Team
-- **Last validated:** 2026-01-17
-
-## Purpose
-
-Keep these workspace-level context files accurate and up to date:
-
-- `context/current-goals.md` (what matters now)
-- `context/constraints.md` (hard guardrails)
-- `context/decisions.md` (index of accepted ADRs)
-
-Automation should **detect drift and enforce review**, not auto-write goals/constraints/decisions.
-
-## Update triggers (human)
-
-Update the relevant context file when any of these happen:
-
-- A priority changes materially (promote/demote items in `current-goals.md`).
-- A new ADR is accepted or an ADR is superseded (update `decisions.md`).
-- A new hard constraint appears (update `constraints.md`).
-- A new spec becomes the real source of truth (move durable guidance to `specs/`, then simplify context).
-
 ## Tools
 
-### 1) Check overall context freshness
+### 1) Check overall context drift (no timestamps)
 
-- VS Code task: **Check Context Freshness (All)**
-- CLI: `node scripts/context-freshness-check.mjs`
+- VS Code task: **Check Context Drift (All)**
+- CLI: `node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 20`
 
-CI-friendly:
-- `node scripts/context-freshness-check.mjs --fail-on-update --maxAgeDays 14`
+CI-style hard fail at the warn threshold:
 
-Strict CI mode (requires sidecar freshness; ignores `Last updated:` as a baseline):
-
-- `node scripts/context-freshness-check.mjs --require-sidecar --fail-on-update --maxAgeDays 14`
+- `node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10`
 
 ### 2) Guided refresh (drift report + open files)
 
 - VS Code task: **Refresh Context (Guided)**
 - CLI: `node scripts/context-refresh.mjs --open`
 
-### 3) Automatic review metadata (git hook)
+### 3) Manage drift baselines
 
-This workspace tracks **context review freshness** in a sidecar file:
+- Show current drift vs baseline: `node scripts/update-context-freshness.mjs`
+- Accept current state as baseline: `node scripts/update-context-freshness.mjs --set-baseline HEAD --note "why"`
+- Adjust thresholds: add `--warn-threshold` / `--fail-threshold`
 
-- `context/.freshness.json`
+Notes:
 
-It is updated automatically on commit by a pre-commit hook.
-
-Install the repo-managed hooks once per clone:
-
-- VS Code task: **Install Git Hooks (core.hooksPath)**
-- CLI: `node scripts/install-git-hooks.mjs`
-
-Initialize the sidecar once per repo (so strict CI has baselines for all context files):
-
-- VS Code task: **Init Context Freshness Sidecar**
-- CLI: `node scripts/update-context-freshness.mjs --init`
+- Baselines live in `context/drift-baseline.json` and are hash-based, not timestamp-based.
+- Hooks should not write or rely on `Last updated:` lines; drift scoring drives gating.
 
 If you reviewed context and decided no content changes were needed, record the review without editing context files:
 
@@ -99,17 +67,10 @@ If your repo layout differs, set `AIX_ROOT` for the frontend hook (example):
 
 This will configure `core.hooksPath=.githooks` in the frontend repo and run the AIX threshold gate during frontend commits.
 
-Optional (legacy; only updates `Last updated:` lines; does not change content):
-
-- Touch recommended files: `node scripts/context-refresh.mjs --touch`
-- Touch all context files: `node scripts/context-refresh.mjs --touch-all`
-
 ## Expected outputs / checks
 
 After refreshing:
-
-- `context-freshness-check` returns “fresh enough”
-- `context/.freshness.json` reflects reviewed context files (updated via git hook)
+- `context-refresh` returns a drift score below warn threshold
 - `current-goals.md` stays short (3–7 bullets per section)
 - `constraints.md` remains workspace-level; project-specific constraints are linked
 - `decisions.md` lists current accepted ADRs and links to the canonical ADR files
@@ -121,28 +82,10 @@ After refreshing:
 
 ## Troubleshooting
 
-### The commit hook didn’t update `context/.freshness.json`
+### Drift score seems too high
 
-Most common causes:
-
-1) Hooks aren’t installed for this clone
-	- Check: `git config --get core.hooksPath` (should be `.githooks`)
-	- Fix: `node scripts/install-git-hooks.mjs` (or VS Code task **Install Git Hooks (core.hooksPath)**)
-
-2) The context file wasn’t staged
-	- The pre-commit updater only runs when one of these is staged:
-	  - `context/current-goals.md`
-	  - `context/constraints.md`
-	  - `context/decisions.md`
-
-3) Hooks were bypassed
-	- If you commit with `git commit --no-verify`, hooks will not run.
-
-4) Quick manual verification
-	- Stage a context change: `git add context/current-goals.md`
-	- Run: `node scripts/update-context-freshness.mjs`
-	- Confirm: `git diff --cached --name-only` includes `context/.freshness.json`
-	- VS Code task: **Update Context Freshness Sidecar (From Staged)**
+- Check which files dominate the score (top contributors printed by `context-refresh`).
+- Lower thresholds only after backtesting on recent changes; defaults are warn=10 / fail=20.
 
 ## Comms template
 

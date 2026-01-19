@@ -17,10 +17,6 @@ Safe wrapper for common file ops inside mounted projects (open, move, delete, mk
 
 Watches context/specs/docs drift versus the baseline and reports aggregate drift (CI-friendly monitor).
 
-### context-freshness-check.mjs
-
-Computes drift vs baseline (context/specs/docs) and exits non-zero on warn/fail thresholds; used by Pre-PR/CI tasks.
-
 ### mounted-project-aix-audit.mjs
 
 Report-only, dependency-free discovery runner that writes timestamped audit artifacts into a mounted project.
@@ -33,7 +29,7 @@ Report-only, dependency-free discovery runner that writes timestamped audit arti
 
 ### context-refresh.mjs
 
-Drift-guided context refresher that reports the top contributors to context/specs/docs drift using the same scoring model as `context-freshness-check.mjs`.
+Drift-guided context refresher that reports the top contributors to context/specs/docs drift using the shared drift scoring model (no timestamps).
 
 - Usage: `node scripts/context-refresh.mjs [--warn-threshold N] [--fail-threshold N] [--baseline HASH] [--path GLOB] [--open] [--json]`
 - Behavior: computes drift vs `context/drift-baseline.json` (or `origin/main`), marks recommended when aggregate ≥ warn threshold, and optionally opens the top drifted files in VS Code.

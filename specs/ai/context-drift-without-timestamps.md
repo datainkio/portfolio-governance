@@ -4,7 +4,7 @@
 - **Owner(s):** Russell
 - **Status:** draft
 - **Last reviewed:** 2026-01-18
-- **Related:** specs/ai/domain-agent-probes.md, docs/agents.md, scripts/context-freshness-check.mjs, scripts/context-drift-watch.mjs, scripts/update-context-freshness.mjs, scripts/pre-pr-check.mjs
+- **Related:** specs/ai/domain-agent-probes.md, docs/agents.md, scripts/context-refresh.mjs, scripts/context-drift-watch.mjs, scripts/update-context-freshness.mjs, scripts/pre-pr-check.mjs
 
 ## Purpose
 Define the contract for context drift detection that relies only on deterministic drift scoring (diff- and semantics-based), eliminating any dependence on user-maintained timestamps.
@@ -74,10 +74,10 @@ Output:
 - Add `--baseline <hash>` and `--set-baseline` (writes `context/drift-baseline.json` with resolved hash and optional `--note`).
 - Add `--warn-threshold <n>` and `--fail-threshold <n>` (defaults defined in config section).
 
-### `scripts/context-freshness-check.mjs`
-- Compute drift score vs resolved baseline.
-- Exit codes: 0 below warn; 1 if between warn/fail and `--fail-on-update` unset (warn); 2 if at/above fail or `--fail-on-update` set and score >= warn.
-- Output: table of per-file scores, aggregate, baseline hash, suggested `--set-baseline` command when user intends to accept.
+### `scripts/context-refresh.mjs`
+- Compute drift score vs resolved baseline (no timestamp or sidecar requirements).
+- Exit codes: 0 below warn; 1 when aggregate is between warn/fail; 2 when at/above fail.
+- Output: top contributors ordered by score, aggregate, baseline hash, suggested `--set-baseline` command when accepting drift.
 
 ### `scripts/context-drift-watch.mjs`
 - Long-form report: per-file deltas, weights applied, remediation suggestions ordered by score contribution.

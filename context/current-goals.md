@@ -6,6 +6,7 @@ Last updated: 2026-01-18T18:45:00Z
 ## Now
 - Address weaknesses of determining freshness by timestamp. Requires user input, which will lead to false negatives when forgotten.
 - Develop the spec for an animation-focused Concierge module based on specs/animation/choreographer.animation-spec.md
+- Develop the browser-accessibile-documentation spec for making documentation available to remote agents
 
 ## Next
 - Define and document command permissions (e.g. zsh) to streamline agent work

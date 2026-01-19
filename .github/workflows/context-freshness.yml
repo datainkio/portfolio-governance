@@ -1,4 +1,4 @@
-name: Context Freshness
+name: Context Drift
 
 on:
   pull_request:
@@ -24,7 +24,7 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  context-freshness:
+  context-drift:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,5 +35,5 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Enforce sidecar freshness
-        run: node scripts/context-freshness-check.mjs --require-sidecar --fail-on-update --maxAgeDays 14
+      - name: Enforce drift thresholds (no timestamps)
+        run: node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10

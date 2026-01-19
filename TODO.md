@@ -14,6 +14,7 @@
 
 ## Future improvements for Vitaixmen
 This section contains TODO items marking opportunities for improving Vitaixmen through lessons learned in this project.
+- [ ] Give users the ability to provide feedback on the quality of an agent's response to a prompt requiring multiple steps. This will require identifying the appropriate times to receive user feedback (e.g. when the user determines a task is complete or when the user determines they need to interrupt a task in process), defining a structure for the feeback, and addressing the feedback. The goal is to provide continuous feedback to agents so that they can adjust their behavior and beliefs accordingly. Likely involves the step of updating drift baseline on completion.
 - [ ] Provide direction for maintaining currency of README files (e.g. "always reflect the current state of the folder and the files it contains... describe goals and functions...")
 - [x] Integrate maintenance of constraints and decisions 
 - [x] Reinforce constraint that managing context does not require humans touching meta lines in files.
@@ -23,6 +24,10 @@ This section contains TODO items marking opportunities for improving Vitaixmen t
 - [x] Add allowlisted Agent Ops tasks (safe file ops + cross-repo scripts) to reduce terminal confirmation friction
 - [ ] Figure out appropriate level of agent cautiousness; can lead to long prompt completion times and overengineered solutions; should be more open
 - [ ] Update prompt triage to direct to default Copilot agent when appropriate (whatever that looks like)
+- [ ] Improve repo discoverabilty and wiki/pages navigation for AI agents. Make repo docs inherently navigable by adding lightweight index files to each folder (if they don’t already exist). Each one has:
+-- “what’s in this folder”
+-- links to key pages
+-- “start here” guidance
 
 ## Design & Development
 - [ ] Hook up ChatGPT browser instance to repos

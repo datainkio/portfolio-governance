@@ -60,7 +60,7 @@
 				"name": "AIX: Freshness (CI)",
 				"singleInstance": true,
 				"color": "#6A1B9A",
-				"command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-freshness-check.mjs --fail-on-update --maxAgeDays 14"
+				"command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10"
 			},
 			{
 				"name": "AIX: Goals (CI)",
@@ -73,6 +73,13 @@
 				"singleInstance": true,
 				"color": "#455A64",
 				"command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-freshness.mjs"
+			},
+			{
+				"name": "AIX: Set Drift Baseline",
+				"singleInstance": true,
+				"color": "#00838F",
+				"command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-freshness.mjs --set-baseline HEAD --note \"set via Action Button\"",
+				"tooltip": "Sets the context drift baseline (accepted snapshot stored in context/drift-baseline.json) so future drift checks compare against this state and keep AIX hygiene stable"
 			}
 		],
 		"defaultColor": "white",

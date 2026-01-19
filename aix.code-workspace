@@ -17,37 +17,42 @@
     "actionButtons": {
       "commands": [
         {
-          "name": "AIX: Pre-PR",
-          "singleInstance": true,
-          "color": "#2E7D32",
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/pre-pr-check.mjs"
+          "name": "$(dashboard)Workspace Hygiene   |",
+          "tooltip": "Section header for workspace hygiene shortcuts"
         },
         {
-          "name": "AIX: Refresh Context",
+          "name": "Pre-Commit   $(debug-stackframe-dot)",
           "singleInstance": true,
-          "color": "#1565C0",
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs --open"
+          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/pre-pr-check.mjs",
+          "tooltip": "Runs the pre-PR hygiene script from the aix root and reports blocking issues"
         },
         {
-          "name": "AIX: Freshness (CI)",
+          "name": "Update Context   $(debug-stackframe-dot)",
           "singleInstance": true,
-          "color": "#6A1B9A",
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-freshness-check.mjs --fail-on-update --maxAgeDays 14"
+          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs --open",
+          "tooltip": "Calculates context/doc/spec drift and opens the top drifted files in VS Code"
         },
         {
-          "name": "AIX: Goals (CI)",
+          "name": "Freshness Checkup   $(debug-stackframe-dot)",
           "singleInstance": true,
-          "color": "#EF6C00",
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/current-goals-check.mjs --fail-on-update --maxAgeDays 14"
+          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10",
+          "tooltip": "Runs drift-only context check (no timestamps); fails when aggregate score meets or exceeds warn threshold"
         },
         {
-          "name": "AIX: Update Sidecar (Staged)",
+          "name": "Update Sidecar",
           "singleInstance": true,
-          "color": "#455A64",
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-freshness.mjs"
-        }
+          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-freshness.mjs",
+          "tooltip": "Regenerates the context freshness sidecar based on staged changes"
+        },
+        {
+          "name": "Set Drift Baseline   $(run-all)",
+          "singleInstance": true,
+          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-freshness.mjs --set-baseline HEAD --note \"set via Action Button\"",
+          "tooltip": "Sets the context drift baseline (the accepted snapshot recorded in context/drift-baseline.json) so future drift checks compare against this state and keep AIX hygiene stable"
+        },
+
       ],
-      "defaultColor": "white",
+      "defaultColor": "#EF6C00",
       "reloadButton": "↻",
       "loadNpmCommands": false
     }

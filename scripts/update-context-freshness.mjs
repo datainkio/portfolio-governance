@@ -15,6 +15,7 @@ function parseArgs(argv) {
 		warnThreshold: DEFAULTS.warnThreshold,
 		failThreshold: DEFAULTS.failThreshold,
 		failOnThreshold: false,
+		summary: false,
 		json: false,
 		help: false,
 	};
@@ -53,6 +54,10 @@ function parseArgs(argv) {
 			args.failOnThreshold = true;
 			continue;
 		}
+		if (token === '--summary') {
+			args.summary = true;
+			continue;
+		}
 		if (token === '--json') {
 			args.json = true;
 			continue;
@@ -78,6 +83,7 @@ Options:
   --warn-threshold <n>   Warn when aggregate drift score >= n (default: ${DEFAULTS.warnThreshold})
   --fail-threshold <n>   Fail when aggregate drift score >= n (default: ${DEFAULTS.failThreshold})
   --fail-on-threshold    Exit non-zero when aggregate >= warn threshold
+	--summary              Print a concise one-line drift summary (aggregate and thresholds)
   --json                 Emit JSON payload
   -h, --help             Show help
 
@@ -89,6 +95,15 @@ Notes:
 function tryExecGit(args, { cwd }) {
 	try {
 		return execFileSync('git', args, { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim();
+	} catch {
+		return null;
+	}
+}
+
+async function readExistingBaseline({ cwd, file }) {
+	try {
+		const raw = await fs.readFile(path.join(cwd, file), 'utf8');
+		return JSON.parse(raw);
 	} catch {
 		return null;
 	}
@@ -131,6 +146,14 @@ function printHumanReport({ report, warnThreshold, failThreshold }) {
 	process.stdout.write('\nTo accept current state as baseline: node scripts/update-context-freshness.mjs --set-baseline HEAD --note "reason"\n');
 }
 
+function printSummary({ report, warnThreshold, failThreshold }) {
+	const { aggregate, files } = report;
+	const top = [...files].sort((a, b) => b.score - a.score).slice(0, 3);
+	const topDesc = top.map((f) => `${f.path} (${f.score.toFixed(2)})`).join(', ');
+	const details = top.length ? ` | top: ${topDesc}` : '';
+	process.stdout.write(`Drift summary: ${aggregate.toFixed(2)} (warn ${warnThreshold}, fail ${failThreshold})${details}\n`);
+}
+
 async function main() {
 	const args = parseArgs(process.argv.slice(2));
 	if (args.help) {
@@ -143,7 +166,8 @@ async function main() {
 	if (args.setBaseline) {
 		const resolved = await resolveBaseline({ cwd, baselineArg: args.baseline || 'HEAD' });
 		const target = await writeBaselineFile({ cwd, baselineHash: resolved.baselineHash, note: args.note });
-		process.stdout.write(`Set baseline to ${resolved.baselineHash} (${resolved.source}) -> ${target}\n`);
+		process.stdout.write(`Baseline set successfully -> ${target}\n`);
+		if (args.note) process.stdout.write(`Note: ${args.note}\n`);
 		process.exit(0);
 	}
 
@@ -168,7 +192,11 @@ async function main() {
 		}));
 	}
 
-	printHumanReport({ report, warnThreshold: args.warnThreshold, failThreshold: args.failThreshold });
+	if (args.summary) {
+		printSummary({ report, warnThreshold: args.warnThreshold, failThreshold: args.failThreshold });
+	} else {
+		printHumanReport({ report, warnThreshold: args.warnThreshold, failThreshold: args.failThreshold });
+	}
 	process.exit(
 		exitCode({
 			aggregate: report.aggregate,

@@ -21,18 +21,18 @@ We want a low-friction mechanism that:
 
 ## Decision
 
-1. **Track context review freshness in a sidecar** at `context/.freshness.json`.
-   - Each tracked context file records `{ reviewedAt, contentHash }`.
-   - The sidecar is updated automatically by repo-managed git hooks.
+1. **Track context drift baselines explicitly** in `context/drift-baseline.json`.
+   - Baseline stores `{ baselineHash, branch, notes }` and is set intentionally (no timestamps).
+   - The baseline is advanced via `scripts/update-context-freshness.mjs --set-baseline` when drift is accepted.
 
-2. **Compute drift deterministically** using local filesystem/git signals.
-   - Script: `scripts/context-freshness-check.mjs`
-   - Baseline: sidecar `reviewedAt` (strict mode can require the sidecar).
-   - Signals: recently modified files under configured watch roots since baseline.
+2. **Compute drift deterministically** using git diff signals only (no timestamps).
+   - Script: `scripts/context-refresh.mjs`
+   - Baseline: resolved git hash from `context/drift-baseline.json` or default branch.
+   - Signals: scoped to context/specs/docs; weighted by criticality and semantic type.
 
-3. **Enforce drift thresholds at commit time**.
-   - Hook entrypoint: `scripts/update-context-freshness.mjs --fail-on-threshold`
-   - Hook location: `.githooks/pre-commit` with `core.hooksPath=.githooks`
+3. **Enforce drift thresholds at commit/CI time**.
+   - Gate entrypoint: `scripts/update-context-freshness.mjs --fail-on-threshold` or `context-refresh` with fail=warn.
+   - Hook location: `.githooks/pre-commit` with `core.hooksPath=.githooks` (when enabled).
 
 4. **Include cross-repo drift signals from the sibling frontend repo**.
    - Watch root: `../frontend` (bounded and ignore-noisy directories).
@@ -61,8 +61,8 @@ We want a low-friction mechanism that:
 ## Operational notes
 
 - Run the checker manually:
-  - `node scripts/context-freshness-check.mjs --require-sidecar --maxAgeDays 14`
+   - `node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10`
 - Guided refresh workflow:
-  - `node scripts/context-refresh.mjs --open`
-- Record a review without editing context content:
-  - `node scripts/update-context-freshness.mjs --mark-reviewed`
+   - `node scripts/context-refresh.mjs --open`
+- Accept baseline after review:
+   - `node scripts/update-context-freshness.mjs --set-baseline HEAD --note "reason"`

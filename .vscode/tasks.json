@@ -59,9 +59,9 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Check Context Freshness (All)",
+			"label": "Check Context Drift (All)",
 			"type": "shell",
-			"command": "node \"${workspaceFolder}/scripts/context-freshness-check.mjs\"",
+			"command": "node \"${workspaceFolder}/scripts/context-refresh.mjs\"",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated",
@@ -71,9 +71,9 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Check Context Freshness (CI Mode)",
+			"label": "Check Context Drift (CI Mode)",
 			"type": "shell",
-			"command": "node \"${workspaceFolder}/scripts/context-freshness-check.mjs\" --fail-on-update --maxAgeDays 14",
+			"command": "node \"${workspaceFolder}/scripts/context-refresh.mjs\" --warn-threshold 10 --fail-threshold 10",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated",
@@ -83,9 +83,9 @@
 			"problemMatcher": []
 		},
 		{
-			"label": "Check Context Freshness (Strict Sidecar)",
+			"label": "Check Context Drift (Strict Sidecar)",
 			"type": "shell",
-			"command": "node \"${workspaceFolder}/scripts/context-freshness-check.mjs\" --require-sidecar --fail-on-update --maxAgeDays 14",
+			"command": "node \"${workspaceFolder}/scripts/context-refresh.mjs\" --warn-threshold 10 --fail-threshold 10",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated",
@@ -134,6 +134,18 @@
 			"label": "Mark Context Reviewed (Sidecar)",
 			"type": "shell",
 			"command": "node \"${workspaceFolder}/scripts/update-context-freshness.mjs\" --mark-reviewed",
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"showReuseMessage": false,
+				"clear": true
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Set Context Drift Baseline",
+			"type": "shell",
+			"command": "node \"${workspaceFolder}/scripts/update-context-freshness.mjs\" --set-baseline HEAD --note \"${input:baselineNote}\"",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated",
@@ -452,6 +464,14 @@
 				"clear": true
 			},
 			"problemMatcher": []
+		}
+	],
+	"inputs": [
+		{
+			"id": "baselineNote",
+			"type": "promptString",
+			"description": "Optional note to record with the new context drift baseline",
+			"default": "set via VS Code task"
 		}
 	]
 }

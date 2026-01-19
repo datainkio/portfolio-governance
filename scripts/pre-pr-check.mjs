@@ -64,7 +64,7 @@ Options:
 
 What it does:
   1) Check Current Goals (CI mode)
-  2) Check Context Freshness (CI mode)
+	2) Check Context Drift (CI mode)
 	3) Check AIX docs markdown links (local-only)
 
 Exit codes:
@@ -139,7 +139,7 @@ async function main() {
 	const baselineArgs = args.baseline ? ['--baseline', args.baseline] : [];
 
 	const syntaxChecks = [
-		runNodeCheck({ fileRel: path.join('scripts', 'context-freshness-check.mjs') }),
+		runNodeCheck({ fileRel: path.join('scripts', 'context-refresh.mjs') }),
 		runNodeCheck({ fileRel: path.join('scripts', 'update-context-freshness.mjs') }),
 		runNodeCheck({ fileRel: path.join('scripts', 'lib', 'drift.js') }),
 		runNodeCheck({ fileRel: path.join('scripts', 'pre-pr-check.mjs') }),
@@ -152,9 +152,8 @@ async function main() {
 			args: ['--fail-on-update', ...includeGitDirtyArgs],
 		}),
 		runNodeScript({
-			scriptRel: path.join('scripts', 'context-freshness-check.mjs'),
+			scriptRel: path.join('scripts', 'context-refresh.mjs'),
 			args: [
-				'--fail-on-update',
 				'--warn-threshold',
 				String(args.warnThreshold),
 				'--fail-threshold',

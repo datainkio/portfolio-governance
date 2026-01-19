@@ -15,8 +15,8 @@ cd "$ROOT"
 
 # Only run if the script exists (safe for partial checkouts).
 if [ -f "scripts/update-context-freshness.mjs" ]; then
-  echo "[aix] running context freshness gate..." 1>&2
-  node scripts/update-context-freshness.mjs --fail-on-threshold
+  echo "[aix] running context drift gate..." 1>&2
+  node scripts/update-context-freshness.mjs --fail-on-threshold --summary
 fi
 
 exit 0
