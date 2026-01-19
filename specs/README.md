@@ -41,6 +41,7 @@ Both humans and AI agents should reference them before making non-trivial change
 
 - GitHub Pages documentation site (MkDocs/Material): [specs/features/brower-accessible-documentation.md](features/brower-accessible-documentation.md)
 - File-level AIX hygiene (drift-neutral additions): [specs/features/file-aix-hygiene.md](features/file-aix-hygiene.md)
+- Workspace link maintenance automation: [specs/features/workspace-link-maintenance.md](features/workspace-link-maintenance.md)
 
 # Project Context (Canonical)
 

@@ -11,3 +11,4 @@ This folder defines product features end-to-end so AIX can align implementation 
 
 - GitHub Pages documentation site (MkDocs/Material): [specs/features/brower-accessible-documentation.md](brower-accessible-documentation.md)
 - File-level AIX hygiene (drift-neutral additions): [specs/features/file-aix-hygiene.md](file-aix-hygiene.md)
+- Workspace link maintenance automation: [specs/features/workspace-link-maintenance.md](workspace-link-maintenance.md)

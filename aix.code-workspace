@@ -21,42 +21,23 @@
           "tooltip": "Section header for workspace hygiene shortcuts"
         },
         {
-          "name": "Pre-Commit   $(debug-stackframe-dot)",
+          "name": "Pre-Commit",
           "singleInstance": true,
           "command": "cd \"${workspaceFolder}/../aix\" && node scripts/pre-pr-check.mjs",
           "tooltip": "Runs the pre-PR hygiene script from the aix root and reports blocking issues"
         },
         {
-          "name": "Update Context   $(debug-stackframe-dot)",
+          "name": "Update Context",
           "singleInstance": true,
           "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs",
           "tooltip": "Calculates context/doc/spec drift without opening files"
         },
         {
-          "name": "Drift: Active File   $(run-all)",
+          "name": "Drift: Active File",
           "singleInstance": true,
           "command": "cd \"${workspaceFolder}/../aix\" && node scripts/drift-file-report.mjs --file \"${file}\"",
           "tooltip": "Plain-language drift readout for the focused editor file plus aggregate drift"
         },
-        {
-          "name": "Freshness Checkup   $(debug-stackframe-dot)",
-          "singleInstance": true,
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/context-refresh.mjs --warn-threshold 10 --fail-threshold 10",
-          "tooltip": "Runs drift-only context check (no timestamps); fails when aggregate score meets or exceeds warn threshold"
-        },
-        {
-          "name": "Update Sidecar",
-          "singleInstance": true,
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-freshness.mjs",
-          "tooltip": "Regenerates the context freshness sidecar based on staged changes"
-        },
-        {
-          "name": "Set Drift Baseline   $(run-all)",
-          "singleInstance": true,
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-freshness.mjs --set-baseline HEAD --note \"set via Action Button\"",
-          "tooltip": "Sets the context drift baseline (the accepted snapshot recorded in context/drift-baseline.json) so future drift checks compare against this state and keep AIX hygiene stable"
-        },
-
       ],
       "defaultColor": "#EF6C00",
       "reloadButton": "↻",
