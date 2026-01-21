@@ -1,14 +1,8 @@
 {
   "folders": [
     {
-      "path": ".",
-    },
-    {
-      "path": "../frontend",
-    },
-    {
-      "path": "../backend",
-    },
+      "path": ".."
+    }
   ],
 
   "settings": {
@@ -66,58 +60,5 @@
     },
     "search.useIgnoreFiles": true,
     "search.useGlobalIgnoreFiles": true,
-    "actionButtons": {
-      "commands": [
-        {
-          "name": "$(dashboard)Workspace Hygiene   |",
-          "tooltip": "Section header for workspace hygiene shortcuts",
-        },
-        {
-          "name": "Review",
-          "singleInstance": true,
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/pre-pr-check.mjs",
-          "tooltip": "Runs the pre-PR hygiene script from the aix root and reports blocking issues",
-        },
-        {
-          "name": "Refresh",
-          "singleInstance": true,
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/update-context-auto.mjs",
-          "tooltip": "Checks drift, groups causes, auto-runs available hygiene tasks; no auto-baseline",
-        },
-        {
-          "name": "File Drift",
-          "singleInstance": true,
-          "command": "cd \"${workspaceFolder}/../aix\" && node scripts/drift-file-report.mjs --file \"${file}\"",
-          "tooltip": "Plain-language drift readout for the focused editor file plus aggregate drift",
-        },
-      ],
-      "defaultColor": "#EF6C00",
-      "reloadButton": "↻",
-      "loadNpmCommands": false,
-    },
-  },
-
-  "extensions": {
-    "recommendations": [
-      // Core
-      "editorconfig.editorconfig",
-      "eamodio.gitlens",
-      "esbenp.prettier-vscode",
-
-      // Markdown / Obsidian-friendly
-      "yzhang.markdown-all-in-one",
-
-      // Web / 11ty / Sanity
-      "dbaeumer.vscode-eslint",
-      "bradlc.vscode-tailwindcss",
-
-      // JSON / YAML
-      "redhat.vscode-yaml",
-
-      // Optional quality-of-life
-      "usernamehw.errorlens",
-    ],
-
-    "unwantedRecommendations": ["ms-vscode.cpptools"],
-  },
+  }
 }

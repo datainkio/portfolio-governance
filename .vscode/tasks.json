@@ -1,5 +1,4 @@
 {
-	// POC task that collects a new workspace name and type. The command is a no-op for now.
 	"version": "2.0.0",
 	"tasks": [
 		{
@@ -240,7 +239,7 @@
 		{
 			"label": "AIX: Pre-PR Check",
 			"type": "shell",
-			"command": "node \"${workspaceFolder}/scripts/pre-pr-check.mjs\"",
+			"command": "node \"${workspaceFolder}/scripts/pre-pr-check.mjs\" --targets aix",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated",
@@ -252,7 +251,7 @@
 		{
 			"label": "AIX: Pre-PR Check (Strict Sidecar)",
 			"type": "shell",
-			"command": "node \"${workspaceFolder}/scripts/pre-pr-check.mjs\" --strict-sidecar",
+			"command": "node \"${workspaceFolder}/scripts/pre-pr-check.mjs\" --strict-sidecar --targets aix",
 			"presentation": {
 				"reveal": "always",
 				"panel": "dedicated",

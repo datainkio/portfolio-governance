@@ -17,7 +17,7 @@ AIX objective: eliminate wrong-agent selection, reduce instruction drift, and ke
 4) If the request is outside available modules, use "General" behavior: be helpful, but keep output structured and workspace-aware.
 
 ## Hard constraints
-- Respect ignores (do not touch or recommend editing ignored paths): `.obsidian/`, build outputs, vendor folders, and any repo-specific ignore list.
+- Respect ignores (do not touch or recommend editing ignored paths): build outputs, vendor folders, and any repo-specific ignore list.
 - Prefer workspace-relative paths.
 - Prefer actionable checklists and file-level outputs; when providing artifacts, provide downloadable files.
 - Do not suggest switching agents.
@@ -45,3 +45,67 @@ Note: animation/choreography guidance is typically project-scoped; if present, f
 
 ## Safety & tone
 Clear, pragmatic, collaborative. Keep it concise; don’t over-explain.
+
+## AIX linked pages map (Mermaid)
+```mermaid
+graph TD
+	AIX_README[README.md]
+	DOCS_README[docs/README.md]
+	DOCS_AGENTS[docs/agents.md]
+	DOCS_ROLES[docs/agent-roles-and-workflows.md]
+	DOCS_RUNBOOKS[docs/runbooks/README.md]
+	RUNBOOK_REFRESH[docs/runbooks/refresh-ai-context.md]
+	DOCS_MIGRATION[docs/migration.md]
+	DOCS_LOGS[docs/logs/README.md]
+	CONTEXT_README[context/README.md]
+	CONTEXT_GOALS[context/current-goals.md]
+	COPILOT_MAP[.copilot/context/workspace-map.md]
+	COPILOT_README[.copilot/context/README.md]
+	SPECS_README[specs/README.md]
+	SPECS_AIX[specs/performance/aix.md]
+	AGENT_CONCIERGE[.github/agents/Concierge.md]
+	COPILOT_AGENTS[copilot-agents.json]
+	PROMPT_CONCIERGE[.copilot/prompts/concierge.prompt.md]
+	PROMPT_HOUSEKEEPER[.copilot/prompts/housekeeper.prompt.md]
+	PROMPT_NAVIGATOR[.copilot/prompts/navigator.prompt.md]
+	PROMPT_LIBRARIAN[.copilot/prompts/librarian.prompt.md]
+	PROMPT_ANALYST[.copilot/prompts/analyst.prompt.md]
+	PROMPT_ARCHITECT[.copilot/prompts/architect.prompt.md]
+	PROMPT_MECHANIC[.copilot/prompts/mechanic.prompt.md]
+	PROMPT_EDITOR[.copilot/prompts/editor.prompt.md]
+
+	AIX_README --> DOCS_README
+	AIX_README --> DOCS_RUNBOOKS
+	AIX_README --> COPILOT_AGENTS
+
+	DOCS_README --> DOCS_AGENTS
+	DOCS_README --> DOCS_RUNBOOKS
+
+	DOCS_AGENTS --> AGENT_CONCIERGE
+	DOCS_AGENTS --> PROMPT_CONCIERGE
+	DOCS_AGENTS --> PROMPT_HOUSEKEEPER
+	DOCS_AGENTS --> PROMPT_NAVIGATOR
+	DOCS_AGENTS --> PROMPT_LIBRARIAN
+	DOCS_AGENTS --> PROMPT_ANALYST
+	DOCS_AGENTS --> PROMPT_ARCHITECT
+	DOCS_AGENTS --> PROMPT_MECHANIC
+	DOCS_AGENTS --> PROMPT_EDITOR
+	DOCS_AGENTS --> DOCS_ROLES
+	DOCS_AGENTS --> COPILOT_MAP
+	DOCS_AGENTS --> CONTEXT_README
+	DOCS_AGENTS --> SPECS_AIX
+	DOCS_AGENTS --> RUNBOOK_REFRESH
+	DOCS_AGENTS --> DOCS_MIGRATION
+	DOCS_AGENTS --> DOCS_LOGS
+
+	COPILOT_MAP --> CONTEXT_README
+	COPILOT_MAP --> CONTEXT_GOALS
+	COPILOT_MAP --> COPILOT_README
+	COPILOT_MAP --> SPECS_README
+	COPILOT_MAP --> DOCS_README
+	COPILOT_MAP --> DOCS_AGENTS
+	COPILOT_MAP --> DOCS_RUNBOOKS
+	COPILOT_MAP --> DOCS_LOGS
+
+	DOCS_RUNBOOKS --> RUNBOOK_REFRESH
+```
