@@ -1,5 +1,10 @@
 # Runbook: Context Freshness & Guided Refresh
 
+## Current phase actions
+- Remove inline "Last updated" lines from context/specs; rely on git metadata plus the sidecar (`context/.freshness.json`, `context/drift-baseline.json`).
+- Ensure hooks/gates use deterministic git signals (diff/hash), not timestamp age checks; rerun `context-refresh` after removal to confirm thresholds hold.
+- Capture this policy in constraints/runbook updates and mark the freshness goal reviewed once the gate passes.
+
 ## Tools
 
 ### 1) Check overall context drift (no timestamps)

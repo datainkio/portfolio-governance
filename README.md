@@ -59,10 +59,25 @@ Full menu: [docs/concierge-prompt-catalog.md](docs/concierge-prompt-catalog.md)
 - Getting started: `docs/getting-started.md`
 - Docs hub: `docs/README.md`
 - Concierge prompt catalog: [docs/concierge-prompt-catalog.md](docs/concierge-prompt-catalog.md)
+- AIX backlog: [TODO.md](TODO.md)
+- Template notes: [template_notes.md](template_notes.md)
+
+## AI configuration
+
+- Copilot/agent config hub: [.copilot/README.md](.copilot/README.md)
+- Curated agent context: [.copilot/context/README.md](.copilot/context/README.md)
+- Agent entrypoints: [.github/README.md](.github/README.md)
+- Workspace Copilot instructions: [../.github/copilot-instructions.md](../.github/copilot-instructions.md)
 
 ## Tooling
 
 This scaffold is intentionally **tool-agnostic**. Use what your project needs.
+
+### Utilities & manifests
+
+- Scripts hub: [scripts/README.md](scripts/README.md)
+- Assets manifest: [assets/README.md](assets/README.md)
+- Data manifest: [data/README.md](data/README.md)
 
 ### Agent Ops tasks (recommended)
 

@@ -55,3 +55,12 @@ Use this folder to store scaffold hygiene reports produced by agents (housekeepe
 - HF: 0
 - CUS: 2 (relied on context/runbooks)
 ```
+
+## Recent AIX logs
+
+- [2026-01-13-hygiene-aix.md](2026-01-13-hygiene-aix.md)
+- [2026-01-15-hygiene.md](2026-01-15-hygiene.md)
+- [2026-01-14-agent-performance-evaluation.md](2026-01-14-agent-performance-evaluation.md)
+- [2026-01-16-agent-performance-evaluation.md](2026-01-16-agent-performance-evaluation.md)
+- [2026-01-16-aix-probe-bank-run.md](2026-01-16-aix-probe-bank-run.md)
+- [2026-01-16-portfolio-frontend-domain-mvp-evidence.md](2026-01-16-portfolio-frontend-domain-mvp-evidence.md)

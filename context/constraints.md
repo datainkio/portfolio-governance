@@ -5,13 +5,12 @@ This file records **workspace-level constraints** that should not be violated by
 
 If a constraint is project-specific (e.g., only `/frontend`), link to that project’s canonical doc rather than duplicating details here.
 
-Last updated: 2026-01-18T18:50:00Z
-
 ## Context freshness constraints
 
 - **Deterministic drift only**: context freshness enforcement must remain deterministic and local (filesystem/git signals), not semantic/LLM-based.
 - **Sidecar is authoritative for freshness**: review freshness is tracked in `context/.freshness.json`; avoid workflows that require humans editing meta lines to stay unblocked.
 - **Commit-time enforcement is expected**: the pre-commit gate may exit non-zero to block commits; VS Code may surface that as a modal when using the Source Control UI.
+- **No inline timestamps**: do not rely on in-file "Last updated" stamps in context/specs; use git metadata plus the sidecar (e.g., `context/.freshness.json`, `context/drift-baseline.json`) for freshness evidence.
 
 ## Durable constraints (always)
 

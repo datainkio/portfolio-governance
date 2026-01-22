@@ -5,8 +5,6 @@ This file is a **short, canonical index** of the most relevant accepted decision
 
 Full decision records live as ADRs under `/docs/decisions/`.
 
-Last updated: 2026-01-17
-
 ## Recently accepted
 
 - **ADR 0003 — Context Freshness Gate (Sidecar + Deterministic Drift Scoring)**

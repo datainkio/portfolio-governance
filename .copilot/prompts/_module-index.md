@@ -24,6 +24,7 @@ This index is the primary routing surface for Concierge. Each module lists a one
 **Purpose:** Make architecture decisions for repo/workspace structure, agent/module strategy, and standards.
 **Top triggers:** workspace architecture, repo structure, monorepo vs multi-repo, conventions, agent design
 **Primary Output type:** Architecture Proposal
+**File:** [aix/.copilot/prompts/architect.prompt.md](architect.prompt.md)
 
 ---
 
@@ -31,6 +32,7 @@ This index is the primary routing surface for Concierge. Each module lists a one
 **Purpose:** Rewrite/edit text with consistent voice, structure, and clarity (docs, copy, narrative).
 **Top triggers:** rewrite, tighten, tone, clarity, restructure, editing
 **Primary Output type:** Edited Draft
+**File:** [aix/.copilot/prompts/editor.prompt.md](editor.prompt.md)
 
 ---
 
@@ -38,6 +40,7 @@ This index is the primary routing surface for Concierge. Each module lists a one
 **Purpose:** Workspace hygiene (folders, naming, ignores, conventions, DX/AIX cleanliness).
 **Top triggers:** .gitignore, ignore files/folders, vitaixmen, naming conventions, cleanup
 **Primary Output type:** Workspace Hygiene Plan
+**File:** [aix/.copilot/prompts/housekeeper.prompt.md](housekeeper.prompt.md)
 
 ---
 
@@ -52,6 +55,7 @@ This index is the primary routing surface for Concierge. Each module lists a one
 **Purpose:** Documentation curation and navigation (READMEs, context packs, linking, discoverability).
 **Top triggers:** README, docs structure, cross-links, documentation cleanup, context/specs
 **Primary Output type:** Documentation Update Pack
+**File:** [aix/.copilot/prompts/librarian.prompt.md](librarian.prompt.md)
 
 ---
 
@@ -59,6 +63,7 @@ This index is the primary routing surface for Concierge. Each module lists a one
 **Purpose:** Diagnose and resolve build/test/tooling failures; produce minimal, testable fixes.
 **Top triggers:** error log, build failure, CI failure, dependency issue, tooling problem
 **Primary Output type:** Triage Report
+**File:** [aix/.copilot/prompts/mechanic.prompt.md](mechanic.prompt.md)
 
 ---
 
@@ -80,6 +85,7 @@ This index is the primary routing surface for Concierge. Each module lists a one
 **Purpose:** Help locate the right file/folder/entrypoint and define where changes should live.
 **Top triggers:** where is, where should this go, file location, entry point, codebase navigation
 **Primary Output type:** Context Bundle
+**File:** [aix/.copilot/prompts/navigator.prompt.md](navigator.prompt.md)
 
 ---
 

@@ -48,6 +48,12 @@ Keep these short and authoritative; link out to `/specs` and `/docs` for details
 - `constraints.md` — non-negotiables + phase guardrails
 - `decisions.md` — accepted decision index (summaries), with ADRs in `/docs/decisions/`
 
+## Examples and project context
+
+- Example context: [context/example-context.md](example-context.md)
+- Project context packs: [context/projects/README.md](projects/README.md)
+	- Portfolio frontend: [context/projects/portfolio-frontend.md](projects/portfolio-frontend.md)
+
 ## Authority
 All humans and AI agents should treat the contents of this folder as the source of truth. Other context layers may summarize or reference these files, but must not
 contradict them.

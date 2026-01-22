@@ -1,5 +1,5 @@
 {
-  "baselineHash": "bc1ea17c139e85ce68e6c21225cedb5652fa6dfb",
+  "baselineHash": "21f6a501b09e467b076511486fb18896a44f8d89",
   "branch": "main",
-  "notes": "Auto-set via Update Context after automation (below-warn)"
+  "notes": "remove inline stamps; repo-signal policy"
 }

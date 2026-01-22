@@ -21,3 +21,4 @@ Authoritative decision records (ADRs) live here. They capture why we chose an ap
 ## Examples
 - [ADR 0001: Vitaixmen for AI Performance](0001-vitaixmen-for-ai.md)
 - [ADR 0002: Portfolio Frontend Domain Module Uses Internal Routing (Model A)](0002-portfolio-frontend-domain-model-a.md)
+- [ADR 0003: Context Freshness Gate](0003-context-freshness-gate.md)

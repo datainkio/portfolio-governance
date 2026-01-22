@@ -11,5 +11,9 @@ Suggested contents per project:
 - Current goals / constraints snippets (or pointers to where they live).
 - Pointers to ADRs/runbooks/playbooks that the project depends on.
 
+## Current projects
+
+- [Portfolio frontend](portfolio-frontend.md)
+
 Maintenance:
 - Update when project-level goals or constraints change; keep this folder lean to avoid drift from the canonical sources.
