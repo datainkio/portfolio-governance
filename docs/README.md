@@ -1,3 +1,23 @@
+---
+aix:
+	id: aix.docs.readme
+	role: Human-facing documentation hub for the workspace.
+	status: stable
+	surface: internal
+	owner: AIX
+	tags:
+		- docs
+		- hub
+		- navigation
+	type: guide
+	scope: aix
+	audience: maintainers
+	perf:
+		readPriority: medium
+		cacheSafe: true
+		critical: false
+---
+
 # Documentation
 
 This folder is the **human-facing docs hub** for the workspace.

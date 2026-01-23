@@ -1,3 +1,23 @@
+---
+aix:
+	id: aix.readme
+	role: Workspace scaffold overview and entrypoint.
+	status: stable
+	surface: internal
+	owner: AIX
+	tags:
+		- readme
+		- overview
+		- onboarding
+	type: guide
+	scope: aix
+	audience: maintainers
+	perf:
+		readPriority: high
+		cacheSafe: true
+		critical: true
+---
+
 # Vitaixmen
 
 A lightweight scaffold for creating **VS Code workspaces** with:

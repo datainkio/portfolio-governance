@@ -1,3 +1,23 @@
+---
+aix:
+	id: aix.context.readme
+	role: Define the canonical context folder purpose and usage.
+	status: stable
+	surface: internal
+	owner: AIX
+	tags:
+		- context
+		- canon
+		- guidance
+	type: context
+	scope: aix
+	audience: maintainers
+	perf:
+		readPriority: high
+		cacheSafe: true
+		critical: true
+---
+
 # Project Context (Canonical)
 
 ## Audience convention
