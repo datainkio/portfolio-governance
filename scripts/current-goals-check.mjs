@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.current-goals-check
+ *   role: AIX script: scripts/current-goals-check.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - current-goals-check.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.update-context-guide
+ *   role: AIX script: scripts/update-context-guide.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - update-context-guide.mjs
+ * ---
+ */
 
 import { computeDriftReport, resolveBaseline, DEFAULTS } from './lib/drift.js';
 

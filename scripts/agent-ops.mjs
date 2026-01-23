@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.agent-ops
+ *   role: AIX script: scripts/agent-ops.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - agent-ops.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

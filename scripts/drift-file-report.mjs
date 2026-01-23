@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.drift-file-report
+ *   role: AIX script: scripts/drift-file-report.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - drift-file-report.mjs
+ * ---
+ */
 
 import path from 'node:path';
 import { computeDriftReport, resolveBaseline } from './lib/drift.js';

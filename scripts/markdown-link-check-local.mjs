@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.markdown-link-check-local
+ *   role: AIX script: scripts/markdown-link-check-local.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - markdown-link-check-local.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

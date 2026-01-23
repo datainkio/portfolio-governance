@@ -45,10 +45,10 @@ Note: Vitaixmen is a workspace starter (hygiene + docs + agent workflows). It do
 		- [specs/ai/ceremonial-response-spec.md](../../specs/ai/ceremonial-response-spec.md)
 		- [specs/ai/domain-agent-probes.spec.md](../../specs/ai/domain-agent-probes.spec.md)
 		- [specs/ai/domain-specialized-coding-agent.spec.md](../../specs/ai/domain-specialized-coding-agent.spec.md)
-	- Animation:
-		- [specs/animation/README.md](../../specs/animation/README.md)
-		- [specs/animation/template.md](../../specs/animation/template.md)
-		- [specs/animation/motion-accessibility-policy.md](../../specs/animation/motion-accessibility-policy.md)
+	- Animation (frontend-owned):
+		- [frontend/specs/animation/README.md](../../frontend/specs/animation/README.md)
+		- [frontend/specs/animation/template.md](../../frontend/specs/animation/template.md)
+		- [frontend/specs/animation/motion-accessibility-policy.md](../../frontend/specs/animation/motion-accessibility-policy.md)
 	- Architecture: [specs/architecture/](../../specs/architecture/)
 		- [specs/architecture/README.md](../../specs/architecture/README.md)
 		- [specs/architecture/template.md](../../specs/architecture/template.md)
@@ -76,6 +76,7 @@ Note: Vitaixmen is a workspace starter (hygiene + docs + agent workflows). It do
 		- [specs/features/adr-spec-sync.spec.md](../../specs/features/adr-spec-sync.spec.md)
 		- [specs/features/concierge-mounted-project-aix.md](../../specs/features/concierge-mounted-project-aix.md)
 		- [specs/features/concierge-project-aix.todo.md](../../specs/features/concierge-project-aix.todo.md)
+		- [specs/features/js-frontmatter-schema.md](../../specs/features/js-frontmatter-schema.md)
 		- [specs/features/template.md](../../specs/features/template.md)
 	- Performance (AIX spec lives here): [specs/performance/aix.md](../../specs/performance/aix.md)
 		- [specs/performance/README.md](../../specs/performance/README.md)

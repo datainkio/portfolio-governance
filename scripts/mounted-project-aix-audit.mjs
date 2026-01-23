@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.mounted-project-aix-audit
+ *   role: AIX script: scripts/mounted-project-aix-audit.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - mounted-project-aix-audit.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.install-git-hooks
+ *   role: AIX script: scripts/install-git-hooks.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - install-git-hooks.mjs
+ * ---
+ */
 
 import { execFileSync } from 'node:child_process';
 

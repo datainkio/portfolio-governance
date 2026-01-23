@@ -3,8 +3,7 @@
 This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
-- Develop the spec for an animation-focused Concierge module based on specs/animation/choreographer.animation-spec.md
-- Develop the browser-accessibile-documentation spec for making documentation available to remote agents
+- Address duplication among and conflicts between Choreographer files through refactoring and consolidation.
 
 ## Next
 - Define and document command permissions (e.g. zsh) to streamline agent work
@@ -16,10 +15,13 @@ This file is the single-source-of-truth for what matters *right now*.
 - Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Organizations, etc.).
 
 ## Done (recent)
+- Developed frontmatter schema for JS files and applied across AIX + frontend (spec: [specs/features/js-frontmatter-schema.md](../specs/features/js-frontmatter-schema.md))
+- Completed animation-focused Concierge module spec and prompt module; routing entry added.
 - Removed inline "Last updated" stamps; codified repo-signal freshness policy; set context baseline at HEAD after verification.
 - Confirm implementation of status bar action buttons for VS Code tasks
 
 ## Not Now
+- Develop the browser-accessibile-documentation spec for making documentation available to remote agents
 - Improve drift gate messaging surfaced by VS Code (keep it short and actionable)
 - Auto-generated global inventories (a full ToC of every log file) in the workspace map.
 - Heavy automation for logging/indexing until the evidence loop stabilizes and proves it saves time.

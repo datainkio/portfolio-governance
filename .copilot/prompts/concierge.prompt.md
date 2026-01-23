@@ -30,6 +30,7 @@ Mounted-project routing (frontend example):
 	- Choreography planning (no code) → `choreography-planning.prompt.md`
 	- Choreography implementation (code) → `choreography-implementation.prompt.md`
 	- General frontend/domain work → `domain.prompt.md`
+- Note: Choreographer (GSAP vs Tailwind decision) is selected by Concierge via the mounted frontend prompt index; it is not a standalone router.
 - Safety: respect the mounted-project allowlist/denylist in `specs/features/concierge-mounted-project-aix.md` (report-only by default; edits only within allowlisted AIX surfaces).
 
 ## Step 2 — Blocking question policy

@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.context-drift-watch
+ *   role: AIX script: scripts/context-drift-watch.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - context-drift-watch.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

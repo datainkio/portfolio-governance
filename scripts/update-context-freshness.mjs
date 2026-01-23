@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.update-context-freshness
+ *   role: AIX script: scripts/update-context-freshness.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - update-context-freshness.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

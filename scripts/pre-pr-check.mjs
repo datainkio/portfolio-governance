@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.pre-pr-check
+ *   role: AIX script: scripts/pre-pr-check.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - pre-pr-check.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

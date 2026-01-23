@@ -1,3 +1,23 @@
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.drift
+ *   role: Compute drift scoring for context and specs.
+ *   status: stable
+ *   surface: internal
+ *   owner: AIX
+ *   tags:
+ *     - drift
+ *     - metrics
+ *     - git
+ *   scope: aix
+ *   runtime: node
+ *   perf:
+ *     readPriority: high
+ *     cacheSafe: true
+ *     critical: true
+ * ---
+ */
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';

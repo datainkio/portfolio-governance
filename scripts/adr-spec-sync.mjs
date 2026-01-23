@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.adr-spec-sync
+ *   role: AIX script: scripts/adr-spec-sync.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - adr-spec-sync.mjs
+ * ---
+ */
 
 import fs from 'node:fs/promises';
 import path from 'node:path';

@@ -50,11 +50,8 @@ Both humans and AI agents should reference them before making non-trivial change
 - [specs/ai/domain-agent-probes.spec.md](ai/domain-agent-probes.spec.md)
 - [specs/ai/domain-specialized-coding-agent.spec.md](ai/domain-specialized-coding-agent.spec.md)
 
-### Animation
-- [specs/animation/README.md](animation/README.md)
-- [specs/animation/template.md](animation/template.md)
-- [specs/animation/choreographer.animation-spec.md](animation/choreographer.animation-spec.md)
-- [specs/animation/motion-accessibility-policy.md](animation/motion-accessibility-policy.md)
+### Animation (frontend-owned)
+- [frontend/specs/animation/README.md](../../frontend/specs/animation/README.md)
 
 ### Architecture
 - [specs/architecture/README.md](architecture/README.md)
@@ -78,6 +75,7 @@ Both humans and AI agents should reference them before making non-trivial change
 - [specs/features/adr-spec-sync.spec.md](features/adr-spec-sync.spec.md)
 - [specs/features/concierge-mounted-project-aix.md](features/concierge-mounted-project-aix.md)
 - [specs/features/concierge-project-aix.todo.md](features/concierge-project-aix.todo.md)
+- [specs/features/js-frontmatter-schema.md](features/js-frontmatter-schema.md)
 - [specs/features/template.md](features/template.md)
 
 ### Performance

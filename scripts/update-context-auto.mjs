@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.update-context-auto
+ *   role: AIX script: scripts/update-context-auto.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - update-context-auto.mjs
+ * ---
+ */
 
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';

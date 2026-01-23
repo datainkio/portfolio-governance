@@ -1,3 +1,18 @@
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.markdown-link-check
+ *   role: AIX script: scripts/markdown-link-check.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - markdown-link-check.mjs
+ * ---
+ */
 /** @format */
 
 import fs from 'node:fs';

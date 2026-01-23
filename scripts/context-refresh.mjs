@@ -1,4 +1,19 @@
 #!/usr/bin/env node
+/**
+ * ---
+ * aix:
+ *   id: aix.scripts.context-refresh
+ *   role: AIX script: scripts/context-refresh.mjs
+ *   status: stable
+ *   surface: internal
+ *   scope: aix
+ *   runtime: node
+ *   tags:
+ *     - aix
+ *     - scripts
+ *     - context-refresh.mjs
+ * ---
+ */
 
 import { execFileSync } from 'node:child_process';
 import { computeDriftReport, resolveBaseline, DEFAULTS } from './lib/drift.js';

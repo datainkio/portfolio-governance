@@ -75,19 +75,11 @@ This index is the primary routing surface for Concierge. Each module lists a one
 
 ---
 
-## choreographer.prompt.md
-**Purpose:** Decide GSAP vs Tailwind and outline motion implementation using the choreographer spec.
-**Top triggers:** motion/choreography requests, ScrollTrigger guidance, reduced-motion handling, GSAP vs Tailwind choice.
-**Primary Output type:** Choreography Decision Packet
-**File:** [aix/.copilot/prompts/choreographer.prompt.md](choreographer.prompt.md)
-
----
-
 ## Mounted frontend modules (from frontend/.copilot/prompts/index.md)
 **Purpose:** Use the mounted project’s prompt modules for portfolio frontend work (11ty/Nunjucks/Tailwind v4/GSAP/Airtable/Sanity).
 **Top triggers:** explicit `frontend/` scope or stack cues (eleventy/11ty, Nunjucks, Tailwind v4, GSAP, AnimationBus, Director.js, Airtable collections, choreography).
 **Primary Output type:** Implementation Report (module-specific).
-**Modules:** display.prompt.md (templates/Nunjucks), js.prompt.md (browser JS), choreography-planning.prompt.md (motion plan, no code), choreography-implementation.prompt.md (GSAP/choreography code), domain.prompt.md (general frontend).
+**Modules:** display.prompt.md (templates/Nunjucks), js.prompt.md (browser JS), choreographer.prompt.md (GSAP vs Tailwind decision), choreography-planning.prompt.md (motion plan, no code), choreography-implementation.prompt.md (GSAP/choreography code), domain.prompt.md (general frontend).
 
 ## navigator.prompt.md
 **Purpose:** Help locate the right file/folder/entrypoint and define where changes should live.
