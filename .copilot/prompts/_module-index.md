@@ -75,6 +75,14 @@ This index is the primary routing surface for Concierge. Each module lists a one
 
 ---
 
+## taskmaster.prompt.md
+**Purpose:** Frame conversations into a single active task, embed TODOs in files, and guard against task drift.
+**Top triggers:** task tracking, TODOs, “what are we doing”, task switching, drift detection
+**Primary Output type:** Task Snapshot + File-Embedded TODOs + Next-Step Plan
+**File:** [aix/.copilot/prompts/taskmaster.prompt.md](taskmaster.prompt.md)
+
+---
+
 ## Mounted frontend modules (from frontend/.copilot/prompts/index.md)
 **Purpose:** Use the mounted project’s prompt modules for portfolio frontend work (11ty/Nunjucks/Tailwind v4/GSAP/Airtable/Sanity).
 **Top triggers:** explicit `frontend/` scope or stack cues (eleventy/11ty, Nunjucks, Tailwind v4, GSAP, AnimationBus, Director.js, Airtable collections, choreography).

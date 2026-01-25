@@ -16,6 +16,9 @@ aix:
     readPriority: high
     cacheSafe: true
     critical: true
+tags:
+  - content-strategy
+  - aix
 ---
 
 # Current Goals
@@ -23,7 +26,6 @@ aix:
 This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
-- Confirm adherence to choreographer spec. Test by defining animations for homepage sections.
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery
 	- Establish a frontmatter schema
@@ -38,6 +40,7 @@ This file is the single-source-of-truth for what matters *right now*.
 - Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Organizations, etc.).
 
 ## Done (recent)
+- Confirm adherence to choreographer spec. Test by defining animations for homepage sections.
 - Address poor agent performance when editing files. For example, the inability to edit a file without requiring multiple steps, failures, file corruptions, and excessive amounts of time just to plan.
 - Developed frontmatter schema for JS files and applied across AIX + frontend (spec: [specs/features/js-frontmatter-schema.md](../specs/features/js-frontmatter-schema.md))
 - Completed animation-focused Concierge module spec and prompt module; routing entry added.
