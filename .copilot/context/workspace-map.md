@@ -12,7 +12,6 @@ This workspace includes multiple sibling repos: `aix/` (AIX scaffold), `frontend
 
 ## Copilot Configuration
 - Copilot/agent configuration hub: [.copilot/README.md](../README.md)
-- Instructions (single source of truth): [.copilot/instructions.md](../instructions.md)
 - Routing canon: [.copilot/ROUTING.md](../ROUTING.md)
 - Prompt modules:
 	- Architect: [.copilot/prompts/architect.prompt.md](../prompts/architect.prompt.md)

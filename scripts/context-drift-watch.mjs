@@ -15,7 +15,8 @@
  * ---
  */
 
-import fs from 'node:fs/promises';
+import fs from 'node:fs';
+import fsp from 'node:fs/promises';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
@@ -100,7 +101,7 @@ Notes:
 
 async function pathExists(p) {
 	try {
-		await fs.access(p);
+		await fsp.access(p);
 		return true;
 	} catch {
 		return false;
@@ -120,8 +121,9 @@ function tryOpenInVSCode(absolutePath) {
 function watchDir({ rootDir, id, absoluteDir, args }) {
 	const pending = new Map();
 
-	const watcher = fs
-		.watch(absoluteDir, { recursive: true }, (eventType, filename) => {
+	let watcher;
+	try {
+		watcher = fs.watch(absoluteDir, { recursive: true }, (eventType, filename) => {
 			if (!filename) return;
 			const absolutePath = path.join(absoluteDir, filename);
 			if (shouldIgnore(absolutePath)) return;
@@ -129,10 +131,11 @@ function watchDir({ rootDir, id, absoluteDir, args }) {
 			const now = Date.now();
 			const key = `${eventType}:${absolutePath}`;
 			pending.set(key, { eventType, absolutePath, when: now });
-		})
-		.catch((err) => {
-			process.stderr.write(`Failed to watch ${absoluteDir}: ${String(err)}\n`);
 		});
+	} catch (err) {
+		process.stderr.write(`Failed to watch ${absoluteDir}: ${String(err)}\n`);
+		return async () => {};
+	}
 
 	const interval = setInterval(() => {
 		const now = Date.now();
@@ -163,8 +166,7 @@ function watchDir({ rootDir, id, absoluteDir, args }) {
 	const cleanup = async () => {
 		clearInterval(interval);
 		try {
-			const w = await watcher;
-			w.close();
+			watcher?.close();
 		} catch {
 			// ignore
 		}

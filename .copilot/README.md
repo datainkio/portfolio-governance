@@ -11,9 +11,10 @@ link to canonical materials elsewhere in the workspace.
 
 If conflicts arise, defer to the canonical context in `/context/`.
 
+Root entrypoint: start at [README.md](../../README.md) for the workspace-level AIX jump table.
+
 ## Key files
 
-- Instructions (single source of truth): [.copilot/instructions.md](instructions.md)
 - Routing canon: [.copilot/ROUTING.md](ROUTING.md)
 - Curated agent context: [.copilot/context/README.md](context/README.md)
 - Workspace map: [.copilot/context/workspace-map.md](context/workspace-map.md)
