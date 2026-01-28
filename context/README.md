@@ -39,8 +39,6 @@ Context provides *relevance*. It gives agents resources to provide the user with
 
 Good context will reduce occurrences of technically correct code that violates the project's soul.
 
-## Target Audiences
-
 ## Defining context
 Think of context as *living situational awareness* for a given project. It documents current project goals, architectural decisions, known issues, terminology, and cross-repo references that apply to the entire workspace.
 Context differs from specs in two key ways:
