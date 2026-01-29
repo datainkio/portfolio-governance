@@ -1,5 +1,6 @@
 # TODO
 The primary audience for this document is human, not AI.
+<!-- TODO: Test if the action picks up a new item here -->
 
 ## AIX / DX
 - [ ] Create explicit frontmatter schema for workspace
