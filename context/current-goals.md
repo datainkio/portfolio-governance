@@ -26,9 +26,6 @@ tags:
 This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
-<!-- TODO(taskmaster): Confirm TODO-to-Issue workflow works.
-Issue URL: https://github.com/datainkio/portfolio-governance/issues/14
--->
 - Move the landing page XD forward in progress
   - Complete separation from Airtable
   - Address 404 errors
