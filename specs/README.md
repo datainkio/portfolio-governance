@@ -79,7 +79,6 @@ Both humans and AI agents should reference them before making non-trivial change
 
 ### CMS
 - [specs/cms/README.md](cms/README.md)
-- [specs/cms/sanity-adoption.md](cms/sanity-adoption.md)
 - [specs/cms/template.md](cms/template.md)
 
 ### Components

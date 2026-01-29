@@ -65,7 +65,6 @@ This workspace includes multiple sibling repos: `aix/` (AIX scaffold), `frontend
 		- [specs/routes-content/template.md](../../specs/routes-content/template.md)
 	- CMS: [specs/cms/](../../specs/cms/)
 		- [specs/cms/README.md](../../specs/cms/README.md)
-		- [specs/cms/sanity-adoption.md](../../specs/cms/sanity-adoption.md)
 		- [specs/cms/template.md](../../specs/cms/template.md)
 	- Data: [specs/data/](../../specs/data/)
 		- [specs/data/README.md](../../specs/data/README.md)

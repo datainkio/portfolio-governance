@@ -42,7 +42,6 @@ This file is the single-source-of-truth for what matters *right now*.
 - Develop MVP through iteration.
 - Optimize frontend by moving agents out and integrating into aix repo.
 - Complete Sanity adoption (full separation from Airtable).
-- Draft and iterate on the Sanity adoption spec (`specs/cms/sanity-adoption.md`).
 - Iterate on the frontend domain module (post-MVP refinements).
 - Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Organizations, etc.).
 
