@@ -29,12 +29,6 @@ This file is the single-source-of-truth for what matters *right now*.
 <!-- TODO(taskmaster): Confirm TODO-to-Issue workflow works.
 Issue URL: https://github.com/datainkio/portfolio-governance/issues/14
 -->
-- Refactor TaskManager module to focus on GitHub Issues
-  - rewrite spec
-    - remove conversation flow as source of tasks
-    - replace with GitHub Action "TODO to Issue"
-  - update code
-  - document
 - Move the landing page XD forward in progress
   - Address 404 errors
   - Create Singleton for landing page
