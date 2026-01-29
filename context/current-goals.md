@@ -27,6 +27,7 @@ This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
 <!-- TODO(taskmaster): Confirm TODO-to-Issue workflow works.
+Issue URL: https://github.com/datainkio/portfolio-governance/issues/14
 -->
 - Refactor TaskManager module to focus on GitHub Issues
   - rewrite spec
@@ -34,6 +35,7 @@ This file is the single-source-of-truth for what matters *right now*.
     - replace with GitHub Action "TODO to Issue"
   - update code
   <!-- TODO(taskmaster): Test issue creation with assignees and labels.
+  Issue URL: https://github.com/datainkio/portfolio-governance/issues/13
   assignees: datainkio
   labels: test
   -->
