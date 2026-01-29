@@ -26,11 +26,7 @@ tags:
 This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
-<!-- TODO: Test updates to Taskmaster https://github.com/datainkio/portfolio-governance/issues/11
-Issue URL: https://github.com/datainkio/portfolio-governance/issues/12
-assignees: datainkio
-labels: test
--->
+
 - Refactor TaskManager module to focus on GitHub Issues
   - rewrite spec
     - remove conversation flow as source of tasks
@@ -44,8 +40,7 @@ labels: test
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery
 	- Establish a frontmatter schema
-<!-- TODO: Test the Taskmaster test :(
-Issue URL: https://github.com/datainkio/portfolio-governance/issues/10 -->
+
 ## Next
 - Define and document command permissions (e.g. zsh) to streamline agent work
 - Develop MVP through iteration.
