@@ -1,6 +1,7 @@
 # TODO
 The primary audience for this document is human, not AI.
 <!-- TODO: Test if the action picks up a new item here -->
+<!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/5 -->
 
 ## AIX / DX
 - [ ] Create explicit frontmatter schema for workspace
