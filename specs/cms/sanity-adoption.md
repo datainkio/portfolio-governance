@@ -57,6 +57,7 @@ Success means:
 | Videos | TBD | unmapped | Define video asset model or embed on content types. |
 
 <!-- TODO(cms): Finalize the Airtable → Sanity mapping table with exact field parity and update affected templates. -->
+<!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/15 -->
 
 ## Adoption Strategy (phased)
 ### Phase 0 — Inventory + mapping (no behavior change)
