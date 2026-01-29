@@ -31,7 +31,7 @@ This file is the single-source-of-truth for what matters *right now*.
     - remove conversation flow as source of tasks
     - replace with GitHub Action "TODO to Issue"
   - update code
-  - <!-- BUG: TTODO-to-Issue workflow fails in current-goals.md -->
+  - <!-- BUG: TODO-to-Issue workflow fails in current-goals.md -->
   - document
 - Move the landing page XD forward in progress
   - Address 404 errors
