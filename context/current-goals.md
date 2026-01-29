@@ -30,8 +30,12 @@ This file is the single-source-of-truth for what matters *right now*.
 Issue URL: https://github.com/datainkio/portfolio-governance/issues/14
 -->
 - Move the landing page XD forward in progress
+  - Complete separation from Airtable
   - Address 404 errors
-  - Create Singleton for landing page
+  - Add fields to Landing Page singleton
+    - background video
+    - background video poster
+  - Display content based on Landing Page values
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery
 	- Establish a frontmatter schema

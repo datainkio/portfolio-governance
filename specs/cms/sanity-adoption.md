@@ -26,6 +26,38 @@ Success means:
 - The frontend repo already fetches Sanity content at build time (GROQ + official client) and exposes multiple `sanity*` collections.
 - Airtable is still present and used for some content and/or legacy collections.
 
+## Airtable Dependency Inventory (draft)
+- Build-time Airtable collections wired via `frontend/eleventy/collections/content.js` and `njk/_data/site.json` (`site.airtables`).
+- Navigation builds `nav_projects` from Airtable projects (see `frontend/eleventy/collections/navigation.js` and `frontend/eleventy/services/NavigationBuilder.js`).
+- Templates still reference Airtable-backed collections such as:
+  - `collections.projects`, `collections.organizations`, `collections.roles`, `collections.awards`
+  - `collections.images`, `collections.videos`, `collections.galleries`, `collections.nuggets`, `collections.insights`
+  - `collections.ia`, `collections.outcomes`, `collections.activities`
+- Airtable tooling remains: `frontend/airtable/**`, `frontend/scripts/syncContent.js`, `frontend/scripts/generateAirtableSchema.js`.
+- Docs and env vars still mention Airtable (`frontend/.env.example`, `frontend/docs/*`, `frontend/.github/copilot-instructions.md`).
+
+## Airtable → Sanity Mapping (draft)
+
+| Airtable collection | Sanity collection/type | Status | Notes |
+| --- | --- | --- | --- |
+| Activities | `sanityActivities` | mapped | Taxonomy exists in Sanity. |
+| Organizations | `sanityOrganizations` | mapped | Includes industry + brand assets. |
+| Awards | `sanityAwards` | mapped | Includes organization/project refs. |
+| Projects | `sanityProjects` | mapped | Published-only; check slug/permalink policy. |
+| Outcomes | `sanityOutcomes` | mapped | Taxonomy exists in Sanity. |
+| Roles | `sanityRoles` | mapped | Taxonomy exists in Sanity. |
+| Images | `sanityImageAssets` | mapped | Asset model exists in Sanity. |
+| Feed | TBD | unmapped | Decide if this becomes posts or a dedicated type. |
+| Insights | TBD | unmapped | Confirm if this maps to posts or a new type. |
+| IA | TBD | unmapped | Define whether IA is a taxonomy or page model in Sanity. |
+| Galleries | TBD | unmapped | Decide between gallery type vs embedded assets on content types. |
+| Nuggets | TBD | unmapped | Define nugget content type or retire. |
+| Playbook | TBD | unmapped | Define playbook model or retire. |
+| Social | TBD | unmapped | Determine source (Sanity or static). |
+| Videos | TBD | unmapped | Define video asset model or embed on content types. |
+
+<!-- TODO(cms): Finalize the Airtable → Sanity mapping table with exact field parity and update affected templates. -->
+
 ## Adoption Strategy (phased)
 ### Phase 0 — Inventory + mapping (no behavior change)
 - Inventory Airtable usage:
