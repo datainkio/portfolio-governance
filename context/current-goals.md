@@ -39,6 +39,7 @@ This file is the single-source-of-truth for what matters *right now*.
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery
 	- Establish a frontmatter schema
+  - <!-- TEST: TODO-to-Issue workflow inserts issue URL into item. Again. -->
 
 ## Next
 - Define and document command permissions (e.g. zsh) to streamline agent work
