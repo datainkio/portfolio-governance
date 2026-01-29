@@ -77,6 +77,7 @@ Use optional lines directly beneath the TODO to apply issue metadata:
 - `assignees: username1, username2`
 - `milestone: v1.0`
 For HTML/Markdown, keep the TODO and option lines in a **single** multi-line comment block (do not split into multiple `<!-- -->` blocks).
+Assignees must be valid, assignable GitHub handles for the target repo (e.g., `assignees: datainkio`).
 
 ### Optional metadata (keep short)
 - `// TODO: <message> [owner=@datainkio] [due=YYYY-MM-DD] [refs=#123]`
