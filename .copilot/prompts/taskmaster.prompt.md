@@ -76,6 +76,7 @@ Use optional lines directly beneath the TODO to apply issue metadata:
 - `labels: enhancement, help wanted`
 - `assignees: username1, username2`
 - `milestone: v1.0`
+For HTML/Markdown, keep the TODO and option lines in a **single** multi-line comment block (do not split into multiple `<!-- -->` blocks).
 
 ### Optional metadata (keep short)
 - `// TODO: <message> [owner=@datainkio] [due=YYYY-MM-DD] [refs=#123]`
@@ -116,7 +117,8 @@ Only these identifiers are actionable (others are ignored by the workflow):
 
 ### What Taskmaster must enforce for correct parsing
 - TODOs must be written in **native comment syntax** for the file.
-- TODO option lines (`labels:`, `assignees:`, `milestone:` etc.) must be **comment-prefixed lines directly under the TODO**, in the same comment block.
+- TODO option lines (`labels:`, `assignees:`, `milestone:` etc.) must be **comment-prefixed lines directly under the TODO**, in the same comment block (especially for HTML/Markdown).
+- If an Issue URL is present, keep it in the same comment block, preferably appended to the TODO line.
 - Multiline TODO bodies are allowed, but should be capped and structured (see Grammar).
 
 > DX note: Because the workflow commits inserted URLs, it will produce bot commits. Treat this as a normal, expected side effect.
