@@ -31,8 +31,8 @@ This file is the single-source-of-truth for what matters *right now*.
     - remove conversation flow as source of tasks
     - replace with GitHub Action "TODO to Issue"
   - update code
-  - <!-- TEST: TODO-to-Issue workflow inserts issue URL into item -->
   - document
+  - <!-- TEST: TODO-to-Issue workflow inserts issue URL into item -->
 - Move the landing page XD forward in progress
   - Address 404 errors
   - Create Singleton for landing page
