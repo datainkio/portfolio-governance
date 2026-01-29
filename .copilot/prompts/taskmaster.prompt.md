@@ -51,6 +51,8 @@ Route to Taskmaster when the user:
 ## File-Embedded TODO Format
 Taskmaster writes TODO items directly in project files. The TODO must live next to the thing it refers to.
 
+When you encounter a Markdown list item like `- TODO: ...`, convert it into a proper HTML comment block TODO in-place (use the TODO(scope) form when a scope is known) so the workflow can parse it.
+
 ### Native comment syntax only
 Use the file’s native comment syntax; do not use a universal wrapper.
 | File type      | Format                             |
