@@ -26,6 +26,16 @@ tags:
 This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
+- Refactor TaskManager module to focus on GitHub Issues
+  - rewrite spec
+    - remove conversation flow as source of tasks
+    - replace with GitHub Action "TODO to Issue"
+  - update code
+  - <!-- TODO: Test issue creation workflow in aix repo -->
+  - document
+- Move the landing page XD forward in progress
+  - Address 404 errors
+  - Create Singleton for landing page
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery
 	- Establish a frontmatter schema
