@@ -32,14 +32,12 @@ This file is the single-source-of-truth for what matters *right now*.
     - replace with GitHub Action "TODO to Issue"
   - update code
   - document
-  - <!-- TEST: TODO-to-Issue workflow inserts issue URL into item -->
 - Move the landing page XD forward in progress
   - Address 404 errors
   - Create Singleton for landing page
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery
 	- Establish a frontmatter schema
-  - <!-- TEST: TODO-to-Issue workflow inserts issue URL into item. Again. -->
 
 ## Next
 - Define and document command permissions (e.g. zsh) to streamline agent work
