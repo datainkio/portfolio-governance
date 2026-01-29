@@ -27,6 +27,7 @@ This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
 <!-- TODO: Test updates to Taskmaster https://github.com/datainkio/portfolio-governance/issues/11
+Issue URL: https://github.com/datainkio/portfolio-governance/issues/12
 assignees: datainkio
 labels: test
 -->
