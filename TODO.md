@@ -12,7 +12,6 @@ The primary audience for this document is human, not AI.
 - [ ] Create explicit frontmatter schema for workspace
 - [ ] Reduce syntax errors from AI edits (e.g. "SyntaxError: Unexpected token '}'")
 - [ ] Run a benchmark-grade AIX snapshot (fresh Copilot Chat thread) using 2–3 probes from [docs/maintenance/aix-probe-bank.md](docs/maintenance/aix-probe-bank.md) and paste the prompt + first response excerpts into a dated log under [docs/logs/](docs/logs/).
-- [x] Add a lightweight Markdown link-existence checker for `docs/` (existence only; no network) and document it in a runbook.
 - [ ] Extend the probe bank with an explicit multi-root safety probe (“do not touch mounted projects”) and add scoring notes for scope discipline.
 - [ ] Account for terminal issues related to EOF errors and stuck heredoc modes.
 - [ ] Drift gate DX: format the pre-commit failure output so the VS Code commit-block dialog shows a clean, actionable summary (1–3 lines + next steps).
