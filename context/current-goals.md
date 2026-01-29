@@ -36,6 +36,7 @@ labels: test
     - remove conversation flow as source of tasks
     - replace with GitHub Action "TODO to Issue"
   - update code
+  - TODO: Test issue creation with assignees and labels. [assignees: datainkio, ]
   - document
 - Move the landing page XD forward in progress
   - Address 404 errors

@@ -63,13 +63,16 @@ Use the file’s native comment syntax; do not use a universal wrapper.
 
 ### Identifier-only TODO with prefix
 - `// TODO: <message>`
+- `// TODO(scope): <message>`
 - `// BUG: <message>`
 - `// CHORE: <message>`
 - `// DOCS: <message>`
 
 ### Canonical grammar
 - `<PREFIX>: <imperative description> [optional metadata]`
-  - Metadata must be appended in square brackets (never inline).
+- `<PREFIX>(scope): <imperative description> [optional metadata]`
+   - Use a short scope token (`taskmaster`, `workflow`, `docs`, etc.).
+   - Metadata must be appended in square brackets (never inline).
 
 ### TODO options (issue metadata)
 Use optional lines directly beneath the TODO to apply issue metadata:
@@ -127,10 +130,12 @@ Only these identifiers are actionable (others are ignored by the workflow):
 ## TODO Grammar (canonical)
 ### Minimum form (single-line)
 - `<COMMENT> <IDENTIFIER>: <short title>`
+- `<COMMENT> <IDENTIFIER>(scope): <short title>`
 
 Examples:
 - `// BUG: Fix race in task hydration`
-- `# DOCS: Add Taskmaster examples for TODO options`
+- `// TODO(taskmaster): Align HTML comment parsing rules`
+- `# DOCS(workflow): Add Taskmaster examples for TODO options`
 
 ### Extended form (recommended)
 A TODO may include up to **5 comment-prefixed body lines**, followed by **comment-prefixed option lines**.
