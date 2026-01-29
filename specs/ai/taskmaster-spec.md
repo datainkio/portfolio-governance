@@ -22,10 +22,10 @@ aix:
 # Taskmaster Module Spec
 
 ## Problem
-Conversations often contain multiple goals, implicit subtasks, and drift. This degrades DX by making progress hard to track, increasing rework, and making it unclear what “done” means.
+Conversation-first task tracking is fragile and transient. Tasks need to live in code and docs so they can be discovered, versioned, and linked to issues without relying on chat state.
 
 ## Goal
-Add a Concierge module (“Taskmaster”) that manages task framing and persistence by embedding TODO items directly into project files, maintaining a single Active Task, and prompting for explicit task switches when drift occurs.
+Refactor Taskmaster to treat **file-embedded TODOs** as the single source of truth for tasks and rely on the TODO-to-Issue GitHub Action to create, update, and close GitHub Issues.
 
 ## Users
 - Designers/developers working in VS Code with Concierge
@@ -33,43 +33,23 @@ Add a Concierge module (“Taskmaster”) that manages task framing and persiste
 
 ## Non-Goals
 - A full project management system
-- Multi-user task assignment
-- External ticketing integrations (GitHub Issues, Jira) in MVP
+- Conversation-driven task framing (Active Task, drift detection, chat-only state)
+- Multi-user task assignment workflows
 - Automatic code edits without routing through the appropriate implementation module
 
 ## Functional Requirements
-1. **Task Detection**
-   - Recognize when a conversation should be framed as a task with a beginning/middle/end.
-2. **Task Creation**
-   - Propose or prompt the user to name the task.
-   - Require explicit approval to create/switch tasks when ambiguity exists.
-3. **Single Active Task**
-   - Maintain one Active Task and surface it on-demand.
-4. **Resume Paused Task**
-   - When the user starts a paused task, pause the current Active Task (if any) and make the selected task active.
-5. **Task Persistence**
-   - Persist tasks as file-embedded TODO items (and update them as progress is made).
-   - Each task has exactly one primary TODO anchor; additional related TODOs may exist where locality requires.
-5. **Task Snapshot**
-   - Emit Task Snapshots on task start, drift, explicit status requests, and phase changes.
-7. **Drift Detection**
-   - When drift occurs, prompt to: continue the current task, pause and start a new task, or capture the new work as a TODO that creates a paused task.
-8. **Judgment Feedback & Adaptation**
-   - Accept immediate user feedback when:
-     - a task should have been created but wasn’t
-     - a task should not have been created
-     - drift was over- or under-detected
-   - Acknowledge feedback explicitly.
-   - Bias future decisions in the same session.
-   - Optionally persist feedback as a lightweight preference signal (not a hard rule).
-    - Canonical phrases (examples):
-       - “We should have created a task for that.”
-       - “Don’t create a task for that.”
-       - “That’s still the same task.”
-       - “That’s a different task.”
-       - “You’re over-detecting drift.”
-       - “You missed drift there.”
-9. **Prefix Taxonomy**
+1. **TODO Discovery**
+   - Treat TODO items in files as the source of truth for tasks.
+2. **TODO Creation Guidance**
+   - Propose TODO insertions with correct syntax and placement near relevant code/docs.
+3. **TODO Formatting**
+   - Use `TODO:` with the canonical grammar and native comment syntax.
+4. **TODO Options**
+   - Support optional metadata lines for labels, assignees, and milestones (issue fields).
+5. **GitHub Issue Integration**
+   - Ensure TODOs are compatible with the TODO-to-Issue GitHub Action.
+   - Issues are created/updated/closed by the action, not by chat state.
+6. **Prefix Taxonomy**
    - Use descriptive prefixes with the following meanings:
      | Prefix   | Meaning                         |
      | -------- | ------------------------------- |
@@ -82,23 +62,20 @@ Add a Concierge module (“Taskmaster”) that manages task framing and persiste
      | A11Y     | Accessibility                   |
      | SEC      | Security                        |
      | REFACTOR | Restructure w/o behavior change |
-10. **File Localization**
+7. **File Localization**
    - Embed TODOs in the most relevant file(s), near the relevant section.
    - The TODO must live next to the thing it refers to.
-11. **Task Discovery**
-   - Identify TODOs in file content.
-12. **Formatting Rules**
+8. **Formatting Rules**
    - Avoid multiline TODOs.
    - Avoid emojis in TODOs.
    - Avoid Markdown checkboxes as tasks.
    - Avoid natural-language prefixes; use the taxonomy.
    - Avoid chat-only task tracking.
    - Avoid tool-specific syntax (e.g., @todo, FIXME!!!).
-13. **Canonical Grammar**
-   - Use: `<PREFIX>(<SCOPE>): <imperative description> [optional metadata]`
-   - Scope should be a short, stable noun (not a sentence).
+9. **Canonical Grammar**
+   - Use: `<PREFIX>: <imperative description> [optional metadata]`
    - Metadata must be appended in square brackets (never inline).
-14. **Native Comment Syntax**
+10. **Native Comment Syntax**
    - Use native comment syntax only; no universal wrapper.
      | File type      | Format                             |
      | -------------- | ---------------------------------- |
@@ -107,10 +84,7 @@ Add a Concierge module (“Taskmaster”) that manages task framing and persiste
      | HTML           | `<!-- TODO(...) -->`               |
      | Markdown       | `<!-- TODO(...) -->` *(preferred)* |
      | YAML / TOML    | `# TODO(...)`                      |
-15. **Task Completion**
-   - Determine when a task is complete based on its Definition of Done.
-   - Verify the Definition of Done is satisfied before closing.
-16. **TODO Lifecycle**
+11. **TODO Lifecycle**
    - Treat TODO items as short-lived, file-embedded signals, not long-term backlog artifacts.
    - Lifecycle state must be immediately readable in plain text without parsing or external tooling.
    - State is expressed primarily through the TODO marker and inline tags; metadata is secondary.
@@ -129,88 +103,61 @@ Add a Concierge module (“Taskmaster”) that manages task framing and persiste
      | Priority / effort  | Optional metadata, never required |
 
 ## Output Artifacts
-- **Task Snapshot** (chat output)
 - **TODO insertions** (file edits) via the Implementer module when actual edits are required
 - Optional: a lightweight `TASKS.md` index if the project has no good place to embed cross-cutting tasks (not required for MVP)
+- GitHub Issues created/updated by the TODO-to-Issue action
 
 ## Routing & Collaboration
-- Taskmaster decides “task framing + tracking.”
+- Taskmaster decides TODO formatting and placement guidance.
 - Implementer performs file edits and returns an Implementation Report.
+- GitHub Actions handles issue creation/update/close.
 - Housekeeper may recommend conventions for TODO formatting and placement across repos.
 
 ## State Model
-- `active_task`: { title, phase, definition_of_done[], todo_refs[] }
-- `paused_tasks[]`: optional list (MVP may omit and just keep one paused title in chat); capture creates a paused task entry.
-- `judgment_feedback`: { corrections[], last_adjustment, preference_signal? }
-
-## Drift Heuristics (MVP)
-Drift is suspected when:
-- user introduces a new goal that does not map to DoD bullets,
-- new files/areas are introduced that are unrelated to current TODO refs,
-- user asks a new “how do I…” unrelated to current task,
-- the assistant is asked to “switch topics” or similar.
-Judgment feedback should bias these heuristics over time.
+- TODO items in files are the only persisted state.
+- No Active Task or chat-only task state is maintained.
 
 ## Acceptance Criteria
-- User can ask “what task are we on?” and get a clear answer.
-- Taskmaster proposes task framing for multi-step efforts.
-- Taskmaster refuses to silently change tasks.
 - TODO items are formatted consistently and can be searched (e.g., TODO Tree).
-- Drift prompts are clear and require an explicit choice.
-- Users can provide judgment feedback and Taskmaster adapts.
+- TODOs use `TODO:` with canonical grammar and native comment syntax.
+- TODOs map cleanly to GitHub Issues via the TODO-to-Issue action.
 - The system works across a multi-repo workspace (frontend/backend/aix) without assuming paths.
-- Taskmaster identifies the correct prefix for the current use case.
-- Taskmaster proposes a new task when the content of a conversation warrants it.
-- Taskmaster recognizes when a conversation is related to an existing task.
+- Taskmaster suggests TODO insertions in relevant files instead of framing chat-based tasks.
 
 ## Testing & Calibration
-<!-- TEST(Taskmaster): Test and calibrate Taskmaster [BLOCKED: paused by user]. -->
+<!-- TEST: Test TODO-to-Issue workflow on a sample TODO. -->
 
 ## Build Taskmaster
-<!-- TODO(Taskmaster): Build Taskmaster module. -->
+<!-- TODO: Refactor Taskmaster for TODO-to-Issue workflow. -->
 
 ### Calibration checklist (short)
-- Confirms or prompts for task initiation when no Active Task exists.
-- Maintains exactly one Active Task and requires explicit switch approval.
-- Emits a single, file-embedded TODO anchor per task using native comment syntax.
-- Uses canonical grammar with short noun scope and bracketed metadata.
-- Detects drift and offers continue/pause/capture options.
-- Reports a Task Snapshot with Active Task, phase, next action, and TODO anchor location.
-- Determines task completion against the Definition of Done.
+- Uses canonical grammar with bracketed metadata.
+- Places TODOs near relevant code/docs with native comment syntax.
+- Confirms TODO-to-Issue action picks up new TODOs on push/workflow dispatch.
+- Removes TODOs or converts to NOTE on completion (no DONE TODOs).
 
 ## Example Interactions
 
-### Example 1: Propose Task
-User: “Let’s add a new Concierge module for task management.”
-Taskmaster:
-- Proposes title + DoD
-- Asks approval to create TODOs in `/aix/modules/taskmaster.prompt.md` and `/aix/specs/taskmaster-spec.md`
-
-### Example 2: Drift
-User: “Also, can we fix the build failing in frontend?”
-Taskmaster:
-- “That’s a different task. Continue current / pause and start new task / capture as TODO (paused task)?”
-
-### Example 4: Judgment Feedback
-User: “We should have created a task for that.”
-Taskmaster:
-- Acknowledges the feedback
-- Biases task framing decisions in this session
-
-### Example 5: Resume Paused Task
-User: “Resume the ‘Fix nav layout’ task.”
-Taskmaster:
-- Pauses the current active task (if any)
-- Sets “Fix nav layout” as the Active Task
-
-### Example 3: Capture as TODO
+### Example 1: Capture TODO
 User: “We should add prefix taxonomy to the README later.”
 Taskmaster:
-- Adds `// DOCS(README): Document TODO taxonomy…` near README section (or adds to TASKS.md)
+- Adds `<!-- DOCS: Add prefix taxonomy section -->` near the README section.
+
+### Example 2: TODO Options
+User: “Make this TODO assignable and label it.”
+Taskmaster:
+- Adds:
+   - `labels: enhancement, help wanted`
+   - `assignees: datainkio`
+
+### Example 3: Complete TODO
+User: “That’s done now.”
+Taskmaster:
+- Removes the TODO or converts it to a NOTE if context is valuable.
 
 ## MVP Cut
 For MVP, Taskmaster:
-- does not integrate with external issue trackers,
+- relies on the TODO-to-Issue action for issue creation,
+- does not maintain conversation-based task state,
 - does not require a global tasks index,
-- uses simple drift heuristics,
-- focuses on consistent output and explicit task switches.
+- focuses on consistent TODO formatting and placement.

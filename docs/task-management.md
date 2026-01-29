@@ -7,6 +7,17 @@ This doc describes how Taskmaster embeds and maintains TODO items in the repo.
 - They survive chat sessions.
 - They work with TODO Tree / ripgrep / IDE search.
 
+## GitHub Issues workflow
+TODOs are the source of truth. The TODO-to-Issue GitHub Action creates, updates, and closes GitHub Issues based on committed TODOs.
+
+Key points:
+- Use `TODO:` with a concise description.
+- Add optional metadata lines beneath the TODO to set issue fields:
+	- `labels: enhancement, help wanted`
+	- `assignees: datainkio`
+	- `milestone: v1.0`
+- Avoid multiline TODOs; use short, actionable statements.
+
 ## Prefix taxonomy
 Use the following meanings:
 | Prefix   | Meaning                         |
@@ -22,8 +33,8 @@ Use the following meanings:
 | REFACTOR | Restructure w/o behavior change |
 
 Prefer:
-- `BUG(BUILD): …` over `TODO: build issue …`
-- `DOCS(README): …` over `TODO: docs …`
+- `BUG: Build issue …` over `TODO: build issue …`
+- `DOCS: Documentation …` over `TODO: docs …`
 
 ## Placement
 - Put TODOs near the code, function, or section they reference.
@@ -35,48 +46,9 @@ Prefer:
 - Each task has exactly one primary TODO anchor; additional related TODOs may exist where locality requires.
 - Track substeps in chat or the task spec, not as additional TODOs.
 
-## Task Snapshot triggers
-Task Snapshots should be emitted:
-- on task start
-- on drift
-- on explicit status requests
-- on phase changes
-
-## Drift handling
-When drift is detected, Taskmaster must prompt the user to choose:
-- **Continue current task**
-- **Pause current and start a new task**
-- **Capture as TODO** (creates a paused task; active task stays the same)
-Taskmaster must not switch tasks without an explicit user choice.
-
-## Judgment Feedback & Adaptation
-Taskmaster should accept immediate feedback when:
-- a task should have been created but wasn’t
-- a task should not have been created
-- drift was over- or under-detected
-
-This feedback should:
-- be acknowledged explicitly
-- bias future decisions in the same session
-- optionally persist as a lightweight preference signal (not a hard rule)
-
-### Canonical feedback phrases (examples)
-- “We should have created a task for that.”
-- “Don’t create a task for that.”
-- “That’s still the same task.”
-- “That’s a different task.”
-- “You’re over-detecting drift.”
-- “You missed drift there.”
-
-## Resuming paused tasks
-When a user asks to begin a paused task:
-- The current active task (if any) is paused.
-- The selected paused task becomes the active task.
-
 ## Task completion
-- Determine completion by checking the Definition of Done.
-- Verify DoD is satisfied before closing a task.
- - Do not close a task until DoD verification is explicit.
+- Remove the TODO when the work is complete, or convert it to a NOTE if context is valuable.
+- Do not leave DONE TODOs behind.
 
 ## Formatting rules (must avoid)
 - Multiline TODOs
@@ -87,8 +59,7 @@ When a user asks to begin a paused task:
 - Tool-specific syntax (e.g., @todo, FIXME!!!)
 
 ## Canonical grammar
-- `<PREFIX>(<SCOPE>): <imperative description> [optional metadata]`
-- Scope should be a short, stable noun (not a sentence).
+- `<PREFIX>: <imperative description> [optional metadata]`
 - Metadata must be appended in square brackets (never inline).
 
 ## Native comment syntax (required)
@@ -119,11 +90,11 @@ State is expressed primarily through the TODO marker and inline tags; metadata i
 	- No state tag required.
 	- Indicates actionable or pending work.
 	- Default state for all newly created TODOs.
-	- Example: `// TODO(DX): Normalize Task Snapshot output`
+	- Example: `// TODO: Normalize Task Snapshot output`
 
 2) **In Progress**
 	- Indicates the user is actively working on the TODO.
-	- Example: `// TODO(DX): Normalize Task Snapshot output [WIP]`
+	- Example: `// TODO: Normalize Task Snapshot output [WIP]`
 	- Rules:
 	  - Use [WIP] only while work is actively underway.
 	  - Avoid leaving TODOs in WIP indefinitely.
@@ -131,8 +102,8 @@ State is expressed primarily through the TODO marker and inline tags; metadata i
 
 3) **Blocked**
 	- Indicates work cannot proceed due to an external dependency or unresolved decision.
-	- Example: `// BUG(BUILD): Frontend fails on Node 20 [BLOCKED: upstream dependency]`
-	- Optional additions (only when helpful): `// BUG(BUILD): Frontend fails on Node 20 [BLOCKED: upstream dependency] [since=YYYY-MM-DD]`
+	- Example: `// BUG: Frontend fails on Node 20 [BLOCKED: upstream dependency]`
+	- Optional additions (only when helpful): `// BUG: Frontend fails on Node 20 [BLOCKED: upstream dependency] [since=YYYY-MM-DD]`
 	- Rules:
 	  - Always include a short reason after BLOCKED.
 	  - Use timestamps sparingly, only to prevent silent stagnation.
@@ -143,7 +114,7 @@ State is expressed primarily through the TODO marker and inline tags; metadata i
 	  - Remove the TODO entirely (default).
 	  - Convert to a NOTE when future context is valuable.
 		 - Example: `// NOTE(DX): Task Snapshot standardized in Taskmaster v0.2.0`
-	- Anti-pattern (avoid): `// TODO(DX): Normalize Task Snapshot output [DONE]`
+	- Anti-pattern (avoid): `// TODO: Normalize Task Snapshot output [DONE]`
 	- Rationale: Git history preserves completion evidence; lingering DONE TODOs degrade signal quality.
 
 ### Metadata vs state
@@ -164,6 +135,6 @@ State must never be stored only in metadata.
 - Never preserve TODOs solely for historical record.
 
 ## Examples
-- `// TODO(DX): Add Task Snapshot header to all Taskmaster responses`
-- `// CHORE(AIX): Normalize module prompt frontmatter`
-- `<!-- DOCS(README): Add section on task switching -->`
+- `// TODO: Add Task Snapshot header to all Taskmaster responses`
+- `// CHORE: Normalize module prompt frontmatter`
+- `<!-- DOCS: Add section on task switching -->`

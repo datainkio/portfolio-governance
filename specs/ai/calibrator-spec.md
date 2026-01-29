@@ -21,7 +21,7 @@ aix:
 
 # Calibrator Module Spec
 
-<!-- TODO(TASKMASTER): Define the Calibrator spec. -->
+<!-- TODO: Define the Calibrator spec. -->
 
 ## Problem
 Concierge responses can drift from workspace constraints or make assumptions that conflict with `/context` and `/specs`, leading to rework and misaligned changes.
