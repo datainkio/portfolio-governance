@@ -26,13 +26,17 @@ tags:
 This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
-
+<!-- TODO(taskmaster): Confirm TODO-to-Issue workflow works.
+-->
 - Refactor TaskManager module to focus on GitHub Issues
   - rewrite spec
     - remove conversation flow as source of tasks
     - replace with GitHub Action "TODO to Issue"
   - update code
-  - TODO: Test issue creation with assignees and labels. [assignees: datainkio, ]
+  <!-- TODO(taskmaster): Test issue creation with assignees and labels.
+  assignees: datainkio
+  labels: test
+  -->
   - document
 - Move the landing page XD forward in progress
   - Address 404 errors
