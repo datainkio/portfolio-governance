@@ -19,7 +19,7 @@ aix:
 ---
 
 # Project Context (Canonical)
-<!-- TODO: TODO-to-Issue workflow fails -->
+
 ## Audience convention
 
 - `context/` (this folder) and `specs/` are **canonical** and should be treated as source-of-truth by both humans and AI.
