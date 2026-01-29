@@ -1,6 +1,7 @@
 # TODO
 The primary audience for this document is human, not AI.
 <!-- TODO: Test if the action picks up a new item here. Hopefully this one includes the URL. -->
+<!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/6 -->
 <!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/5 -->
 
 ## AIX / DX
