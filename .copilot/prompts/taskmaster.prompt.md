@@ -172,6 +172,7 @@ Supported by the workflow (when present) include:
 Taskmaster treats TODOs as file-embedded, automation-backed signals. Lifecycle is designed to align with:
 - `INSERT_ISSUE_URLS: true` (repo edits are expected)
 - `CLOSE_ISSUES: true` (TODO removal closes issues)
+When an issue is closed, remove the corresponding TODO block from the file to reflect completion.
 
 ### Lifecycle states
 1) **Open**
