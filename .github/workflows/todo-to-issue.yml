@@ -4,6 +4,13 @@ on:
   push:
   workflow_dispatch:
 
+# Concurrency prevents overlapping runs from stacking and hanging.
+# Goal: ensure only the latest run per branch remains active.
+# Impact: in-progress runs may be canceled when a new run starts.
+concurrency:
+  group: todo-to-issue-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   todo_to_issue:
     runs-on: "ubuntu-latest"
