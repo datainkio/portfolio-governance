@@ -4,6 +4,8 @@ The primary audience for this document is human, not AI.
 <!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/6 -->
 <!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/5 -->
 
+<!-- TODO: This is another todo item. It tests the URL insertion following issue creation. -->
+
 ## AIX / DX
 - [ ] Create explicit frontmatter schema for workspace
 - [ ] Reduce syntax errors from AI edits (e.g. "SyntaxError: Unexpected token '}'")
