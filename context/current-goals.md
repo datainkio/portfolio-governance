@@ -26,10 +26,11 @@ tags:
 This file is the single-source-of-truth for what matters *right now*.
 
 ## Now
-<!-- TODO: Test updates to Taskmaster -->
+<!-- TODO: Test updates to Taskmaster
+assignees: russelllebo
+labels: test
+-->
 <!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/9 -->
-<!-- assignees: russelllebo -->
-<!-- labels: test -->
 - Refactor TaskManager module to focus on GitHub Issues
   - rewrite spec
     - remove conversation flow as source of tasks
