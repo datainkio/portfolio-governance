@@ -5,6 +5,7 @@ The primary audience for this document is human, not AI.
 <!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/5 -->
 
 <!-- TODO: This is another todo item. It tests the URL insertion following issue creation. -->
+<!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/7 -->
 
 ## AIX / DX
 - [ ] Create explicit frontmatter schema for workspace
