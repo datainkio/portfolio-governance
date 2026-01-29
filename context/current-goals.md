@@ -42,7 +42,7 @@ This file is the single-source-of-truth for what matters *right now*.
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery
 	- Establish a frontmatter schema
-
+<!-- TODO: Test the Taskmaster test :( -->
 ## Next
 - Define and document command permissions (e.g. zsh) to streamline agent work
 - Develop MVP through iteration.
