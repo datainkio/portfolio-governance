@@ -92,69 +92,121 @@ Use the smallest set that covers intent:
 - SEC — security
 - REFACTOR — restructure without behavior change
 
-## TODO Lifecycle (Taskmaster)
-Taskmaster treats TODO items as short-lived, file-embedded signals, not long-term backlog artifacts. Lifecycle state must be immediately readable in plain text, without parsing or external tooling.
+## Action Contract (GitHub TODO → Issue)
+This repo uses **alstr/todo-to-issue-action@v5** to turn file-embedded TODO comments into GitHub Issues.
 
-### Core principle
-State is expressed primarily through the TODO marker and inline tags; metadata is secondary.
+### Canonical identifiers (must match workflow)
+Only these identifiers are actionable (others are ignored by the workflow):
+- TODO
+- BUG
+- CHORE
+- DOCS
+- TEST
+- PERF
+- A11Y
+- SEC
+- REFACTOR
+
+### What the workflow does (behavioral contract)
+- Runs on **push** and can also be triggered via **workflow_dispatch**.
+- Creates or updates an Issue per TODO.
+- **Inserts Issue URLs back into TODO comments** and commits those edits.
+- With `CLOSE_ISSUES: true`, **removing a TODO closes its linked issue**.
+- Ignores common build/vendor paths (as configured in `IGNORE`), so TODOs there will not become issues.
+
+### What Taskmaster must enforce for correct parsing
+- TODOs must be written in **native comment syntax** for the file.
+- TODO option lines (`labels:`, `assignees:`, `milestone:` etc.) must be **comment-prefixed lines directly under the TODO**, in the same comment block.
+- Multiline TODO bodies are allowed, but should be capped and structured (see Grammar).
+
+> DX note: Because the workflow commits inserted URLs, it will produce bot commits. Treat this as a normal, expected side effect.
+
+## TODO Grammar (canonical)
+### Minimum form (single-line)
+- `<COMMENT> <IDENTIFIER>: <short title>`
+
+Examples:
+- `// BUG: Fix race in task hydration`
+- `# DOCS: Add Taskmaster examples for TODO options`
+
+### Extended form (recommended)
+A TODO may include up to **5 comment-prefixed body lines**, followed by **comment-prefixed option lines**.
+
+JS/TS example:
+```js
+// TODO: Add Taskmaster docs for TODO options
+// Include examples for JS, Python, YAML.
+// Mention CLOSE_ISSUES behavior when removing TODOs.
+// labels: documentation
+// assignees: datainkio
+```
+
+Python example:
+```py
+# PERF: Reduce cold-start time for preview build
+# Investigate caching strategy and dependency loading.
+# labels: performance
+```
+
+### Options (must be comment-prefixed)
+Supported by the workflow (when present) include:
+- `labels: <comma-separated>`
+- `assignees: <comma-separated GitHub usernames>`
+- `milestone: <milestone title>`
+
+### Metadata policy
+- Prefer workflow-native options and identifier conventions.
+- Inline bracket metadata (e.g., `[owner=@…]`) is allowed for humans, but **must not be relied on** for automation unless mirrored in workflow-supported options.
+
+## TODO Lifecycle (Taskmaster)
+Taskmaster treats TODOs as file-embedded, automation-backed signals. Lifecycle is designed to align with:
+- `INSERT_ISSUE_URLS: true` (repo edits are expected)
+- `CLOSE_ISSUES: true` (TODO removal closes issues)
 
 ### Lifecycle states
-1) **Open (default)**
-   - A TODO is open unless explicitly marked otherwise.
-   - No state tag required.
-   - Indicates actionable or pending work.
-   - Default state for all newly created TODOs.
-  - Example: `// TODO: Normalize Task Snapshot output`
+1) **Open**
+   - A TODO exists **without** an inserted Issue URL.
+   - Default for newly added TODOs.
 
-2) **In Progress**
-   - Indicates the user is actively working on the TODO.
-  - Example: `// TODO: Normalize Task Snapshot output [WIP]`
-   - Rules:
-     - Use [WIP] only while work is actively underway.
-     - Avoid leaving TODOs in WIP indefinitely.
-     - Prefer a single WIP TODO per Active Task when possible.
+2) **Linked**
+   - The TODO includes an inserted Issue URL (created/updated by the workflow).
 
-3) **Blocked**
-   - Indicates work cannot proceed due to an external dependency or unresolved decision.
-  - Example: `// BUG: Frontend fails on Node 20 [BLOCKED: upstream dependency]`
-  - Optional additions (only when helpful): `// BUG: Frontend fails on Node 20 [BLOCKED: upstream dependency] [since=YYYY-MM-DD]`
-   - Rules:
-     - Always include a short reason after BLOCKED.
-     - Use timestamps sparingly, only to prevent silent stagnation.
+3) **In Progress (human signal)**
+   - Optional: add `[WIP]` when actively working.
+   - `[WIP]` does **not** affect automation; it is for humans only.
+   - Prefer at most one `[WIP]` TODO per file/feature area.
 
-4) **Completed (terminal)**
-   - Completed TODOs should not remain as TODOs.
-   - Preferred outcomes:
-     - Remove the TODO entirely (default).
-     - Convert to a NOTE when future context is valuable.
-       - Example: `// NOTE(DX): Task Snapshot standardized in Taskmaster v0.2.0`
-  - Anti-pattern (avoid): `// TODO: Normalize Task Snapshot output [DONE]`
-   - Rationale: Git history preserves completion evidence; lingering DONE TODOs degrade signal quality.
+4) **Blocked (human signal)**
+   - Optional: add `[BLOCKED: <reason>]` when progress is halted.
+   - `[BLOCKED]` does **not** affect automation; it is for humans only.
+   - Use timestamps sparingly: `[since=YYYY-MM-DD]` only to prevent silent stagnation.
 
-### Metadata vs state
-State must never be stored only in metadata.
-| Concern            | How it should be represented |
-| ------------------ | ---------------------------- |
-| State (open / WIP / blocked) | Inline tags ([WIP], [BLOCKED: …]) |
-| Ownership          | [owner=@datainkio]            |
-| Deadlines          | [due=YYYY-MM-DD]              |
-| References         | [refs=#123]                   |
-| Priority / effort  | Optional metadata, never required |
+5) **Resolved (terminal)**
+   Choose ONE of these completion paths:
 
-### Taskmaster behavior rules
-- Create TODOs in the Open state by default.
-- Add [WIP] when the user begins active work.
-- Add [BLOCKED: …] when progress halts due to dependency or uncertainty.
-- Remove or convert TODOs upon completion.
-- Never preserve TODOs solely for historical record.
+   **A) Close the Issue (default)**
+   - Remove the TODO. With `CLOSE_ISSUES: true`, the linked Issue will be closed automatically.
+
+   **B) Preserve a record without re-triggering**
+   - Convert the TODO line into a non-identifier comment so it is ignored by the workflow.
+   - Example:
+     - From: `// TODO: … <issue url>`
+     - To: `// NOTE: Resolved — <issue url>`
+
+### Core principle
+State should be immediately readable in plain text. Avoid heavy metadata; prefer short, clear titles and small body notes.
 
 ## TODO Formatting Rules (Must Avoid)
-- Multiline TODOs
+- Un-commented TODOs (must use the file’s native comment syntax)
+- Un-commented option lines (options must be comment-prefixed lines directly under the TODO)
+- Unbounded multiline TODOs / spec dumps (cap body lines; keep it scannable)
 - Emojis in TODOs
-- Markdown checkboxes as tasks
-- Natural-language prefixes (use the taxonomy)
-- Chat-only task tracking
-- Tool-specific syntax (e.g., @todo, FIXME!!!)
+- Markdown checkboxes as issue-bound tasks (checkboxes may be used for human checklists, but are not actionable by this workflow)
+- Natural-language prefixes (use the canonical identifiers)
+- Chat-only task tracking (TODOs in files are the source of truth)
+- Tool-specific syntax (e.g., @todo, FIXME!!!) unless explicitly mapped in workflow configuration
+- Removing TODOs casually (removal may close issues when `CLOSE_ISSUES: true`)
+
 
 ## Response Contract (always use)
 ### A) TODO Snapshot (top)
