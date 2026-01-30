@@ -79,7 +79,7 @@ Full menu: [docs/concierge-prompt-catalog.md](docs/concierge-prompt-catalog.md)
 - Getting started: `docs/getting-started.md`
 - Docs hub: `docs/README.md`
 - Concierge prompt catalog: [docs/concierge-prompt-catalog.md](docs/concierge-prompt-catalog.md)
-- AIX backlog: [TODO.md](TODO.md)
+- AIX backlog: [TODO.md](dataink.io/aix/TODO.md)
 - Template notes: [template_notes.md](template_notes.md)
 
 ## AI configuration

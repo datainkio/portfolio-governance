@@ -28,10 +28,8 @@ This file is the single-source-of-truth for what matters *right now*.
 ## Now
 - Move the landing page XD forward in progress
   - Complete separation from Airtable
+  - Define site settings, navigation, and ui labeling in sanity
   - Address 404 errors
-  - Add fields to Landing Page singleton
-    - background video
-    - background video poster
   - Display content based on Landing Page values
 - Document coding conventions and standards.
 	- Generate a tag taxonomy for easy findability and discovery

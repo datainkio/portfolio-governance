@@ -7,6 +7,10 @@ Full decision records live as ADRs under `/docs/decisions/`.
 
 ## Recently accepted
 
+- **ADR 0004 — Remove Airtable Integration Folder**
+	- Removes the legacy Airtable integration folder from the frontend to reduce coupling and maintenance overhead.
+	- Source: `/docs/decisions/0004-remove-airtable-folder.md`
+
 - **ADR 0003 — Context Freshness Gate (Sidecar + Deterministic Drift Scoring)**
 	- Keeps `/context` review metadata in a sidecar and enforces drift thresholds via repo-managed git hooks (including cross-repo frontend signals).
 	- Source: `/docs/decisions/0003-context-freshness-gate.md`
@@ -28,6 +32,10 @@ If you find contradictions, flag them explicitly as drift risks and propose wher
 - **ADR 0002 — Portfolio Frontend Domain Module Uses Internal Routing (Model A)**
 	- Concierge remains the only router; the `portfolio-frontend-domain` module contains an internal classification map but is not a peer router.
 	- Source: `/docs/decisions/0002-portfolio-frontend-domain-model-a.md`
+
+- **ADR 0004 — Remove Airtable Integration Folder**
+	- Removes the legacy Airtable integration folder from the frontend to reduce coupling and maintenance overhead.
+	- Source: `/docs/decisions/0004-remove-airtable-folder.md`
 
 ## How to add / update decisions
 
