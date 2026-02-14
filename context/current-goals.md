@@ -47,6 +47,7 @@ This file is the single-source-of-truth for what matters _right now_.
 ## Done (recent)
 
 - [ ] Confirm adherence to choreographer spec. Test by defining animations for homepage sections.
+- \[ \] Issue URL: https://github.com/datainkio/portfolio-governance/issues/16
 - [ ] Address poor agent performance when editing files. For example, the inability to edit a file without requiring multiple steps, failures, file corruptions, and excessive amounts of time just to plan.
 - [ ] Developed frontmatter schema for JS files and applied across AIX + frontend (spec: [specs/features/js-frontmatter-schema.md](../specs/features/js-frontmatter-schema.md))
 - [ ] Completed animation-focused Concierge module spec and prompt module; routing entry added.
