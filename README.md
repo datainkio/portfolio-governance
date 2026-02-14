@@ -95,7 +95,7 @@ This scaffold is intentionally **tool-agnostic**. Use what your project needs.
 
 ### Utilities & manifests
 
-- Scripts hub: [scripts/README.md](scripts/README.md)
+- Scripts hub: [scripts/README.md](dataink.io/aix/scripts/README.md)
 - Assets manifest: [assets/README.md](assets/README.md)
 - Data manifest: [data/README.md](data/README.md)
 

@@ -33,7 +33,7 @@ Evidence source: files present in-repo (prompts, docs, logs). No external probe 
 
 **Evidence**
 - AIX metrics are defined with formulas, targets, and guardrails that support consistent evaluation: [specs/performance/aix.md](../../specs/performance/aix.md)
-- Logging guidance requires concise, evidence-backed reports with metrics snapshots: [docs/logs/README.md](README.md)
+- Logging guidance requires concise, evidence-backed reports with metrics snapshots: [docs/logs/README.md](dataink.io/aix/docs/logs/README.md)
 
 ---
 
