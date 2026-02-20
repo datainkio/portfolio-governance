@@ -20,24 +20,11 @@ This file is the single-source-of-truth for what matters _right now_.
 ## Now
 
 - [ ] Move the landing page XD forward in progress
-    - [x] Complete separation from Airtable
-    - [ ] Document choreography structure in Obsidian
-    - [ ] Define site settings, navigation, and ui labeling in sanity
-    - [ ] Display content based on Landing Page values
-    - [ ] Section graphics and animations
-    - [ ] IxD and coordination of section intros and outros
-    - [ ] Address 404 errors
-
 
 ## Next
+
 - [ ] Support content strategy through frontmatter and templates
-	- [ ] develop frontmatter schema
-	- [x] create spec [[spec-content-strategy-frontmatter-template]] ✅ 2026-02-05
-	- [ ] create content templates
-	- [ ] update existing content files
 - [ ] Document coding conventions and standards.
-    - [ ] Generate a tag taxonomy for easy findability and discovery
-    - [ ] Establish a frontmatter schemaDefine and document command permissions (e.g. zsh) to streamline agent work
 - [ ] Develop MVP through iteration.
 - [ ] Optimize frontend by moving agents out and integrating into aix repo.
 - [ ] Complete Sanity adoption (full separation from Airtable).

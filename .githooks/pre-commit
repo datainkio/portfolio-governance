@@ -5,6 +5,22 @@
 
 set -eu
 
+resolve_node() {
+  if command -v node >/dev/null 2>&1; then
+    command -v node
+    return 0
+  fi
+
+  for candidate in /opt/homebrew/bin/node /usr/local/bin/node; do
+    if [ -x "$candidate" ]; then
+      echo "$candidate"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
 # Run from repo root for consistent relative paths.
 ROOT="$(git rev-parse --show-toplevel 2>/dev/null || true)"
 if [ -z "$ROOT" ]; then
@@ -16,7 +32,14 @@ cd "$ROOT"
 # Only run if the script exists (safe for partial checkouts).
 if [ -f "scripts/update-context-freshness.mjs" ]; then
   echo "[aix] running context drift gate..." 1>&2
-  node scripts/update-context-freshness.mjs --fail-on-threshold --summary
+  NODE_BIN="$(resolve_node || true)"
+  if [ -z "$NODE_BIN" ]; then
+    echo "aix pre-commit: Node.js runtime not found." 1>&2
+    echo "Install Node.js or expose it in PATH (e.g. /opt/homebrew/bin/node)." 1>&2
+    exit 1
+  fi
+
+  "$NODE_BIN" scripts/update-context-freshness.mjs --fail-on-threshold --summary
 fi
 
 exit 0
