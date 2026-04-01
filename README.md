@@ -18,34 +18,86 @@ aix:
     critical: true
 ---
 
-# Vitaixmen
+# Vitaixmin
 
-A lightweight scaffold for creating **VS Code workspaces** with:
-- solid repo hygiene (ignores, structure)
-- better Copilot/agent ergonomics (routing, context)
-- documentation patterns you can reuse
+A lightweight scaffold for building VS Code workspaces around a single routing model:
+
+- `Concierge` is the only user-facing entrypoint
+- Concierge routes each request to the best-fit module
+- Concierge supports self-maintenance by auditing and updating AIX routing/context artifacts through controlled workflows
+- Modules specialize by outcome (analysis, architecture, implementation, docs, review, hygiene)
+
+This scaffold is designed to improve both AIX and DX:
+
+- **AIX benefits**: lower routing ambiguity, less context drift, and more predictable task execution
+- **DX benefits**: faster onboarding, clearer file ownership, and fewer workflow dead ends
+
+Core capabilities:
+
+- strong repo hygiene (ignores, structure, low-noise indexing)
+- calibrated Copilot routing (Concierge + prompt modules)
+- reusable documentation and context patterns for AIX performance
 
 ## Getting Started
 
-This repository is **Vitaixmen**, a reusable VS Code workspace starter.
+This repository is **Vitaixmin**, a reusable VS Code workspace starter.
 
 It is intended to be used as a **template** when starting a new project — not cloned and detached.
 
-Important: Do not regenerate agent instructions (i.e. the button you get in the initial dialog for Copilot Chat). This workspace uses a custom Concierge + module routing system calibrated for AIX.
+Important: Do not regenerate agent instructions from the default Copilot dialog. This workspace uses a custom Concierge + module routing system calibrated for AIX.
 
 **To start a new project:**
+
 1. Create a new repository using this repo as a **template**
 2. Clone your new project locally
 3. Follow the step-by-step guide in `docs/getting-started.md`
 
 > **Important:** Do not clone this repository directly to start a project.
-> Use Concierge (Migrator module) to apply scaffold updates to existing projects.
+> Use Concierge + the `migrator.updater` module to apply scaffold updates to existing projects.
 
-## What this repo does (and doesn’t)
+## What this repo does (and does not)
 
-- ✅ Maintains hygiene + AIX performance for the workspace
-- ✅ Provides templates and doc structure for consistent project documentation
-- ❌ Does not implement your product code (push that into project repos)
+- Maintains hygiene and AIX performance for the workspace
+- Provides templates and doc structure for consistent project documentation
+- Does not implement your product code (that belongs in project repos)
+
+## Agent System (Current State)
+
+Concierge is the single user-facing entrypoint. It routes each request to one primary module based on intent.
+
+Canonical sources:
+
+- Router contract: `.copilot/prompts/concierge.prompt.md`
+- Module index: `.copilot/prompts/_module-index.md`
+- Routing canon pointer: `ROUTING.md` -> `.copilot/ROUTING.md`
+
+### Module roles
+
+- `concierge.prompt.md`: routing contract and response schema enforcement
+- `analyst.prompt.md`: analysis briefs, tradeoffs, recommendations
+- `architect.prompt.md`: architecture and standards decisions
+- `editor.prompt.md`: rewriting and structural clarity for prose/docs
+- `content-strategist.prompt.md`: messaging, content strategy, microcopy
+- `housekeeper.prompt.md`: workspace hygiene, naming, ignores, cleanup
+- `implementer.prompt.md`: implementation execution and validation reporting
+- `librarian.prompt.md`: documentation curation, cross-linking, discoverability
+- `mechanic.prompt.md`: build/test/tooling triage and minimal fixes
+- `migrator.updater.prompt.md`: safe scaffold upgrades for existing projects
+- `navigator.prompt.md`: file/entrypoint discovery and placement guidance
+- `planner.prompt.md`: actionable execution plans and checkpoints
+- `reviewer.prompt.md`: quality/risk/completeness reviews
+- `taskmaster.prompt.md`: task framing, anti-drift TODO discipline
+
+### Mounted project modules
+
+For mounted repos (for example `frontend/`), Concierge can route to project-local modules when stack signals match. Current frontend modules are indexed via `frontend/.copilot/prompts/index.md` and cover display/templates, JS runtime, choreography planning/implementation, and domain workflows.
+
+### When to edit what
+
+- Change routing behavior: `.copilot/prompts/concierge.prompt.md`
+- Add/remove module definitions: `.copilot/prompts/_module-index.md`
+- Edit module behavior: `.copilot/prompts/*.prompt.md`
+- Update project-specific routing context: `context/projects/*.md`
 
 ## Concierge prompts
 
@@ -79,7 +131,7 @@ Full menu: [docs/concierge-prompt-catalog.md](docs/concierge-prompt-catalog.md)
 - Getting started: `docs/getting-started.md`
 - Docs hub: `docs/README.md`
 - Concierge prompt catalog: [docs/concierge-prompt-catalog.md](docs/concierge-prompt-catalog.md)
-- AIX backlog: [TODO.md](dataink.io/aix/TODO.md)
+- AIX backlog: [TODO.md](TODO.md)
 - Template notes: [template_notes.md](template_notes.md)
 
 ## AI configuration
@@ -95,13 +147,13 @@ This scaffold is intentionally **tool-agnostic**. Use what your project needs.
 
 ### Utilities & manifests
 
-- Scripts hub: [scripts/README.md](dataink.io/aix/scripts/README.md)
+- Scripts hub: [scripts/README.md](scripts/README.md)
 - Assets manifest: [assets/README.md](assets/README.md)
 - Data manifest: [data/README.md](data/README.md)
 
 ### Agent Ops tasks (recommended)
 
-This workspace defines a small allowlisted task set in [aix/.vscode/tasks.json](aix/.vscode/tasks.json) so routine work can be run via VS Code tasks (less ad-hoc terminal friction).
+This workspace defines a small allowlisted task set in `.vscode/tasks.json` so routine work can be run via VS Code tasks (less ad-hoc terminal friction).
 
 Key tasks:
 

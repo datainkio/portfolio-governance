@@ -19,10 +19,12 @@ This file is the single-source-of-truth for what matters _right now_.
 
 ## Now
 
+- [ ] Prepare to share project with Sam by updating /aix/README. Prioritize high-level documentation of the agent modules.
 - [ ] Complete the active landing-page UX flow with seamless choreography (video -> hero -> bio -> awards) and a clean handoff into downstream content.
 - [ ] Execute cinematic pacing pass: tighten video/hero handoff overlap and verify scroll re-entry behavior.
 - [x] Preserve preload UX contract: Hero intro must follow BG Video intro completion (no early hero start).
 - [ ] Keep AIX optimized for this workstream by maintaining accurate context and routing signals (especially `current-goals.md`) so execution stays focused.
+- [ ] Integrate project management tasks into the Majordomo custom agent. For example, automating synchronization of the project backlog with current-goals.md.
 
 ## Next
 
