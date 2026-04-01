@@ -3,7 +3,7 @@
 - **Title:** Domain-Specialized AI Coding Agent — Portfolio Frontend Toolkit
 - **Owner(s):** Russell
 - **Status:** MVP complete (iterating)
-- **Last reviewed:** 2026-01-16
+- **Last reviewed:** 2026-04-01
 - **Scope:** Multi-root workspace with `aix/` (platform scaffold) + `frontend/` (11ty site)
 - **Primary objective:** Reduce iteration friction and errors when building/maintaining a portfolio frontend using 11ty/Nunjucks, Tailwind, GSAP choreography, and CMS-backed content.
 
