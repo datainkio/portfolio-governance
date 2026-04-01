@@ -1,41 +1,36 @@
-# TODO
-The primary audience for this document is human, not AI.
-<!-- TODO: Test if the action picks up a new item here. Hopefully this one includes the URL. -->
-<!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/6 -->
-<!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/5 -->
+# Project Backlog
 
-<!-- TODO: This is another todo item. It tests the URL insertion following issue creation. -->
-<!-- TODO: Or this one...? -->
-<!-- Issue URL: https://github.com/datainkio/portfolio-governance/issues/8 -->
+This file tracks AIX and developer-experience backlog priorities.
 
-## AIX / DX
-- [ ] Create explicit frontmatter schema for workspace
-- [ ] Reduce syntax errors from AI edits (e.g. "SyntaxError: Unexpected token '}'")
-- [ ] Run a benchmark-grade AIX snapshot (fresh Copilot Chat thread) using 2–3 probes from [docs/maintenance/aix-probe-bank.md](docs/maintenance/aix-probe-bank.md) and paste the prompt + first response excerpts into a dated log under [docs/logs/](docs/logs/).
-- [ ] Extend the probe bank with an explicit multi-root safety probe (“do not touch mounted projects”) and add scoring notes for scope discipline.
-- [ ] Account for terminal issues related to EOF errors and stuck heredoc modes.
-- [ ] Drift gate DX: format the pre-commit failure output so the VS Code commit-block dialog shows a clean, actionable summary (1–3 lines + next steps).
-- [ ] Resolve Concierge stops mid-task when no user input is needed to continue. For example: "I'm going to..." 
-- [ ] Open permissions to running VS Code tasks without user input, even for sensitive files such as tasks.json.
-- [ ] Improve value of terminal messages on task run:
--- "Next: open context/current-goals.md and adjust Now/Next/Not Now.": define what "adjust means"
+## Now
 
-## Future improvements for Vitaixmen
-This section contains TODO items marking opportunities for improving Vitaixmen through lessons learned in this project.
-- [ ] Give users the ability to provide feedback on the quality of an agent's response to a prompt requiring multiple steps. This will require identifying the appropriate times to receive user feedback (e.g. when the user determines a task is complete or when the user determines they need to interrupt a task in process), defining a structure for the feeback, and addressing the feedback. The goal is to provide continuous feedback to agents so that they can adjust their behavior and beliefs accordingly. Likely involves the step of updating drift baseline on completion.
-- [ ] Provide direction for maintaining currency of README files (e.g. "always reflect the current state of the folder and the files it contains... describe goals and functions...")
-- [x] Integrate maintenance of constraints and decisions 
-- [x] Reinforce constraint that managing context does not require humans touching meta lines in files.
-- [ ] Handle EOF and syntax errors (e.g. SyntaxError: Unexpected end of JSON input) when processing files
-- [ ] Learn user's UX style/preferences/priorities
-- [x] Testing drift check on commit.
-- [x] Add allowlisted Agent Ops tasks (safe file ops + cross-repo scripts) to reduce terminal confirmation friction
-- [ ] Figure out appropriate level of agent cautiousness; can lead to long prompt completion times and overengineered solutions; should be more open
-- [ ] Update prompt triage to direct to default Copilot agent when appropriate (whatever that looks like)
-- [ ] Improve repo discoverabilty and wiki/pages navigation for AI agents. Make repo docs inherently navigable by adding lightweight index files to each folder (if they don’t already exist). Each one has:
--- “what’s in this folder”
--- links to key pages
--- “start here” guidance
+- [ ] BUG: Reduce syntax errors from AI edits (e.g., unexpected token and malformed frontmatter failures).
+- [ ] BUG: Resolve Concierge stopping mid-task when no user input is required.
+- [ ] FEAT: Improve drift gate pre-commit output so commit-block messaging is concise and actionable.
+- [ ] TODO: Improve terminal task output guidance (especially how to adjust `context/current-goals.md`).
 
-## Design & Development
-- [ ] Hook up ChatGPT browser instance to repos
+## Next
+
+- [ ] TODO: Run a benchmark-grade AIX snapshot with 2-3 probes from [docs/maintenance/aix-probe-bank.md](docs/maintenance/aix-probe-bank.md) and log results under [docs/logs/](docs/logs/).
+- [ ] TODO: Extend probe bank with explicit multi-root safety probe and scope-discipline scoring notes.
+- [ ] TODO: Account for terminal EOF errors and stuck heredoc modes.
+- [ ] FEAT: Create explicit frontmatter schema for workspace.
+- [ ] FEAT: Open permissions for running VS Code tasks without extra user input (including sensitive paths where approved).
+- [ ] TODO: Update prompt triage to route to default Copilot agent when appropriate.
+- [ ] TODO: Improve repo discoverability by adding lightweight index pages to key folders.
+
+## Later / Parked
+
+- [ ] FEAT: Add user feedback loops for multi-step agent responses and apply feedback into drift updates.
+- [ ] TODO: Provide direction for keeping READMEs current and aligned with folder state.
+- [ ] BUG: Handle EOF and syntax errors (e.g., unexpected end of JSON input) during file processing.
+- [ ] TODO: Learn user's UX style/preferences/priorities.
+- [ ] TODO: Tune agent cautiousness to reduce overlong completions and overengineered solutions.
+- [ ] FEAT: Hook up ChatGPT browser instance to repos.
+
+## Done
+
+- [x] Integrate maintenance of constraints and decisions.
+- [x] Reinforce constraint that context management should not require humans editing meta lines.
+- [x] Test drift check on commit.
+- [x] Add allowlisted Agent Ops tasks (safe file ops + cross-repo scripts) to reduce terminal confirmation friction.
