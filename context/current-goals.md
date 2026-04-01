@@ -19,20 +19,24 @@ This file is the single-source-of-truth for what matters _right now_.
 
 ## Now
 
-- [ ] Move the landing page XD forward in progress
+- [ ] Complete the active landing-page UX flow with seamless choreography (video -> hero -> bio -> awards) and a clean handoff into downstream content.
+- [ ] Execute cinematic pacing pass: tighten video/hero handoff overlap and verify scroll re-entry behavior.
+- [x] Preserve preload UX contract: Hero intro must follow BG Video intro completion (no early hero start).
+- [ ] Keep AIX optimized for this workstream by maintaining accurate context and routing signals (especially `current-goals.md`) so execution stays focused.
 
 ## Next
 
-- [ ] Support content strategy through frontmatter and templates
+- [ ] Tune cinematic pacing and overlap between sections (video/hero handoff, hero/bio/awards transitions, reduced-motion behavior).
+- [ ] Validate landing sequence behavior with focused runtime checks and update choreography docs/context where behavior contracts changed.
+- [ ] Support content strategy through frontmatter and templates.
 - [ ] Document coding conventions and standards.
 - [ ] Develop MVP through iteration.
-- [ ] Optimize frontend by moving agents out and integrating into aix repo.
 - [ ] Complete Sanity adoption (full separation from Airtable).
 - [ ] Iterate on the frontend domain module (post-MVP refinements).
-- [ ] Create 11ty pages for rapid iterating on the UX of landing page section design (e.g. Hero, Bio, Organizations, etc.).
 
 ## Done (recent)
 
+- [x] Stabilized choreography baseline for landing flow (hero/awards lifecycle reliability, hero re-entry event semantics, and DOM contract alignment).
 - [ ] Confirm adherence to choreographer spec. Test by defining animations for homepage sections.
 - \[ \] Issue URL: https://github.com/datainkio/portfolio-governance/issues/16
 - [ ] Address poor agent performance when editing files. For example, the inability to edit a file without requiring multiple steps, failures, file corruptions, and excessive amounts of time just to plan.
@@ -50,8 +54,8 @@ This file is the single-source-of-truth for what matters _right now_.
 - [ ] Broad refactors inside mounted projects in the name of “cleanup” (unless explicitly approved).
 - [ ] Remove non-fatal Tailwind watch shutdown noise (console error when stopping dev server)
 - [ ] Establish a lightweight AIX evidence loop:
-    - [ ] Run a small probe set after context refreshes.
-    - [ ] Record a dated snapshot in `docs/logs/` with outcomes + links.
+  - [ ] Run a small probe set after context refreshes.
+  - [ ] Record a dated snapshot in `docs/logs/` with outcomes + links.
 - [ ] Standardize project log naming and structure across mounted repos:
   - [ ] `docs/logs/projects/<project-slug>/YYYY-MM-DD-<topic>.md`
   - [ ] Keep a short per-project README describing what’s inside.
