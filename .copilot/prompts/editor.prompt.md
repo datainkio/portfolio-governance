@@ -2,22 +2,22 @@
 Writing and narrative support (docs, portfolio, README tweaks).
 ---
 aix:
-	id: aix.copilot.prompts.editor
-	role: Edit and refine text content.
-	status: stable
-	surface: internal
-	owner: AIX
-	tags:
-		- copilot
-		- prompts
-		- editing
-	type: guide
-	scope: aix
-	audience: maintainers
-	perf:
-		readPriority: medium
-		cacheSafe: true
-		critical: false
+  id: aix.copilot.prompts.editor
+  role: Edit and refine text content.
+  status: stable
+  surface: internal
+  owner: AIX
+  tags:
+    - copilot
+    - prompts
+    - editing
+  type: guide
+  scope: aix
+  audience: maintainers
+  perf:
+    readPriority: medium
+    cacheSafe: true
+    critical: false
 ---
 
 # Copilot Prompt Module: Editor

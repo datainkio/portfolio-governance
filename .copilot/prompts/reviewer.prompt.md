@@ -1,21 +1,21 @@
 ---
 aix:
-	id: aix.copilot.prompts.reviewer
-	role: Review changes for correctness, risks, and quality.
-	status: stable
-	surface: internal
-	owner: AIX
-	tags:
-		- copilot
-		- prompts
-		- review
-	type: guide
-	scope: aix
-	audience: maintainers
-	perf:
-		readPriority: medium
-		cacheSafe: true
-		critical: false
+  id: aix.copilot.prompts.reviewer
+  role: Review changes for correctness, risks, and quality.
+  status: stable
+  surface: internal
+  owner: AIX
+  tags:
+    - copilot
+    - prompts
+    - review
+  type: guide
+  scope: aix
+  audience: maintainers
+  perf:
+    readPriority: medium
+    cacheSafe: true
+    critical: false
 ---
 
 # Copilot Prompt Module: Reviewer

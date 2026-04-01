@@ -1,21 +1,21 @@
 ---
 aix:
-	id: aix.copilot.prompts.concierge
-	role: Canonical routing contract for Concierge.
-	status: stable
-	surface: internal
-	owner: AIX
-	tags:
-		- copilot
-		- prompts
-		- routing
-	type: guide
-	scope: aix
-	audience: maintainers
-	perf:
-		readPriority: high
-		cacheSafe: true
-		critical: true
+  id: aix.copilot.prompts.concierge
+  role: Canonical routing contract for Concierge.
+  status: stable
+  surface: internal
+  owner: AIX
+  tags:
+    - copilot
+    - prompts
+    - routing
+  type: guide
+  scope: aix
+  audience: maintainers
+  perf:
+    readPriority: high
+    cacheSafe: true
+    critical: true
 ---
 
 # Copilot Prompt Module: Concierge Router Contract
