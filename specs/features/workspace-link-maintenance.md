@@ -10,12 +10,14 @@
 ## Goals & Non-Goals
 
 ### Goals
+
 - Automatically update all workspace references to a file when it is created, renamed, moved, or deleted.
 - Minimize manual link maintenance for agents and humans by providing a fast, guided fix.
 - Keep AIX drift-neutral by respecting ignore lists and canonical link patterns (repo-root relative paths).
 - Provide a one-click entry point in VS Code (task + action button) to run the updater with prompts.
 
 ### Non-Goals
+
 - Not a general code refactor tool; does not rewrite import paths in source files.
 - Does not alter auto-generated outputs (`_site`, build artifacts) or vendored dependencies.
 - Does not enforce content style; only maintains link targets.
@@ -32,7 +34,7 @@
 - **FR1: Input modes** — Support operations `rename/move` (requires `--from` and `--to`), `delete` (requires `--from`), and `add` (requires `--to`). Optional `--ensure-index` flag can be used to add links to selected index files.
 - **FR2: Scope & ignores** — Scan only Markdown-family files (`.md`, `.mdx`) plus workspace maps/index JSON where paths are stored (e.g., `.code-workspace`, `copilot-agents.json`), across `aix/`, `../frontend/`, and `../backend/`. Exclude `.git`, `.obsidian`, `node_modules`, `.next`, `dist`, `_site`, `coverage`, `cache-export`, and other generated outputs.
 - **FR3: Link rewrite rules** — Update link destinations while preserving link text and anchors; prefer repo-root relative paths (e.g., `/specs/features/foo.md`). Maintain hash fragments when present; do not change display text unless `--delete` is used.
-- **FR4: Delete handling** — For `--delete`, replace `[text](old)` with `text` and emit a warning in the summary for each removed target. Optional `--marker` can append `(removed)` if requested.
+- **FR4: Delete handling** — For `--delete`, convert links that target the removed path into plain text and emit a warning in the summary for each removed target. Optional `--marker` can append `(removed)` if requested.
 - **FR5: Dry-run default** — Default run is dry-run: print a table of proposed edits (file, count, preview) and exit non-zero if changes would occur. `--apply` writes edits to disk.
 - **FR6: Safety** — Do not modify binary files. Validate that `--to` exists (unless `--delete`); warn and skip if `--from` is not referenced. Preserve file formatting (no auto-format). Abort if attempting to write outside allowed roots.
 - **FR7: Logging & report** — Emit a structured summary: operations attempted, files inspected, files changed, links updated/removed, skipped paths, and remaining unresolved links. Provide optional JSON report (`--report <path>`).
